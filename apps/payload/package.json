@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@faceless-ui/window-info": "^3.0.1",
+    "@orpc/server": "catalog:",
     "@payloadcms/db-postgres": "catalog:",
     "@payloadcms/next": "catalog:",
     "@payloadcms/plugin-multi-tenant": "catalog:",
@@ -31,6 +32,7 @@
     "@payloadcms/storage-s3": "catalog:",
     "@payloadcms/ui": "catalog:",
     "@repo/constants": "workspace:*",
+    "@repo/contract": "workspace:*",
     "@repo/models": "workspace:*",
     "@repo/payload-types": "workspace:*",
     "@repo/utils": "workspace:*",

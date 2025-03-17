@@ -1,18 +1,18 @@
 import type { UpdateCurrentUserForm } from '@repo/models'
 import { useMutation } from '@tanstack/vue-query'
 
-import { useTrpc } from '~base/composables/api/useTrpc'
+import { useOrpc } from '~base/composables/api/useOrpc'
 import { useAuthStore } from '~base/stores/auth.store'
 
 export function useUpdateCurrentUserMutation() {
-  const trpc = useTrpc()
+  const orpc = useOrpc()
   const authStore = useAuthStore()
 
   return useMutation({
     mutationFn: async (updateCurrentUserForm: UpdateCurrentUserForm) => {
-      const data = await trpc.auth.updateCurrentUser.mutate(updateCurrentUserForm)
+      const data = await orpc.auth.updateCurrentUser(updateCurrentUserForm)
 
-      return data ?? []
+      return data
     },
     onSuccess(response) {
       authStore.setCurrentUser(response)

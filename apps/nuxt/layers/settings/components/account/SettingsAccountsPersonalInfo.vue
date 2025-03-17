@@ -13,7 +13,7 @@ const authStore = useAuthStore()
 const updateCurrentUserMutation = useUpdateCurrentUserMutation()
 const form = useForm({
   initialState: {
-    darkMode: authStore.currentUser?.preferences.darkMode ?? null,
+    darkMode: authStore.currentUser?.preferences.darkMode ?? 'light',
     firstName: authStore.currentUser?.firstName ?? null,
     lastName: authStore.currentUser?.lastName ?? null,
   },
@@ -25,6 +25,13 @@ const form = useForm({
 
 const firstName = form.register('firstName')
 const lastName = form.register('lastName')
+
+debouncedWatch(() => [
+  firstName.value.value,
+  lastName.value.value,
+], () => {
+  form.submit()
+}, { debounce: 500 })
 </script>
 
 <template>
@@ -33,12 +40,19 @@ const lastName = form.register('lastName')
       :title="t('settings.account.personal_info.title')"
       :subtitle="t('settings.account.personal_info.subtitle')"
     />
-    <div>
-      <div class="flex flex-col gap-4">
+    <div class="text-white">
+      {{ form.isDirty.value }}
+      {{ updateCurrentUserMutation.isPending.value }}
+      <div class="grid grid-cols-2 gap-4">
         <VcTextField
           v-bind="toFormField(firstName)"
           :label="t('base.shared.first_name')"
           :placeholder="t('base.shared.first_name_placeholder')"
+        />
+        <VcTextField
+          v-bind="toFormField(lastName)"
+          :label="t('base.shared.last_name')"
+          :placeholder="t('base.shared.last_name_placeholder')"
         />
       </div>
     </div>

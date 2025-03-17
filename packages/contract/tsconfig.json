@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "incremental": true,
     "target": "ES2017",
     "jsx": "preserve",
     "lib": [
@@ -11,34 +10,16 @@
     "baseUrl": ".",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "paths": {
-      "@payload/*": [
-        "./src/*"
-      ],
-      "@payload-config": [
-        "./src/payload.config.ts"
-      ],
-      "@contract": ["../../packages/contract/src/*"]
-    },
     "resolveJsonModule": true,
     "allowJs": true,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "skipLibCheck": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "skipLibCheck": true
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "**/*.js"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",

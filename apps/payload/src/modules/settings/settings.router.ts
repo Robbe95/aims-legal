@@ -1,6 +1,5 @@
-import { getSocials } from '@payload/modules/settings/socials/queries/getSocials.query'
-import { router } from '@payload/trpc/trpc'
+import { getSettingsSocials } from '@payload/modules/settings/socials/queries/getSocials.serverQuery'
 
-export const settingsRouter = router({
-  getSocials,
-})
+export const settingsRouter = {
+  getSettingsSocials,
+}

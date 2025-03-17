@@ -18,6 +18,7 @@ export const settingsSocialsTab: Tab = {
             {
               name: 'name',
               label: 'Name',
+              required: true,
               type: 'text',
             },
             {

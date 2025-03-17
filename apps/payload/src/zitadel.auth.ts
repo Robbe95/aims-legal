@@ -66,8 +66,8 @@ export const zitadalStrategy: AuthStrategy = {
         const createdUser = await payload.create({
           collection: 'users',
           data: {
+            darkMode: 'light',
             email: userEmail,
-            password: 'idc',
             role: isFirstUser ? 'super-admin' : 'user',
             tenants: [
               {

@@ -1,6 +1,5 @@
-import { getPageBySlug } from '@payload/modules/pages/queries/getPageBySlug.query'
-import { router } from '@payload/trpc/trpc'
+import { getPageBySlug } from '@payload/modules/pages/queries/getPageBySlug.serverQuery'
 
-export const pagesRouter = router({
+export const pagesRouter = {
   getPageBySlug,
-})
+}

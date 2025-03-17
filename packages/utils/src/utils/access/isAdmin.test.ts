@@ -12,6 +12,7 @@ function createUser(role: User['role']): User {
     id: role,
     createdAt: new Date().toString(),
     updatedAt: new Date().toString(),
+    darkMode: 'light',
     email: `${role}@example.com`,
     role,
   }
@@ -25,7 +26,6 @@ describe('isAdmin', () => {
 
   it('should return false if the user is not an admin or super admin', () => {
     expect(isAdmin(createUser('user'))).toBeFalsy()
-    expect(isAdmin(createUser('developer'))).toBeFalsy()
     expect(isAdmin(createUser('editor'))).toBeFalsy()
   })
 })

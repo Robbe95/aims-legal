@@ -1,12 +1,12 @@
 import type { CurrentUser } from '@repo/models'
 
-import { useTrpc } from '~base/composables/api/useTrpc'
+import { useOrpc } from '~base/composables/api/useOrpc'
 
 export class AuthService {
   static async getCurrentUser(): Promise<CurrentUser> {
-    const trpc = useTrpc()
+    const orpc = useOrpc()
 
-    const data = await trpc.auth.getCurrentUser.query()
+    const data = await orpc.auth.getCurrentUser()
 
     return data
   }
