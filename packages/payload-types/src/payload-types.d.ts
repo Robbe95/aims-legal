@@ -1139,7 +1139,7 @@ export interface Setting {
  * via the `definition` "Social".
  */
 export interface Social {
-  name?: string | null;
+  name: string;
   url?: string | null;
   icon: string | Icon;
 }

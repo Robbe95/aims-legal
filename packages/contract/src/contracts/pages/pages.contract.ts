@@ -4,6 +4,9 @@ import { ERROR_NOT_FOUND } from '../../errors/errors'
 import { publicProcedure } from '../../procedures/procedures'
 
 const getPageBySlug = publicProcedure
+  .route({
+    method: 'GET',
+  })
   .input(z.object({
     slug: z.string(),
   }))
