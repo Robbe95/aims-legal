@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePageQuery } from '@cms/api/query/usePageQuery'
+import { usePageQuery } from '@cms/api/page/query/usePage.query'
 import { useLivePreview } from '@cms/composables/useLivePreview'
 import NotFoundView from '@cms/views/NotFoundView.vue'
 import PageView from '@cms/views/PageView.vue'

@@ -12,6 +12,9 @@ catalogs:
     '@orpc/contract':
       specifier: ^1.0.0-beta.1
       version: 1.0.0-beta.1
+    '@orpc/server':
+      specifier: ^1.0.0-beta.1
+      version: 1.0.0-beta.1
     '@payloadcms/db-postgres':
       specifier: 3.28.1
       version: 3.28.1
@@ -237,7 +240,7 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@orpc/server':
-        specifier: ^1.0.0-beta.1
+        specifier: 'catalog:'
         version: 1.0.0-beta.1(hono@4.7.4)(next@15.2.2(@babel/core@8.0.0-alpha.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))
       '@payloadcms/db-postgres':
         specifier: 'catalog:'
@@ -363,6 +366,9 @@ importers:
       '@repo/models':
         specifier: workspace:*
         version: link:../models
+      '@repo/payload-types':
+        specifier: workspace:*
+        version: link:../payload-types
       zod:
         specifier: 'catalog:'
         version: 3.24.2

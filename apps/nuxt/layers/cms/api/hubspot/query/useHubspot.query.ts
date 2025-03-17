@@ -1,4 +1,4 @@
-import { hubspotFormQueryKey } from '@cms/api/query-key/hubspotForm.queryKey'
+import { hubspotFormQueryKey } from '@cms/api/hubspot/hubspotForm.queryKey'
 import type { HubspotForm } from '@cms/types/hubspotForm.type'
 
 import { useQuery } from '~base/composables/query/useQuery'

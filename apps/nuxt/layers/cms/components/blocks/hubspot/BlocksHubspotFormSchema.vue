@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useHubspotFormMutation } from '@cms/api/mutation/useHubspotFormMutation'
+import { useHubspotFormMutation } from '@cms/api/hubspot/mutation/useHubspotForm.mutation'
 import BlocksHubspotFormGroup from '@cms/components/blocks/hubspot/BlocksHubspotFormGroup.vue'
 import type { HubspotForm } from '@cms/types/hubspotForm.type'
 import { makeHubspotFormZodSchema } from '@cms/utils/makeHubspotForm.util'

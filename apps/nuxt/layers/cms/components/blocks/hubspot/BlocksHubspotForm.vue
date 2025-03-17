@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useHubspotFormQuery } from '@cms/api/query/useHubspotFormQuery'
+import { useHubspotFormQuery } from '@cms/api/hubspot/query/useHubspot.query'
 import BlocksHubspotFormSchema from '@cms/components/blocks/hubspot/BlocksHubspotFormSchema.vue'
 import type { HubspotFormBlock } from '@repo/payload-types'
 import { VcSkeletonItem } from '@wisemen/vue-core'
