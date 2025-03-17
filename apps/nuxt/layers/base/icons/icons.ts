@@ -7,6 +7,7 @@ export const icons = {
   arrowRight: import('~base/icons/ArrowRightIcon.vue'),
   arrowUp: import('~base/icons/ArrowUpIcon.vue'),
   arrowUpDown: import('~base/icons/ArrowUpDownIcon.vue'),
+  brush: import('~base/icons/BrushIcon.vue'),
   calendar: import('~base/icons/CalendarIcon.vue'),
   cart: import('~base/icons/CartIcon.vue'),
   checkmark: import('~base/icons/CheckmarkIcon.vue'),

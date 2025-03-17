@@ -7,6 +7,11 @@ export class AuthTransformer {
     return {
       id: dto.id as UserId,
       email: dto.email,
+      firstName: dto.firstName ?? null,
+      lastName: dto.lastName ?? null,
+      preferences: {
+        darkMode: dto.darkMode,
+      },
       role: dto.role,
     }
   }

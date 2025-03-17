@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     '@payload': path.resolve(__dirname, '../payload/src'),
     '@payload-types': path.resolve(__dirname, '../payload'),
     '~base': path.resolve(__dirname, '../base'),
+    '~settings': path.resolve(__dirname, './'),
   },
   extends: [
     '../base',

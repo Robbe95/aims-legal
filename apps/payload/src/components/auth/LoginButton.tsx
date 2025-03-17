@@ -12,8 +12,9 @@ async function getLoginUrl(): Promise<string> {
 
   const searchParams = new URLSearchParams()
   let codeChallenge = await getCookie('code_challenge')
+  const codeVerifier = await getCookie('code_verifier')
 
-  if (codeChallenge == null) {
+  if (codeChallenge == null || codeVerifier == null) {
     const codes = await pkceChallenge()
 
     setCookie('code_challenge', codes.code_challenge)

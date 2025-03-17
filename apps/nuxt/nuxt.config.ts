@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '~base': path.resolve(__dirname, './layers/base'),
     '~cms': path.resolve(__dirname, './layers/cms'),
     '~root': path.resolve(__dirname, './'),
+    '~settings': path.resolve(__dirname, './layers/settings'),
     '~~': path.resolve(__dirname, './disable'),
 
   },

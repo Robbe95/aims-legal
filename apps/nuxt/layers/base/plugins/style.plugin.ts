@@ -1,4 +1,5 @@
 import {
+  defineStyleConfig,
   setStyleConfigSsrCallback,
   setupDefaultStyles,
 } from '@wisemen/vue-core'
@@ -16,15 +17,15 @@ export default defineNuxtPlugin({
 
     if (nuxt.ssrContext != null) {
       setupDefaultStyles()
-      // defineStyleConfig({
-      //   colorScheme: '*',
-      //   config: {
-      //     '--checkbox-bg-color-checked': '#E94935',
-      //   },
-      //   theme: '*',
-      //   variant: 'default',
-      //   component: 'checkbox',
-      // })
+      defineStyleConfig({
+        colorScheme: '*',
+        config: {
+          '--button-bg-color-default': 'red',
+        },
+        theme: 'dark',
+        variant: 'default',
+        component: 'button',
+      })
     }
   },
 })

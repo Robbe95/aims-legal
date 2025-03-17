@@ -156,5 +156,6 @@
   "settings.font_size.large": "Groot",
   "settings.font_size.larger": "Groter",
   "settings.font_size.small": "Klein",
-  "settings.font_size.smaller": "Kleiner"
+  "settings.font_size.smaller": "Kleiner",
+  "settings.title": "Instellingen"
 }

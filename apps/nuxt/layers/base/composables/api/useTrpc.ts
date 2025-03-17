@@ -10,8 +10,11 @@ import { getEnv } from '~base/utils/env/getEnv.utils'
 
 async function handleAuth(headers: Record<string, string>) {
   const authStore = useAuthStore()
+  const oAuthClient = useNuxtApp().$oAuthClient
 
-  if (authStore.isAuthenticated) {
+  const isLoggedIn = await oAuthClient.isLoggedIn()
+
+  if (isLoggedIn) {
     try {
       const token = await authStore.getToken()
 

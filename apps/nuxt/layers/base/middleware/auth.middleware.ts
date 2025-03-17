@@ -13,7 +13,7 @@ export default defineNuxtRouteMiddleware(async () => {
   let userFound = true
 
   try {
-    const hasTokens = oAuthClient.isLoggedIn()
+    const hasTokens = await oAuthClient.isLoggedIn()
 
     if (hasTokens == null) {
       return navigateTo(loginRedirectPath)

@@ -49,6 +49,7 @@ export const userCollection: CollectionConfig = {
   },
   auth: {
     lockTime: LOCK_TIME, // Time period to allow the max login attempts
+    disableLocalStrategy: true,
     maxLoginAttempts: MAX_LOGIN_ATTEMPTS, // Automatically lock a user out after X amount of failed logins
     strategies: [
       zitadalStrategy,
@@ -60,42 +61,157 @@ export const userCollection: CollectionConfig = {
 
   fields: [
     {
-      name: 'title',
-      type: 'text',
-      virtual: true,
-    },
-    {
-      name: 'role',
-      defaultValue: 'user',
-      options: [
-        'super-admin',
-        'user',
-        'admin',
-        'editor',
-        'developer',
+      tabs: [
+        {
+          fields: [
+            {
+              name: 'email',
+              label: {
+                en: 'Email',
+                nl: 'E-mail',
+              },
+              required: true,
+              type: 'text',
+            },
+            {
+              fields: [
+                {
+                  name: 'firstName',
+                  label: {
+                    en: 'First name',
+                    nl: 'Voornaam',
+                  },
+                  type: 'text',
+                },
+                {
+                  name: 'lastName',
+                  label: {
+                    en: 'Last name',
+                    nl: 'Achternaam',
+                  },
+                  type: 'text',
+                },
+              ],
+              type: 'row',
+            },
+            {
+              hasMany: true,
+              name: 'addresses',
+              label: {
+                en: 'Addresses',
+                nl: 'Adressen',
+              },
+              relationTo: 'addresses',
+              type: 'relationship',
+            },
+          ],
+          label: {
+            en: 'Info',
+            nl: 'Info',
+          },
+        },
+        {
+          fields: [
+            {
+              name: 'darkMode',
+              defaultValue: 'light',
+              label: {
+                en: 'Dark mode',
+                nl: 'Donkere modus',
+              },
+              options: [
+                {
+                  label: {
+                    en: 'Dark mode',
+                    nl: 'Donkere modus',
+                  },
+                  value: 'dark',
+                },
+                {
+                  label: {
+                    en: 'Light mode',
+                    nl: 'Lichte modus',
+                  },
+                  value: 'light',
+                },
+                {
+                  label: {
+                    en: 'System default',
+                    nl: 'Systeem standaard',
+                  },
+                  value: 'system',
+                },
+              ],
+              required: true,
+              type: 'select',
+            },
+          ],
+          label: {
+            en: 'Appearance',
+            nl: 'Uiterlijk',
+          },
+        },
+        {
+          fields: [
+            {
+              name: 'role',
+              defaultValue: 'user',
+              enumName: 'enum_user_role',
+              label: {
+                en: 'Role',
+                nl: 'Rol',
+              },
+              options: [
+                {
+                  label: {
+                    en: 'Super admin',
+                    nl: 'Super admin',
+                  },
+                  value: 'super-admin',
+                },
+                {
+                  label: {
+                    en: 'User',
+                    nl: 'Gebruiker',
+                  },
+                  value: 'user',
+                },
+                {
+                  label: {
+                    en: 'Admin',
+                    nl: 'Admin',
+                  },
+                  value: 'admin',
+                },
+                {
+                  label: {
+                    en: 'Editor',
+                    nl: 'Redacteur',
+                  },
+                  value: 'editor',
+                },
+              ],
+              required: true,
+              type: 'select',
+            },
+
+            {
+              ...defaultTenantArrayField,
+              admin: {
+                ...defaultTenantArrayField?.admin,
+              },
+            },
+
+          ],
+          label: {
+            en: 'Access',
+            nl: 'Toegang',
+          },
+        },
       ],
-      required: true,
-      type: 'select',
+      type: 'tabs',
     },
-    {
-      hasMany: true,
-      name: 'addresses',
-      relationTo: 'addresses',
-      type: 'relationship',
-    },
-    {
-      ...defaultTenantArrayField,
-      admin: {
-        ...defaultTenantArrayField?.admin,
-      },
-    },
+
   ],
-  hooks: {
-    afterRead: [
-      ({ doc }) => {
-        doc.title = doc.email
-      },
-    ],
-  },
   slug: 'users',
 }

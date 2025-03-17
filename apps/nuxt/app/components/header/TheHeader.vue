@@ -1,9 +1,20 @@
 <script setup lang="ts">
+import { useDialog, VcButton } from '@wisemen/vue-core'
+
 import { NuxtLinkLocale } from '#components'
 import HeaderLogo from '~/components/header/HeaderLogo.vue'
 import TheLocaleSelector from '~/components/locale/TheLocaleSelector.vue'
 
 const { t } = useI18n()
+
+const settingsDialog = useDialog({
+  component: () => import('~settings/dialog/SettingsDialog.vue'),
+
+})
+
+function onSettingsOpen(): void {
+  settingsDialog.open()
+}
 </script>
 
 <template>
@@ -18,6 +29,7 @@ const { t } = useI18n()
               :to="{
                 path: '/page/home',
               }"
+              class="text-primary-on-brand"
             >
               {{ t('app.header.home') }}
             </NuxtLinkLocale>
@@ -25,10 +37,14 @@ const { t } = useI18n()
               :to="{
                 path: '/page/form',
               }"
+              class="text-primary-on-brand"
             >
               {{ t('app.header.form') }}
             </NuxtLinkLocale>
 
+            <VcButton @click="onSettingsOpen">
+              {{ t('app.header.settings') }}
+            </VcButton>
             <TheLocaleSelector />
           </div>
         </div>

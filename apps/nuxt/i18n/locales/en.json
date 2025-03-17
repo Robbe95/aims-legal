@@ -8,6 +8,7 @@
   "app.header.compatible_with_vektron": "Compatible ceilings from Vektron",
   "app.header.form": "Form",
   "app.header.home": "Home",
+  "app.header.settings": "Settings",
   "app.logo": "Template",
   "app.shared.hello": "Hello, {name}!",
   "app.test.login.forgot_password": "Forgot your password?",
@@ -110,6 +111,7 @@
   "base.shared.edit": "Edit",
   "base.shared.email": "Email",
   "base.shared.first_name": "First name",
+  "base.shared.first_name_placeholder": "John",
   "base.shared.go_to_detail": "Go to detail",
   "base.shared.last_name": "Last name",
   "base.shared.logout": "Log out",
@@ -152,10 +154,20 @@
   "cms.blocks.not_supported": "Block `{blockName}` is not supported",
   "projects.view_all": "all our projects",
   "seo.title.auth": "Authentication",
+  "settings.account": "Account",
+  "settings.account.personal_info.subtitle": "Edit your personal info",
+  "settings.account.personal_info.title": "Personal info",
+  "settings.appearance": "Appearance",
+  "settings.appearance.interface_theme.description": "Select or customize your UI theme",
+  "settings.appearance.interface_theme.title": "Interface theme",
   "settings.font_size.default": "Standard",
   "settings.font_size.large": "Large",
   "settings.font_size.larger": "Larger",
   "settings.font_size.small": "Small",
-  "settings.font_size.smaller": "Smaller"
-
+  "settings.font_size.smaller": "Smaller",
+  "settings.general_settings": "General settings",
+  "settings.interface_theme.dark": "Dark",
+  "settings.interface_theme.light": "Light",
+  "settings.interface_theme.system_preference": "System preference",
+  "settings.title": "Settings"
 }

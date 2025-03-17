@@ -13,7 +13,15 @@ export async function createContext({
   const payload = await getPayload()
   const { user } = await payload.auth({ headers })
 
-  return { locale, req, res, user }
+  if (user == null) {
+    return { locale, req, res, user: null }
+  }
+  const foundUser = await payload.findByID({
+    id: user.id,
+    collection: 'users',
+  })
+
+  return { locale, req, res, user: foundUser }
 }
 
 export type Context = inferAsyncReturnType<typeof createContext>

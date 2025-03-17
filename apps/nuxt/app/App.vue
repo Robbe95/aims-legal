@@ -2,16 +2,17 @@
 import {
   VcConfigProvider,
   VcDialogContainer,
+  VcThemeProvider,
   VcToastContainer,
 } from '@wisemen/vue-core'
-import { ConfigProvider } from 'reka-ui'
+import { ConfigProvider as RekaConfigProvider } from 'reka-ui'
 
 import {
   NuxtLayout,
   NuxtLoadingIndicator,
   NuxtPage,
 } from '#components'
-import AppThemeProvider from '~base/components/app/theme-provider/AppThemeProvider.vue'
+import { useDarkMode } from '~base/composables/dark-mode/useDarkMode'
 import { useTheme } from '~base/composables/theme/theme.composable'
 
 function useIdFunction() {
@@ -19,16 +20,19 @@ function useIdFunction() {
 }
 
 const { theme } = useTheme()
+const darkMode = useDarkMode()
 const locale = useI18n().locale
 </script>
 
 <template>
   <div class="flex w-screen flex-1">
     <div class="w-full">
-      <ConfigProvider :use-id="useIdFunction">
+      <RekaConfigProvider :use-id="useIdFunction">
         <VcConfigProvider :locale="locale">
-          <!-- TODO: Update when vue core updates -->
-          <AppThemeProvider :theme="theme">
+          <VcThemeProvider
+            :theme="theme"
+            :appearance="darkMode"
+          >
             <NuxtLoadingIndicator color="#FFFFFF" />
             <NuxtLayout>
               <NuxtPage />
@@ -37,9 +41,9 @@ const locale = useI18n().locale
               <VcDialogContainer />
               <VcToastContainer />
             </Teleport>
-          </AppThemeProvider>
+          </VcThemeProvider>
         </VcConfigProvider>
-      </ConfigProvider>
+      </RekaConfigProvider>
     </div>
   </div>
 </template>

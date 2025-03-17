@@ -11,7 +11,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum__pages_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__pages_v_published_locale" AS ENUM('en', 'nl', 'fr');
   CREATE TYPE "public"."enum_users_tenants_roles" AS ENUM('tenant-admin', 'tenant-viewer');
-  CREATE TYPE "public"."enum_users_role" AS ENUM('super-admin', 'user', 'admin', 'editor', 'developer');
+  CREATE TYPE "public"."enum_user_role" AS ENUM('super-admin', 'user', 'admin', 'editor');
   CREATE TYPE "public"."enum_addresses_type" AS ENUM('billing', 'shipping');
   CREATE TYPE "public"."enum_payload_jobs_log_task_slug" AS ENUM('inline', 'exampleTask', 'schedulePublish');
   CREATE TYPE "public"."enum_payload_jobs_log_state" AS ENUM('failed', 'succeeded');
@@ -43,12 +43,14 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "pages_blocks_carousel" (
+  CREATE TABLE IF NOT EXISTS "pages_blocks_text" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
   	"_locale" "_locales" NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
+  	"title" varchar,
+  	"text" varchar,
   	"block_name" varchar
   );
   
@@ -146,7 +148,30 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "pages_blocks_text" (
+  CREATE TABLE IF NOT EXISTS "pages_blocks_carousel" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE IF NOT EXISTS "pages_blocks_banner_ctas" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" varchar NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"cta_label" varchar,
+  	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
+  	"cta_cta_type" "cta_type" DEFAULT 'link',
+  	"cta_link_type" "link_type" DEFAULT 'reference',
+  	"cta_link_new_tab" boolean,
+  	"cta_link_url" varchar,
+  	"cta_event" "cta_event" DEFAULT 'some_form'
+  );
+  
+  CREATE TABLE IF NOT EXISTS "pages_blocks_banner" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
@@ -154,6 +179,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"text" varchar,
+  	"icon_id" uuid,
   	"block_name" varchar
   );
   
@@ -214,12 +240,14 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "_pages_v_blocks_carousel" (
+  CREATE TABLE IF NOT EXISTS "_pages_v_blocks_text" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
   	"_locale" "_locales" NOT NULL,
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"title" varchar,
+  	"text" varchar,
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -327,7 +355,32 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "_pages_v_blocks_text" (
+  CREATE TABLE IF NOT EXISTS "_pages_v_blocks_carousel" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"_uuid" varchar,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE IF NOT EXISTS "_pages_v_blocks_banner_ctas" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"cta_label" varchar,
+  	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
+  	"cta_cta_type" "cta_type" DEFAULT 'link',
+  	"cta_link_type" "link_type" DEFAULT 'reference',
+  	"cta_link_new_tab" boolean,
+  	"cta_link_url" varchar,
+  	"cta_event" "cta_event" DEFAULT 'some_form',
+  	"_uuid" varchar
+  );
+  
+  CREATE TABLE IF NOT EXISTS "_pages_v_blocks_banner" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"_path" text NOT NULL,
@@ -335,6 +388,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"title" varchar,
   	"text" varchar,
+  	"icon_id" uuid,
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -405,16 +459,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE TABLE IF NOT EXISTS "users" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"role" "enum_users_role" DEFAULT 'user' NOT NULL,
+  	"first_name" varchar,
+  	"last_name" varchar,
+  	"role" "enum_user_role" DEFAULT 'user' NOT NULL,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"email" varchar NOT NULL,
-  	"reset_password_token" varchar,
-  	"reset_password_expiration" timestamp(3) with time zone,
-  	"salt" varchar,
-  	"hash" varchar,
-  	"login_attempts" numeric DEFAULT 0,
-  	"lock_until" timestamp(3) with time zone
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
   
   CREATE TABLE IF NOT EXISTS "users_rels" (
@@ -653,7 +702,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "pages_blocks_carousel" ADD CONSTRAINT "pages_blocks_carousel_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "pages_blocks_text" ADD CONSTRAINT "pages_blocks_text_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -719,7 +768,25 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "pages_blocks_text" ADD CONSTRAINT "pages_blocks_text_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "pages_blocks_carousel" ADD CONSTRAINT "pages_blocks_carousel_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "pages_blocks_banner_ctas" ADD CONSTRAINT "pages_blocks_banner_ctas_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_banner"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "pages_blocks_banner" ADD CONSTRAINT "pages_blocks_banner_icon_id_icons_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."icons"("id") ON DELETE set null ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "pages_blocks_banner" ADD CONSTRAINT "pages_blocks_banner_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -773,7 +840,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_pages_v_blocks_carousel" ADD CONSTRAINT "_pages_v_blocks_carousel_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "_pages_v_blocks_text" ADD CONSTRAINT "_pages_v_blocks_text_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -839,7 +906,25 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_pages_v_blocks_text" ADD CONSTRAINT "_pages_v_blocks_text_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "_pages_v_blocks_carousel" ADD CONSTRAINT "_pages_v_blocks_carousel_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_pages_v_blocks_banner_ctas" ADD CONSTRAINT "_pages_v_blocks_banner_ctas_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v_blocks_banner"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_pages_v_blocks_banner" ADD CONSTRAINT "_pages_v_blocks_banner_icon_id_icons_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."icons"("id") ON DELETE set null ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_pages_v_blocks_banner" ADD CONSTRAINT "_pages_v_blocks_banner_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -1038,10 +1123,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "pages_blocks_hero_path_idx" ON "pages_blocks_hero" USING btree ("_path");
   CREATE INDEX IF NOT EXISTS "pages_blocks_hero_locale_idx" ON "pages_blocks_hero" USING btree ("_locale");
   CREATE INDEX IF NOT EXISTS "pages_blocks_hero_background_image_idx" ON "pages_blocks_hero" USING btree ("background_image_id");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_carousel_order_idx" ON "pages_blocks_carousel" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_carousel_parent_id_idx" ON "pages_blocks_carousel" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_carousel_path_idx" ON "pages_blocks_carousel" USING btree ("_path");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_carousel_locale_idx" ON "pages_blocks_carousel" USING btree ("_locale");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_text_order_idx" ON "pages_blocks_text" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_text_parent_id_idx" ON "pages_blocks_text" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_text_path_idx" ON "pages_blocks_text" USING btree ("_path");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_text_locale_idx" ON "pages_blocks_text" USING btree ("_locale");
   CREATE INDEX IF NOT EXISTS "pages_blocks_column_multiple_text_texts_order_idx" ON "pages_blocks_column_multiple_text_texts" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "pages_blocks_column_multiple_text_texts_parent_id_idx" ON "pages_blocks_column_multiple_text_texts" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "pages_blocks_column_multiple_text_texts_locale_idx" ON "pages_blocks_column_multiple_text_texts" USING btree ("_locale");
@@ -1075,10 +1160,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "pages_blocks_image_text_parent_id_idx" ON "pages_blocks_image_text" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "pages_blocks_image_text_path_idx" ON "pages_blocks_image_text" USING btree ("_path");
   CREATE INDEX IF NOT EXISTS "pages_blocks_image_text_locale_idx" ON "pages_blocks_image_text" USING btree ("_locale");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_text_order_idx" ON "pages_blocks_text" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_text_parent_id_idx" ON "pages_blocks_text" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_text_path_idx" ON "pages_blocks_text" USING btree ("_path");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_text_locale_idx" ON "pages_blocks_text" USING btree ("_locale");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_carousel_order_idx" ON "pages_blocks_carousel" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_carousel_parent_id_idx" ON "pages_blocks_carousel" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_carousel_path_idx" ON "pages_blocks_carousel" USING btree ("_path");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_carousel_locale_idx" ON "pages_blocks_carousel" USING btree ("_locale");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_banner_ctas_order_idx" ON "pages_blocks_banner_ctas" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_banner_ctas_parent_id_idx" ON "pages_blocks_banner_ctas" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_banner_ctas_locale_idx" ON "pages_blocks_banner_ctas" USING btree ("_locale");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_banner_order_idx" ON "pages_blocks_banner" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_banner_parent_id_idx" ON "pages_blocks_banner" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_banner_path_idx" ON "pages_blocks_banner" USING btree ("_path");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_banner_locale_idx" ON "pages_blocks_banner" USING btree ("_locale");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_banner_icon_idx" ON "pages_blocks_banner" USING btree ("icon_id");
   CREATE INDEX IF NOT EXISTS "pages_updated_at_idx" ON "pages" USING btree ("updated_at");
   CREATE INDEX IF NOT EXISTS "pages_created_at_idx" ON "pages" USING btree ("created_at");
   CREATE INDEX IF NOT EXISTS "pages__status_idx" ON "pages" USING btree ("_status");
@@ -1099,10 +1192,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_hero_path_idx" ON "_pages_v_blocks_hero" USING btree ("_path");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_hero_locale_idx" ON "_pages_v_blocks_hero" USING btree ("_locale");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_hero_background_image_idx" ON "_pages_v_blocks_hero" USING btree ("background_image_id");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_carousel_order_idx" ON "_pages_v_blocks_carousel" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_carousel_parent_id_idx" ON "_pages_v_blocks_carousel" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_carousel_path_idx" ON "_pages_v_blocks_carousel" USING btree ("_path");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_carousel_locale_idx" ON "_pages_v_blocks_carousel" USING btree ("_locale");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_text_order_idx" ON "_pages_v_blocks_text" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_text_parent_id_idx" ON "_pages_v_blocks_text" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_text_path_idx" ON "_pages_v_blocks_text" USING btree ("_path");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_text_locale_idx" ON "_pages_v_blocks_text" USING btree ("_locale");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_column_multiple_text_texts_order_idx" ON "_pages_v_blocks_column_multiple_text_texts" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_column_multiple_text_texts_parent_id_idx" ON "_pages_v_blocks_column_multiple_text_texts" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_column_multiple_text_texts_locale_idx" ON "_pages_v_blocks_column_multiple_text_texts" USING btree ("_locale");
@@ -1136,10 +1229,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_image_text_parent_id_idx" ON "_pages_v_blocks_image_text" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_image_text_path_idx" ON "_pages_v_blocks_image_text" USING btree ("_path");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_image_text_locale_idx" ON "_pages_v_blocks_image_text" USING btree ("_locale");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_text_order_idx" ON "_pages_v_blocks_text" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_text_parent_id_idx" ON "_pages_v_blocks_text" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_text_path_idx" ON "_pages_v_blocks_text" USING btree ("_path");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_text_locale_idx" ON "_pages_v_blocks_text" USING btree ("_locale");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_carousel_order_idx" ON "_pages_v_blocks_carousel" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_carousel_parent_id_idx" ON "_pages_v_blocks_carousel" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_carousel_path_idx" ON "_pages_v_blocks_carousel" USING btree ("_path");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_carousel_locale_idx" ON "_pages_v_blocks_carousel" USING btree ("_locale");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_banner_ctas_order_idx" ON "_pages_v_blocks_banner_ctas" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_banner_ctas_parent_id_idx" ON "_pages_v_blocks_banner_ctas" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_banner_ctas_locale_idx" ON "_pages_v_blocks_banner_ctas" USING btree ("_locale");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_banner_order_idx" ON "_pages_v_blocks_banner" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_banner_parent_id_idx" ON "_pages_v_blocks_banner" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_banner_path_idx" ON "_pages_v_blocks_banner" USING btree ("_path");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_banner_locale_idx" ON "_pages_v_blocks_banner" USING btree ("_locale");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_banner_icon_idx" ON "_pages_v_blocks_banner" USING btree ("icon_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_parent_idx" ON "_pages_v" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_version_version_updated_at_idx" ON "_pages_v" USING btree ("version_updated_at");
   CREATE INDEX IF NOT EXISTS "_pages_v_version_version_created_at_idx" ON "_pages_v" USING btree ("version_created_at");
@@ -1169,7 +1270,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "users_tenants_tenant_idx" ON "users_tenants" USING btree ("tenant_id");
   CREATE INDEX IF NOT EXISTS "users_updated_at_idx" ON "users" USING btree ("updated_at");
   CREATE INDEX IF NOT EXISTS "users_created_at_idx" ON "users" USING btree ("created_at");
-  CREATE UNIQUE INDEX IF NOT EXISTS "users_email_idx" ON "users" USING btree ("email");
   CREATE INDEX IF NOT EXISTS "users_rels_order_idx" ON "users_rels" USING btree ("order");
   CREATE INDEX IF NOT EXISTS "users_rels_parent_idx" ON "users_rels" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "users_rels_path_idx" ON "users_rels" USING btree ("path");
@@ -1241,7 +1341,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.execute(sql`
    DROP TABLE "pages_blocks_hero_ctas" CASCADE;
   DROP TABLE "pages_blocks_hero" CASCADE;
-  DROP TABLE "pages_blocks_carousel" CASCADE;
+  DROP TABLE "pages_blocks_text" CASCADE;
   DROP TABLE "pages_blocks_column_multiple_text_texts" CASCADE;
   DROP TABLE "pages_blocks_column_multiple_text_ctas" CASCADE;
   DROP TABLE "pages_blocks_column_multiple_text" CASCADE;
@@ -1251,13 +1351,15 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "pages_blocks_column" CASCADE;
   DROP TABLE "pages_blocks_hubspot_form" CASCADE;
   DROP TABLE "pages_blocks_image_text" CASCADE;
-  DROP TABLE "pages_blocks_text" CASCADE;
+  DROP TABLE "pages_blocks_carousel" CASCADE;
+  DROP TABLE "pages_blocks_banner_ctas" CASCADE;
+  DROP TABLE "pages_blocks_banner" CASCADE;
   DROP TABLE "pages" CASCADE;
   DROP TABLE "pages_locales" CASCADE;
   DROP TABLE "pages_rels" CASCADE;
   DROP TABLE "_pages_v_blocks_hero_ctas" CASCADE;
   DROP TABLE "_pages_v_blocks_hero" CASCADE;
-  DROP TABLE "_pages_v_blocks_carousel" CASCADE;
+  DROP TABLE "_pages_v_blocks_text" CASCADE;
   DROP TABLE "_pages_v_blocks_column_multiple_text_texts" CASCADE;
   DROP TABLE "_pages_v_blocks_column_multiple_text_ctas" CASCADE;
   DROP TABLE "_pages_v_blocks_column_multiple_text" CASCADE;
@@ -1267,7 +1369,9 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "_pages_v_blocks_column" CASCADE;
   DROP TABLE "_pages_v_blocks_hubspot_form" CASCADE;
   DROP TABLE "_pages_v_blocks_image_text" CASCADE;
-  DROP TABLE "_pages_v_blocks_text" CASCADE;
+  DROP TABLE "_pages_v_blocks_carousel" CASCADE;
+  DROP TABLE "_pages_v_blocks_banner_ctas" CASCADE;
+  DROP TABLE "_pages_v_blocks_banner" CASCADE;
   DROP TABLE "_pages_v" CASCADE;
   DROP TABLE "_pages_v_locales" CASCADE;
   DROP TABLE "_pages_v_rels" CASCADE;
@@ -1303,7 +1407,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum__pages_v_version_status";
   DROP TYPE "public"."enum__pages_v_published_locale";
   DROP TYPE "public"."enum_users_tenants_roles";
-  DROP TYPE "public"."enum_users_role";
+  DROP TYPE "public"."enum_user_role";
   DROP TYPE "public"."enum_addresses_type";
   DROP TYPE "public"."enum_payload_jobs_log_task_slug";
   DROP TYPE "public"."enum_payload_jobs_log_state";

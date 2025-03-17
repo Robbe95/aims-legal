@@ -1,5 +1,6 @@
 export * from './auth/auth.transformer'
 export * from './auth/current-user/currentUser.model'
+export * from './auth/current-user/updateCurrentUserForm.model'
 export * from './currency/currency.model'
 export * from './currency/currency.transformer'
 export * from './percentage/percentage.model'

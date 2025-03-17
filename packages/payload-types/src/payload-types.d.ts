@@ -433,9 +433,12 @@ export interface Icon {
  */
 export interface User {
   id: string;
-  title?: string | null;
-  role: 'super-admin' | 'user' | 'admin' | 'editor' | 'developer';
+  email: string;
+  firstName?: string | null;
+  lastName?: string | null;
   addresses?: (string | Address)[] | null;
+  darkMode: 'dark' | 'light' | 'system';
+  role: 'super-admin' | 'user' | 'admin' | 'editor';
   tenants?:
     | {
         tenant: string | Tenant;
@@ -445,14 +448,6 @@ export interface User {
     | null;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -907,9 +902,12 @@ export interface FormHubspotSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  title?: T;
-  role?: T;
+  email?: T;
+  firstName?: T;
+  lastName?: T;
   addresses?: T;
+  darkMode?: T;
+  role?: T;
   tenants?:
     | T
     | {
@@ -919,13 +917,6 @@ export interface UsersSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

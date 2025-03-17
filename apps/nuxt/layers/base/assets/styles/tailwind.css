@@ -1,4 +1,7 @@
+@import '@wisemen/vue-core/style.css' layer(base);
 @import 'tailwindcss';
+@source "../../../../layers";
+@source "../../../../app";
 
 @variant motion-reduce (&:where(.reduce-motion, .reduce-motion *));
 @variant dark (&:where(.dark, .dark *));

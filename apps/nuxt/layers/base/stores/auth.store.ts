@@ -58,6 +58,11 @@ export const useAuthStore = defineStore('auth', () => {
     await router.push(localeAuthRoute)
   }
 
+  function logoutWithoutRedirect(): void {
+    oAuthClient.logout()
+    setCurrentUser(null)
+  }
+
   async function loginWithCode(code: string): Promise<void> {
     await oAuthClient.loginWithCode(code)
     setLastLoggedInUser(currentUser.value)
@@ -78,6 +83,7 @@ export const useAuthStore = defineStore('auth', () => {
     lastLoginAttemptEmail,
     loginWithCode,
     logout,
+    logoutWithoutRedirect,
     setCurrentUser,
     setLastLoggedInUser,
     setLastLoginAttemptEmail,
