@@ -14,6 +14,8 @@ export const userRoleSchema = z.enum([
 ])
 export const currentUserSchema = z.object({
   id: userIdSchema,
+  createdAt: z.date(),
+  updatedAt: z.date(),
   email: z.string(),
   firstName: z.string().nullable(),
   lastName: z.string().nullable(),

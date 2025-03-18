@@ -3,6 +3,7 @@ import { updateCurrentUserFormSchema } from '@repo/models'
 import { VcTextField } from '@wisemen/vue-core'
 import { useForm } from 'formango'
 
+import AppUnsavedChanges from '~base/components/app/unsaved-changes/AppUnsavedChanges.vue'
 import { useAuthStore } from '~base/stores/auth.store'
 import { toFormField } from '~base/utils/form/toFormField.util'
 import { useUpdateCurrentUserMutation } from '~settings/api/update-current-user/mutations/useUpdateCurrentUser.mutation'
@@ -32,6 +33,14 @@ debouncedWatch(() => [
 ], () => {
   form.submit()
 }, { debounce: 500 })
+
+const errorMessage = computed<string | null>(() => {
+  if (updateCurrentUserMutation.isError.value) {
+    return t('base.shared.save_error')
+  }
+
+  return null
+})
 </script>
 
 <template>
@@ -40,9 +49,12 @@ debouncedWatch(() => [
       :title="t('settings.account.personal_info.title')"
       :subtitle="t('settings.account.personal_info.subtitle')"
     />
-    <div class="text-white">
-      {{ form.isDirty.value }}
-      {{ updateCurrentUserMutation.isPending.value }}
+    <div class="text-white flex flex-col gap-2">
+      <AppUnsavedChanges
+        :is-auto-saving="updateCurrentUserMutation.isPending.value"
+        :auto-save-error-message="errorMessage"
+        :has-unsaved-changes="form.isDirty.value"
+      />
       <div class="grid grid-cols-2 gap-4">
         <VcTextField
           v-bind="toFormField(firstName)"

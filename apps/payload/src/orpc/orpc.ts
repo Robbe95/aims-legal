@@ -29,6 +29,5 @@ export const orpc = orpcWithContextHeaders.use(async ({ context, next }) => {
       token: runtimeContext.token,
       user: runtimeContext.user,
     },
-
   })
 })

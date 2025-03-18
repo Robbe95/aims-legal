@@ -1,6 +1,7 @@
 export * from './utils/access/isAdmin.util'
 export * from './utils/assert/assert.util'
 export * from './utils/convert-locale/convertLocale.util'
+export * from './utils/date/date.util'
 export * from './utils/filter-optional-values/filterOptionalValues.utils'
 export * from './utils/generate-uuid/generateUuid.util'
 export * from './utils/percentage/percentage.util'
