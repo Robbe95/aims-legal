@@ -1,5 +1,4 @@
 import { pageQueryKey } from '@cms/api/page/page.queryKey'
-import type { Page } from '@repo/payload-types'
 
 import { useOrpc } from '~base/composables/api/useOrpc'
 import { useGlobalI18n } from '~base/composables/i18n/useGlobaI18n'
@@ -12,7 +11,7 @@ export function usePageQuery({ slug }: { slug: string }) {
   return useQuery({
     queryFn: async () => {
       // Because we use the payload types, there is no zod type and we cast it to the payload type here
-      const data = await orpc.pages.getPageBySlug({ slug }) as Page
+      const data = await orpc.pages.getPageBySlug({ slug })
 
       return data
     },
