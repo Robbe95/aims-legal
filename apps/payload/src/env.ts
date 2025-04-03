@@ -10,11 +10,15 @@ export function getEnv() {
     AUTH_PROJECT_ID: process.env.ANEXT_PUBLIC_UTH_PROJECT_ID as string,
     CMS_BASE_URL: process.env.NEXT_PUBLIC_CMS_BASE_URL as string,
     ENVIRONMENT: process.env.NEXT_PUBLIC_ENVIRONMENT as string,
+    MAIL_FROM_NAME: process.env.MAIL_FROM_NAME as string,
     S3_ACCESS_KEY_ID: process.env.S3_ACCESS_KEY_ID as string,
     S3_BUCKET: process.env.S3_BUCKET as string,
     S3_ENDPOINT: process.env.S3_ENDPOINT as string,
     S3_REGION: process.env.S3_REGION as string,
     S3_SECRET_ACCESS_KEY: process.env.S3_SECRET_ACCESS_KEY as string,
+    SCW_API_KEY: process.env.SCW_API_KEY as string,
+    SCW_PROJECT_ID: process.env.SCW_PROJECT_ID as string,
+    SCW_REGION: process.env.SCW_REGION as string,
     SITE_BASE_URL: process.env.NEXT_PUBLIC_SITE_BASE_URL as string,
   } as const
 }
