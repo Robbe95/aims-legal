@@ -73,8 +73,8 @@ jobs:
         with:
           name: app-build
           path: |
-            ./apps/client-portal/.output
-
+            ./apps/nuxt/.output
+            
   # Then test
   test:
     if: github.event.pull_request.draft == false
