@@ -25,8 +25,14 @@ export default function NotFoundPage() {
         .join(' ')}
     >
 
-      <Gutter className={`${baseClass}__wrap`}>
-        <div className={`${baseClass}__content`}>
+      <Gutter className={`
+        ${baseClass}__wrap
+      `}
+      >
+        <div className={`
+          ${baseClass}__content
+        `}
+        >
           <h1>{t('general:nothingFound')}</h1>
           <p>{t('general:sorryNotFound')}</p>
         </div>
@@ -42,7 +48,10 @@ export default function NotFoundPage() {
             <div style={{ maxWidth: '12rem', width: '100%' }}>
               <a
 
-                className="btn btn--style-primary btn--icon-style-without-border btn--size-medium"
+                className={`
+                  btn btn--style-primary btn--icon-style-without-border
+                  btn--size-medium
+                `}
                 style={{
                   display: 'block',
                   textAlign: 'center',

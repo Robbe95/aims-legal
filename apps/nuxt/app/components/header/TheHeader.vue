@@ -21,7 +21,12 @@ function onSettingsOpen(): void {
   <header class="sticky top-0 z-20 w-full">
     <div class="bg-black to-transparent py-6">
       <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between lg:grid lg:grid-cols-3 lg:items-center lg:justify-center bg-primary-500">
+        <div
+          class="
+            bg-primary-500 flex items-center justify-between
+            lg:grid lg:grid-cols-3 lg:items-center lg:justify-center
+          "
+        >
           <HeaderLogo />
           <div />
           <div class="flex items-center justify-end gap-4">

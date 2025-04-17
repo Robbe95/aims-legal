@@ -33,7 +33,12 @@ export const NavWrapper: React.FC<{
         .join(' ')}
       inert={!navOpen ? true : undefined}
     >
-      <div className={`${baseClass}__scroll`} ref={navRef}>
+      <div
+        className={`
+          ${baseClass}__scroll
+        `}
+        ref={navRef}
+      >
         {children}
       </div>
     </aside>

@@ -3,7 +3,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="flex text-xl items-center">
+  <div class="flex items-center text-xl">
     <span class="text-white">
       {{ t('app.logo') }}
     </span>

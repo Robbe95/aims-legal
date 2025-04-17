@@ -6,14 +6,14 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-col mb-2">
+  <div class="mb-2 flex flex-col">
     <h2
-      class="font-medium text-primary"
+      class="text-primary font-medium"
     >
       {{ props.title }}
     </h2>
     <p
-      class="mt-sm text-sm text-secondary"
+      class="mt-sm text-secondary text-sm"
     >
       {{ props.subtitle }}
     </p>

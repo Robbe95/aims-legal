@@ -18,12 +18,17 @@ const props = withDefaults(
 </script>
 
 <template>
-  <AppFieldset class="grid gap-x-6xl gap-y-xl md:grid-cols-3">
+  <AppFieldset
+    class="
+      gap-x-6xl gap-y-xl grid
+      md:grid-cols-3
+    "
+  >
     <div>
       <Component :is="props.isTitleHidden ? VisuallyHidden : 'div'">
         <AppFieldsetLegend
           as="h2"
-          class="font-medium text-primary"
+          class="text-primary font-medium"
         >
           {{ props.title }}
         </AppFieldsetLegend>
@@ -31,7 +36,7 @@ const props = withDefaults(
 
       <p
         v-if="props.description !== null"
-        class="mt-sm text-sm text-secondary"
+        class="mt-sm text-secondary text-sm"
       >
         {{ props.description }}
       </p>

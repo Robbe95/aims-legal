@@ -5,7 +5,12 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="mx-4 flex items-center gap-4 rounded border border-error-800 bg-error-50 p-4 text-error-800">
+  <div
+    class="
+      border-error-800 bg-error-50 text-error-800 mx-4 flex items-center gap-4
+      rounded border p-4
+    "
+  >
     <VcIcon
       icon="alertCircle"
       size="lg"

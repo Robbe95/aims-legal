@@ -13,7 +13,7 @@ const { t } = useI18n()
 
 <template>
   <div class="flex flex-col">
-    <div class="flex gap-2 items-center">
+    <div class="flex items-center gap-2">
       <div class="relative size-3">
         <Transition
           enter-active-class="duration-500 absolute ease-bounce"
@@ -31,7 +31,10 @@ const { t } = useI18n()
           >
             <VcIcon
               icon="alertCircle"
-              class="text-fg-error-primary absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 size-3.5"
+              class="
+                text-fg-error-primary absolute top-1/2 left-1/2 size-3.5
+                -translate-x-1/2 -translate-y-1/2
+              "
             />
           </div>
 
@@ -41,13 +44,16 @@ const { t } = useI18n()
           >
             <VcIcon
               icon="check"
-              class="text-fg-success-primary absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 size-3.5"
+              class="
+                text-fg-success-primary absolute top-1/2 left-1/2 size-3.5
+                -translate-x-1/2 -translate-y-1/2
+              "
             />
           </div>
         </Transition>
       </div>
 
-      <div class="relative h-4.5 flex">
+      <div class="relative flex h-4.5">
         <Transition
           :enter-from-class="`opacity-0 blur-[2px] ${props.autoSaveErrorMessage !== null ? 'translate-x-4' : '-translate-x-4'}`"
           :leave-to-class="`opacity-0 blur-[2px] ${props.autoSaveErrorMessage !== null ? '-translate-x-4' : 'translate-x-4'}`"
@@ -56,7 +62,7 @@ const { t } = useI18n()
         >
           <span
             :key="`${props.isAutoSaving}${props.hasUnsavedChanges}`"
-            class="inline-block text-secondary text-xs whitespace-nowrap"
+            class="text-secondary inline-block text-xs whitespace-nowrap"
           >
             <template v-if="props.isAutoSaving">
               {{ t('base.shared.saving_changes') }}
