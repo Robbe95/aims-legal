@@ -71,6 +71,7 @@ jobs:
       - name: Store archive
         uses: actions/upload-artifact@v4
         with:
+          include-hidden-files: true
           name: app-build
           path: |
             ./apps/nuxt/.output
