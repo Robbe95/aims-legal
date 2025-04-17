@@ -6,9 +6,9 @@ catalog:
   "@wisemen/eslint-config-vue": "1.1.0"
   "eslint": "9.24.0"
 
-  "typescript": "5.8.2"
+  "typescript": "5.8.3"
   "vitest": "3.1.1"
-  "zod": "3.24.2"
+  "zod": "3.24.3"
 
   "@payloadcms/db-postgres": "3.35.0"
   "@payloadcms/next": "3.35.0"
@@ -21,6 +21,6 @@ catalog:
   "payload": "3.35.0"
   "@payloadcms/plugin-multi-tenant": "3.35.0"
 
-  "@orpc/server": "1.0.0-beta.1"
-  "@orpc/contract": "1.0.0-beta.1"
-  "@orpc/client": "1.0.0-beta.1"
+  "@orpc/server": "1.0.3"
+  "@orpc/contract": "1.0.3"
+  "@orpc/client": "1.0.3"
