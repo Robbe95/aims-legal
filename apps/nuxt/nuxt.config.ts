@@ -49,6 +49,9 @@ export default defineNuxtConfig({
 
   i18n: {
     baseUrl: process.env.NUXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
     defaultLocale: 'nl',
     experimental: {
       typedOptionsAndMessages: 'default',

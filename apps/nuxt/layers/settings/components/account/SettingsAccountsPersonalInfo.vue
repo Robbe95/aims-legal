@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { updateCurrentUserFormSchema } from '@repo/models'
-import { VcTextField } from '@wisemen/vue-core'
+import { VcTextField } from '@wisemen/vue-core-components'
 import { useForm } from 'formango'
 
 import AppUnsavedChanges from '~base/components/app/unsaved-changes/AppUnsavedChanges.vue'

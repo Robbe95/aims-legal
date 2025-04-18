@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import type { RadioGroupItem } from '@wisemen/vue-core'
 import {
   VcRadioGroup,
   VcRadioGroupItem,
-} from '@wisemen/vue-core'
+} from '@wisemen/vue-core-components'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -15,11 +14,16 @@ import SettingsTitleSubtitle from '~settings/components/SettingsTitleSubtitle.vu
 
 type ThemeValue = 'dark' | 'light' | 'system'
 
+interface ThemeOption {
+  label: string
+  value: ThemeValue
+}
+
 const { t } = useI18n()
 const theme = useTheme()
 const darkMode = useDarkMode()
 
-const themes = computed<RadioGroupItem<ThemeValue>[]>(() => [
+const themes = computed<ThemeOption[]>(() => [
   {
     label: t('settings.interface_theme.light'),
     value: 'light',

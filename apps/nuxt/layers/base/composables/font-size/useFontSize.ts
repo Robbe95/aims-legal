@@ -1,4 +1,4 @@
-import type { SelectItem } from '@wisemen/vue-core'
+import type { VcSelectItemProps } from '@wisemen/vue-core-components'
 import type { ComputedRef, Ref } from 'vue'
 import {
   computed,
@@ -12,7 +12,7 @@ type FontSize = 'default' | 'large' | 'larger' | 'small' | 'smaller'
 
 interface UseFontSizeReturnType {
   displayFn: (value: FontSize) => string
-  items: ComputedRef<SelectItem<FontSize>[]>
+  items: ComputedRef<VcSelectItemProps[]>
   value: Ref<FontSize>
 }
 
@@ -52,7 +52,7 @@ export function useFontSizeSelect(): UseFontSizeReturnType {
     return t(i18nKeys.get(value)!)
   }
 
-  const items = computed<SelectItem<FontSize>[]>(() => fontSizes.map((item) => ({
+  const items = computed<VcSelectItemProps[]>(() => fontSizes.map((item) => ({
     type: 'option',
     value: item,
   })))

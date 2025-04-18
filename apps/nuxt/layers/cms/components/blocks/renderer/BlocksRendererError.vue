@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VcIcon } from '@wisemen/vue-core'
+import { VcIcon } from '@wisemen/vue-core-components'
 
 const { t } = useI18n()
 </script>

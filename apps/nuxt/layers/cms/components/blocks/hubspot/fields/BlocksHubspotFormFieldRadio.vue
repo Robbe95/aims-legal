@@ -2,8 +2,8 @@
 import type {
   HubspotField,
 } from '@cms/types/hubspotForm.type'
-import type { RadioGroupItem } from '@wisemen/vue-core'
-import { VcRadioGroup } from '@wisemen/vue-core'
+import type { VcRadioGroupItemProps } from '@wisemen/vue-core-components'
+import { VcRadioGroup } from '@wisemen/vue-core-components'
 import type { Field } from 'formango'
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const options = computed<RadioGroupItem<string>[]>(() => {
+const options = computed<VcRadioGroupItemProps[]>(() => {
   return props.hubspotField.options?.map((option) => {
     return {
       hint: option.description,

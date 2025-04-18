@@ -43,13 +43,6 @@ useHead(() => ({
   htmlAttrs: {
     lang: head.value.htmlAttrs!.lang,
   },
-  link: [
-    {
-      href: '/favicon.png',
-      rel: 'icon',
-      type: 'image/png',
-    },
-  ],
 }))
 
 useSeoMeta({

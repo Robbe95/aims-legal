@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Icon } from '@wisemen/vue-core'
+import type { Icon } from '@wisemen/vue-core-components'
 import {
   VcDialog,
   VcDialogCloseButton,
   VcDialogTitle,
   VcIcon,
-} from '@wisemen/vue-core'
+} from '@wisemen/vue-core-components'
 import { VisuallyHidden } from 'reka-ui'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -37,18 +37,7 @@ interface MenuItemGroup<TKey> {
 const menuItems = computed<MenuItemGroup<SettingKey>>(() => {
   return {
     title: t('settings.general_settings'),
-    items: [
-      {
-        title: t('settings.account'),
-        icon: 'settings',
-        key: 'account',
-      },
-      {
-        title: t('settings.appearance'),
-        icon: 'brush',
-        key: 'appearance',
-      },
-    ],
+    items: [],
   }
 })
 

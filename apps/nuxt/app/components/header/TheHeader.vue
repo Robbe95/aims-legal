@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useDialog, VcButton } from '@wisemen/vue-core'
+import { useVcDialog, VcButton } from '@wisemen/vue-core-components'
 
 import { NuxtLinkLocale } from '#components'
 import HeaderLogo from '~/components/header/HeaderLogo.vue'
@@ -7,7 +7,7 @@ import TheLocaleSelector from '~/components/locale/TheLocaleSelector.vue'
 
 const { t } = useI18n()
 
-const settingsDialog = useDialog({
+const settingsDialog = useVcDialog({
   component: () => import('~settings/dialog/SettingsDialog.vue'),
 
 })

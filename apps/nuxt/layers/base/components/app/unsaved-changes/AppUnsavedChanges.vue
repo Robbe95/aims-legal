@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VcIcon, VcSpinner } from '@wisemen/vue-core'
+import { VcIcon, VcSpinner } from '@wisemen/vue-core-components'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{

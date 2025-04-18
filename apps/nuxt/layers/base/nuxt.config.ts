@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   components: [],
   css: [
-    '@wisemen/vue-core/style.css',
+    '@wisemen/vue-core-components/style.css',
     '~base/assets/styles/base.css',
   ],
   experimental: {

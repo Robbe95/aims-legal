@@ -1,4 +1,4 @@
-@import '@wisemen/vue-core/style.css' layer(base);
+@import '@wisemen/vue-core-components/style.css' layer(base);
 @import 'tailwindcss';
 @source "../../../../layers";
 @source "../../../../app";

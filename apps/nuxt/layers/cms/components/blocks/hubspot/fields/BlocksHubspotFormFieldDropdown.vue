@@ -3,10 +3,8 @@ import type {
   HubspotField,
   HubspotFieldOption,
 } from '@cms/types/hubspotForm.type'
-import type {
-  SelectItem,
-} from '@wisemen/vue-core'
-import { VcSelect } from '@wisemen/vue-core'
+import type { VcSelectItemProps } from '@wisemen/vue-core-components'
+import { VcSelect } from '@wisemen/vue-core-components'
 import type { Field } from 'formango'
 
 import { toFormField } from '~base/utils/form/toFormField.util'
@@ -33,7 +31,7 @@ function displayFunction(hubspotFieldOption: HubspotFieldOption) {
   return hubspotFieldOption.label
 }
 
-const options = computed<SelectItem<HubspotFieldOption>[]>(() => {
+const options = computed<VcSelectItemProps[]>(() => {
   return props.hubspotField.options?.map((option) => {
     return {
       type: 'option',
