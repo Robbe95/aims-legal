@@ -33,7 +33,7 @@
     "@repo/payload-types": "workspace:*",
     "@repo/utils": "workspace:*",
     "@tailwindcss/vite": "4.1.4",
-    "@tanstack/vue-query": "5.74.4",
+    "@tanstack/vue-query": "5.74.5",
     "@vueuse/core": "13.1.0",
     "@vueuse/nuxt": "13.1.0",
     "@wisemen/vue-core-auth": "2.0.1",
