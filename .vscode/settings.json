@@ -23,5 +23,6 @@
     "packages/utils",
     "packages/empty",
   ],
+  "eslint.runtime": "node",
   "typescript.tsdk": "node_modules/typescript/lib",
 }
