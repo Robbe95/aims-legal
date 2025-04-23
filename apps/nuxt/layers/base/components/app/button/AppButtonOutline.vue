@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { VcButtonProps } from '@wisemen/vue-core'
-import { VcButton } from '@wisemen/vue-core'
+import type { VcButtonProps } from '@wisemen/vue-core-components'
+import { VcButton } from '@wisemen/vue-core-components'
 
 const props = defineProps<VcButtonProps>()
 </script>
@@ -15,7 +15,7 @@ const props = defineProps<VcButtonProps>()
       '--button-padding-right-default': '2rem',
     }"
     as="div"
-    variant="secondary-color"
+    variant="secondary"
   >
     <slot />
   </VcButton>

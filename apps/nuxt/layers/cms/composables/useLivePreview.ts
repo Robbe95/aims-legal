@@ -36,9 +36,9 @@ export function useLivePreview<T>(props: {
 
   onMounted(() => {
     subscription = subscribe({
-      callback: onChange,
+      callback: (data: any) => onChange(data),
       depth: 10,
-      initialData: toRaw(initialData.value),
+      initialData: toRaw(initialData.value) as Record<string, any>,
       serverURL: CMS_BASE_URL,
     })
 

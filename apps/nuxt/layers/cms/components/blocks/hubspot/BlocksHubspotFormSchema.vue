@@ -3,7 +3,7 @@ import { useHubspotFormMutation } from '@cms/api/hubspot/mutation/useHubspotForm
 import BlocksHubspotFormGroup from '@cms/components/blocks/hubspot/BlocksHubspotFormGroup.vue'
 import type { HubspotForm } from '@cms/types/hubspotForm.type'
 import { makeHubspotFormZodSchema } from '@cms/utils/makeHubspotForm.util'
-import { VcButton } from '@wisemen/vue-core'
+import { VcButton } from '@wisemen/vue-core-components'
 import { useForm } from 'formango'
 
 import AppHeightTransition from '~base/components/app/AppHeightTransition.vue'

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { updateCurrentUserFormSchema } from '@repo/models'
-import { VcTextField } from '@wisemen/vue-core'
+import { VcTextField } from '@wisemen/vue-core-components'
 import { useForm } from 'formango'
 
 import AppUnsavedChanges from '~base/components/app/unsaved-changes/AppUnsavedChanges.vue'
@@ -49,7 +49,7 @@ const errorMessage = computed<string | null>(() => {
       :title="t('settings.account.personal_info.title')"
       :subtitle="t('settings.account.personal_info.subtitle')"
     />
-    <div class="text-white flex flex-col gap-2">
+    <div class="flex flex-col gap-2 text-white">
       <AppUnsavedChanges
         :is-auto-saving="updateCurrentUserMutation.isPending.value"
         :auto-save-error-message="errorMessage"

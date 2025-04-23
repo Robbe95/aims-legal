@@ -94,7 +94,10 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
 
   return (
     <NavWrapper baseClass={baseClass}>
-      <nav className={`${baseClass}__wrap`}>
+      <nav className={`
+        ${baseClass}__wrap
+      `}
+      >
         <div style={{ alignItems: 'center', display: 'flex', justifyItems: 'center', marginBottom: '1.5rem', width: '100%' }}>
           <Logo />
         </div>
@@ -125,10 +128,21 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
             user,
           },
         })}
-        <div className={`${baseClass}__controls`}>{LogoutComponent}</div>
+        <div className={`
+          ${baseClass}__controls
+        `}
+        >
+          {LogoutComponent}
+        </div>
       </nav>
-      <div className={`${baseClass}__header`}>
-        <div className={`${baseClass}__header-content`}>
+      <div className={`
+        ${baseClass}__header
+      `}
+      >
+        <div className={`
+          ${baseClass}__header-content
+        `}
+        >
           <NavHamburger baseClass={baseClass} />
         </div>
       </div>

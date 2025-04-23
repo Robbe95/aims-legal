@@ -2,11 +2,13 @@
 import type {
   HubspotField,
 } from '@cms/types/hubspotForm.type'
-import type { RadioGroupItem } from '@wisemen/vue-core'
-import { VcInputFieldLabel } from '@wisemen/vue-core'
+import type { VcRadioGroupItemProps } from '@wisemen/vue-core-components'
+import {
+  VcCheckboxGroup,
+  VcFormFieldLabel,
+} from '@wisemen/vue-core-components'
 import type { Field } from 'formango'
 
-import AppCheckboxGroup from '~base/components/app/AppCheckboxGroup.vue'
 import { toFormField } from '~base/utils/form/toFormField.util'
 
 interface Props {
@@ -16,7 +18,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const options = computed<RadioGroupItem<string>[]>(() => {
+const options = computed<VcRadioGroupItemProps[]>(() => {
   return props.hubspotField.options?.map((option) => {
     return {
       hint: option.description,
@@ -29,13 +31,13 @@ const options = computed<RadioGroupItem<string>[]>(() => {
 
 <template>
   <div class="w-full">
-    <VcInputFieldLabel
+    <VcFormFieldLabel
       :is-required="false"
       :label="hubspotField.label"
       for=""
     />
 
-    <AppCheckboxGroup
+    <VcCheckboxGroup
       :label="hubspotField.label"
       v-bind="toFormField(formField)"
       :items="options"

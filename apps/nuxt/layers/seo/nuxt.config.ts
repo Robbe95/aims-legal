@@ -1,5 +1,4 @@
 import path from 'node:path'
-import process from 'node:process'
 
 import { defineLocalBusiness } from 'nuxt-schema-org/schema'
 
@@ -44,11 +43,6 @@ export default defineNuxtConfig({
     cacheMaxAgeSeconds: 1 * 60 * 60 * 24,
     experimentalCompression: true,
     experimentalWarmUp: true,
-    sources: [
-      `${process.env.NUXT_PUBLIC_CMS_BASE_URL}/api/sitemap?locale=nl`,
-      `${process.env.NUXT_PUBLIC_CMS_BASE_URL}/api/sitemap?locale=en`,
-      `${process.env.NUXT_PUBLIC_CMS_BASE_URL}/api/sitemap?locale=fr`,
-    ],
   },
 
 })

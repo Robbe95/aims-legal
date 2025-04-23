@@ -4,7 +4,7 @@ import {
   VcDialogContainer,
   VcThemeProvider,
   VcToastContainer,
-} from '@wisemen/vue-core'
+} from '@wisemen/vue-core-components'
 import { ConfigProvider as RekaConfigProvider } from 'reka-ui'
 
 import {

@@ -1,4 +1,4 @@
-import { extendIcons } from '@wisemen/vue-core'
+import { extendIcons } from '@wisemen/vue-core-components'
 import { defineNuxtPlugin } from 'nuxt/app'
 
 import { icons } from '~base/icons/icons'

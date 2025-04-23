@@ -2,7 +2,6 @@
 import { useHubspotFormQuery } from '@cms/api/hubspot/query/useHubspot.query'
 import BlocksHubspotFormSchema from '@cms/components/blocks/hubspot/BlocksHubspotFormSchema.vue'
 import type { HubspotFormBlock } from '@repo/payload-types'
-import { VcSkeletonItem } from '@wisemen/vue-core'
 
 import AppHeightTransition from '~base/components/app/AppHeightTransition.vue'
 import AppContainer from '~base/components/app/container/AppContainer.vue'
@@ -34,9 +33,6 @@ onServerPrefetch(async () => {
           v-if="hubspotFormQuery.data.value"
           :hubspot-form="hubspotFormQuery.data.value"
         />
-      </div>
-      <div v-else>
-        <VcSkeletonItem class="h-80 w-full" />
       </div>
     </AppHeightTransition>
   </AppContainer>

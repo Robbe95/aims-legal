@@ -12,7 +12,10 @@ const props = withDefaults(defineProps<{
       'cursor-pointer': !props.isCursorDefault,
     }"
     type="button"
-    class="outline-none ring-brand-500 ring-offset-1 duration-200 focus-visible:ring-2"
+    class="
+      ring-brand-500 ring-offset-1 duration-200 outline-none
+      focus-visible:ring-2
+    "
   >
     <slot />
   </button>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { DropdownMenuItem } from '@wisemen/vue-core'
+import type { vcDropdownMenuItemProps } from '@wisemen/vue-core-components'
 import {
   VcDropdownMenu,
   VcIcon,
-} from '@wisemen/vue-core'
+} from '@wisemen/vue-core-components'
 
 import { translateLocale } from '~base/translations/locale.translate'
 
@@ -16,7 +16,7 @@ const availableLocales = computed<LocaleObject[]>(() => {
   return locales.value.filter((i) => i.code !== locale.value)
 })
 
-const dropdownItems = computed<DropdownMenuItem[]>(() => {
+const dropdownItems = computed<vcDropdownMenuItemProps[]>(() => {
   return availableLocales.value.map((i) => ({
     label: translateLocale(i.code),
     type: 'option',
@@ -33,7 +33,12 @@ const dropdownItems = computed<DropdownMenuItem[]>(() => {
     popover-align="end"
   >
     <template #trigger>
-      <button class="flex items-center gap-1 px-2 py-1 font-medium uppercase text-white text-sm">
+      <button
+        class="
+          flex items-center gap-1 px-2 py-1 text-sm font-medium text-white
+          uppercase
+        "
+      >
         <span>
           {{ locale }}
         </span>

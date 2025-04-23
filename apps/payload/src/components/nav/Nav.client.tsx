@@ -83,8 +83,18 @@ export const DefaultNavClient: React.FC<{
                   key={i}
                   prefetch={Link ? false : undefined}
                 >
-                  {activeCollection && <div className={`${baseClass}__link-indicator`} />}
-                  <span className={`${baseClass}__link-label`}>{getTranslation(label, i18n)}</span>
+                  {activeCollection && (
+                    <div className={`
+                      ${baseClass}__link-indicator
+                    `}
+                    />
+                  )}
+                  <span className={`
+                    ${baseClass}__link-label
+                  `}
+                  >
+                    {getTranslation(label, i18n)}
+                  </span>
                 </LinkElement>
               )
             })}

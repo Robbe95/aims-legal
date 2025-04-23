@@ -1,4 +1,4 @@
-import type { Icon } from '@wisemen/vue-core'
+import type { Icon } from '@wisemen/vue-core-components'
 
 export interface SocialInfo {
   icon: Icon

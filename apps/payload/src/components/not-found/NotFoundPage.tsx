@@ -23,7 +23,10 @@ export function NotFoundPage() {
         <div style={{ maxWidth: '12rem', width: '100%' }}>
           <a
 
-            className="btn btn--style-primary btn--icon-style-without-border btn--size-medium"
+            className={`
+              btn btn--style-primary btn--icon-style-without-border
+              btn--size-medium
+            `}
             style={{
               display: 'block',
               textAlign: 'center',

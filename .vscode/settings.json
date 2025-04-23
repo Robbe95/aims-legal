@@ -9,6 +9,10 @@
   "i18n-ally.enabledFrameworks": [
     "vue"
   ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
   "i18n-ally.keystyle": "flat",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "javascript.preferences.importModuleSpecifier": "non-relative",
@@ -19,6 +23,6 @@
     "packages/utils",
     "packages/empty",
   ],
+  "eslint.runtime": "node",
   "typescript.tsdk": "node_modules/typescript/lib",
 }
-

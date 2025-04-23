@@ -14,7 +14,12 @@ const fieldGroupForm = props.form.register(`group${props.index}`)
 </script>
 
 <template>
-  <div class="flex w-full flex-col gap-4 lg:flex-row">
+  <div
+    class="
+      flex w-full flex-col gap-4
+      lg:flex-row
+    "
+  >
     <div
       v-for="(hubspotField) in props.fieldGroup?.fields"
       :key="hubspotField.name"

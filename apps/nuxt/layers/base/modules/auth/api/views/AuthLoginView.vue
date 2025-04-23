@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useToast, VcButton } from '@wisemen/vue-core'
+import { useVcToast, VcButton } from '@wisemen/vue-core-components'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -11,7 +11,7 @@ const authStore = useAuthStore()
 const { lastLoggedInUser } = storeToRefs(authStore)
 
 const { t } = useI18n()
-const toast = useToast()
+const toast = useVcToast()
 const isZitadelLoading = ref<boolean>(false)
 
 const title = computed<string>(() => {
@@ -36,7 +36,8 @@ async function onLoginWithZitadelClick(): Promise<void> {
   }
   catch {
     toast.error({
-      message: t('auth.login.error_toast.title'),
+      title: t('auth.login.error_toast.title'),
+      description: t('auth.login.error_toast.description'),
     })
   }
   finally {

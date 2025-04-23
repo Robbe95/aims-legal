@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HubspotField } from '@cms/types/hubspotForm.type'
-import { VcTextField } from '@wisemen/vue-core'
+import { VcTextField } from '@wisemen/vue-core-components'
 import type { Field } from 'formango'
 
 import { toFormField } from '~base/utils/form/toFormField.util'

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Icon } from '@wisemen/vue-core'
+import type { Icon } from '@wisemen/vue-core-components'
 import {
   VcDialog,
   VcDialogCloseButton,
   VcDialogTitle,
   VcIcon,
-} from '@wisemen/vue-core'
+} from '@wisemen/vue-core-components'
 import { VisuallyHidden } from 'reka-ui'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -37,18 +37,7 @@ interface MenuItemGroup<TKey> {
 const menuItems = computed<MenuItemGroup<SettingKey>>(() => {
   return {
     title: t('settings.general_settings'),
-    items: [
-      {
-        title: t('settings.account'),
-        icon: 'settings',
-        key: 'account',
-      },
-      {
-        title: t('settings.appearance'),
-        icon: 'brush',
-        key: 'appearance',
-      },
-    ],
+    items: [],
   }
 })
 
@@ -68,16 +57,26 @@ function onMenuItemClick(key: SettingKey): void {
 </script>
 
 <template>
-  <VcDialog class="max-w-[90vw] lg:max-w-[70vw] size-full flex my-4xl max-h-[80vh]">
-    <div class="absolute right-2 top-2">
+  <VcDialog
+    class="
+      my-4xl flex size-full max-h-[80vh] max-w-[90vw]
+      lg:max-w-[70vw]
+    "
+  >
+    <div class="absolute top-2 right-2">
       <VcDialogCloseButton />
     </div>
 
-    <div class="bg-tertiary py-xl flex flex-col gap-xl w-full overflow-y-auto shrink-0 max-w-[16rem] border-r border-secondary px-2xl">
-      <div class="flex flex-col gap-xl">
+    <div
+      class="
+        bg-tertiary py-xl gap-xl border-secondary px-2xl flex w-full
+        max-w-[16rem] shrink-0 flex-col overflow-y-auto border-r
+      "
+    >
+      <div class="gap-xl flex flex-col">
         <VisuallyHidden>
           <VcDialogTitle>
-            <h1 class="text-lg font-bold text-primary">
+            <h1 class="text-primary text-lg font-bold">
               {{ t('settings.title') }}
             </h1>
           </VcDialogTitle>
@@ -85,17 +84,20 @@ function onMenuItemClick(key: SettingKey): void {
       </div>
 
       <div
-        class="flex flex-col gap-lg"
+        class="gap-lg flex flex-col"
       >
-        <span class="text-tertiary uppercase text-xs font-semibold">{{ menuItems.title }}</span>
+        <span class="text-tertiary text-xs font-semibold uppercase">{{ menuItems.title }}</span>
 
         <div
           v-for="item in menuItems.items"
           :key="item.key"
         >
-          <div class="-mx-xs flex flex-col gap-sm">
+          <div class="-mx-xs gap-sm flex flex-col">
             <AppUnstyledButton
-              class="flex gap-lg p-xxs w-full rounded-lg group transition-all items-center cursor-pointer"
+              class="
+                gap-lg p-xxs group flex w-full cursor-pointer items-center
+                rounded-lg transition-all
+              "
               @click="onMenuItemClick(item.key)"
             >
               <span
@@ -103,7 +105,10 @@ function onMenuItemClick(key: SettingKey): void {
                   'bg-brand-solid border-brand text-primary-on-brand': isActive(item.key),
                   'bg-primary border-primary text-primary': !isActive(item.key),
                 }"
-                class="flex group-hover:border-brand items-center justify-center p-md border rounded-lg"
+                class="
+                  group-hover:border-brand
+                  p-md flex items-center justify-center rounded-lg border
+                "
               >
                 <VcIcon
                   :icon="item.icon"
@@ -115,7 +120,10 @@ function onMenuItemClick(key: SettingKey): void {
                   'text-primary': isActive(item.key),
                   'text-tertiary': !isActive(item.key),
                 }"
-                class="text-sm group-hover:text-primary font-medium"
+                class="
+                  group-hover:text-primary
+                  text-sm font-medium
+                "
               >
                 {{ item.title }}
               </span>
@@ -124,7 +132,7 @@ function onMenuItemClick(key: SettingKey): void {
         </div>
       </div>
     </div>
-    <div class="flex flex-col gap-2xl p-2xl w-full">
+    <div class="gap-2xl p-2xl flex w-full flex-col">
       <SettingsAccounts v-if="isActive('account')" />
       <SettingsAppearance v-else-if="isActive('appearance')" />
     </div>

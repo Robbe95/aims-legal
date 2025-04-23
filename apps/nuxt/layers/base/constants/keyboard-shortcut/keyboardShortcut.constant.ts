@@ -1,26 +1,26 @@
-import type { KeyboardShortcutConfig } from '@wisemen/vue-core'
+import type { VcKeyboardShortcutProviderProps } from '@wisemen/vue-core-components'
 
 export const KEYBOARD_SHORTCUT = {
   EDIT: {
-    keys: [
+    keyboardKeys: [
       'e',
     ],
   },
   NEW: {
-    keys: [
+    keyboardKeys: [
       'n',
     ],
   },
   SAVE: {
-    keys: [
+    keyboardKeys: [
       'enter',
     ],
   },
   SEARCH: {
-    keys: [
+    keyboardKeys: [
       'meta',
       'f',
     ],
     preventDefault: true,
   },
-} satisfies Record<string, KeyboardShortcutConfig>
+} satisfies Record<string, VcKeyboardShortcutProviderProps>

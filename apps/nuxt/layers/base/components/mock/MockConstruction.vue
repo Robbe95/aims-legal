@@ -6,7 +6,11 @@ const { t } = useI18n()
 
 <template>
   <AppCard>
-    <div class="flex h-full min-h-80 flex-1 flex-col items-center justify-center gap-2">
+    <div
+      class="
+        flex h-full min-h-80 flex-1 flex-col items-center justify-center gap-2
+      "
+    >
       <p class="font-bold text-gray-500">
         {{ t('base.shared.under_construction') }}
       </p>

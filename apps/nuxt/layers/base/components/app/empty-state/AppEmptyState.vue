@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Icon } from '@wisemen/vue-core'
-import { VcIcon } from '@wisemen/vue-core'
+import type { Icon } from '@wisemen/vue-core-components'
+import { VcIcon } from '@wisemen/vue-core-components'
 
 import SvgGridBackground from '~base/components/svg/SvgGridBackground.vue'
 
@@ -13,10 +13,15 @@ defineProps<Props>()
 
 <template>
   <div
-    class="relative flex size-[480px] flex-col items-center justify-center rounded-md"
+    class="
+      relative flex size-[480px] flex-col items-center justify-center rounded-md
+    "
   >
     <SvgGridBackground
-      class="pointer-events-none absolute left-1/2 top-1/2 size-full -translate-x-1/2 -translate-y-1/2 opacity-10"
+      class="
+        pointer-events-none absolute top-1/2 left-1/2 size-full -translate-x-1/2
+        -translate-y-1/2 opacity-10
+      "
     />
     <div class="z-20 flex flex-col items-center justify-center text-center">
       <div

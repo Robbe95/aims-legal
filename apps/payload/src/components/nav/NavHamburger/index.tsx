@@ -12,7 +12,9 @@ export const NavHamburger: React.FC<{
 
   return (
     <button
-      className={`${baseClass}__mobile-close`}
+      className={`
+        ${baseClass}__mobile-close
+      `}
       onClick={() => {
         setNavOpen(false)
       }}

@@ -36,6 +36,6 @@ type CustomIcons = {
   [K in keyof typeof icons]: Component
 }
 
-declare module '@wisemen/vue-core' {
+declare module '@wisemen/vue-core-components' {
   interface Icons extends CustomIcons {}
 }
