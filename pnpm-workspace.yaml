@@ -4,7 +4,7 @@ packages:
 
 catalog:
   "@wisemen/eslint-config-vue": "1.1.0"
-  "eslint": "9.24.0"
+  "eslint": "9.25.1"
 
   "typescript": "5.8.3"
   "vitest": "3.1.2"
@@ -21,6 +21,6 @@ catalog:
   "payload": "3.35.1"
   "@payloadcms/plugin-multi-tenant": "3.35.1"
 
-  "@orpc/server": "1.0.3"
-  "@orpc/contract": "1.0.3"
-  "@orpc/client": "1.0.3"
+  "@orpc/server": "1.1.0"
+  "@orpc/contract": "1.1.0"
+  "@orpc/client": "1.1.0"
