@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@repo/payload-types": "workspace:*",
-    "@wisemen/eslint-config-vue": "catalog:",
-    "eslint": "catalog:",
-    "typescript": "catalog:"
+    "@wisemen/eslint-config-vue": "catalog:lint",
+    "eslint": "catalog:lint",
+    "typescript": "catalog:types"
   }
 }
