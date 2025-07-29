@@ -1,5 +1,5 @@
 {
-  "id": "a2efefd5-9d0f-4001-93a9-1ef5468215c4",
+  "id": "2eba6fbb-8efc-416b-bcfc-603de14f54d8",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -5689,6 +5689,12 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
+        "email": {
+          "name": "email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
         "first_name": {
           "name": "first_name",
           "type": "varchar",
@@ -5700,6 +5706,14 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
+        },
+        "dark_mode": {
+          "name": "dark_mode",
+          "type": "enum_users_dark_mode",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'light'"
         },
         "role": {
           "name": "role",
@@ -8161,7 +8175,7 @@
           "name": "social_name",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "social_url": {
           "name": "social_url",
@@ -8374,6 +8388,15 @@
       "values": [
         "tenant-admin",
         "tenant-viewer"
+      ]
+    },
+    "public.enum_users_dark_mode": {
+      "name": "enum_users_dark_mode",
+      "schema": "public",
+      "values": [
+        "dark",
+        "light",
+        "system"
       ]
     },
     "public.enum_user_role": {
