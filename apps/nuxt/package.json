@@ -67,6 +67,6 @@
     "eslint": "catalog:lint",
     "typescript": "catalog:types",
     "vitest": "catalog:test",
-    "vue-tsc": "2.2.12"
+    "vue-tsc": "3.0.4"
   }
 }
