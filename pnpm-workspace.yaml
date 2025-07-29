@@ -22,9 +22,9 @@ catalogs:
     payload: 3.49.0
     '@payloadcms/plugin-multi-tenant': 3.49.0
   orpc:
-    '@orpc/server': 1.2.0
-    '@orpc/contract': 1.2.0
-    '@orpc/client': 1.2.0
+    '@orpc/server': 1.7.5
+    '@orpc/contract': 1.7.5
+    '@orpc/client': 1.7.5
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
   - esbuild
