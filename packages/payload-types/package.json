@@ -17,9 +17,9 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@wisemen/eslint-config-vue": "catalog:",
-    "eslint": "catalog:",
-    "payload": "catalog:",
-    "typescript": "catalog:"
+    "@wisemen/eslint-config-vue": "catalog:lint",
+    "eslint": "catalog:lint",
+    "payload": "catalog:payload",
+    "typescript": "catalog:types"
   }
 }

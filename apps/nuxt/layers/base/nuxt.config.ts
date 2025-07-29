@@ -34,7 +34,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@nuxt/fonts',
-    'nuxt-time',
     '@nuxtjs/color-mode',
   ],
   runtimeConfig: {

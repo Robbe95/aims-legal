@@ -9,17 +9,31 @@ import type {
 export type LinkAppearances = 'default' | 'outline'
 
 type LinkType = (options?: {
+  hasDropdownCategories?: boolean
+  isRequired?: boolean
+  isTranslatable?: boolean
   name?: string
   disableLabel?: boolean
   linkTo?: CollectionSlug[]
   overrides?: Partial<GroupField>
+  prefix?: string
 }) => Field
 
 const DEFAULT_LINK_TO: CollectionSlug[] = [
   'pages',
 ]
 
-export const getLinkField: LinkType = ({ name = 'link', disableLabel = false, linkTo = DEFAULT_LINK_TO, overrides = {} } = {}) => {
+export const getLinkField: LinkType = (
+  {
+    hasDropdownCategories = false,
+    isRequired = true,
+    isTranslatable = false,
+    name = 'link',
+    disableLabel = true,
+    linkTo = DEFAULT_LINK_TO,
+    overrides = {},
+  } = {},
+) => {
   const linkResult: GroupField = {
     name,
     admin: {
@@ -29,7 +43,7 @@ export const getLinkField: LinkType = ({ name = 'link', disableLabel = false, li
       {
         fields: [
           {
-            name: 'type',
+            name: `type`,
             admin: {
               layout: 'horizontal',
               width: '50%',
@@ -46,48 +60,77 @@ export const getLinkField: LinkType = ({ name = 'link', disableLabel = false, li
                 value: 'custom',
               },
             ],
+            required: true,
             type: 'radio',
           },
           {
-            name: 'newTab',
+            name: `newTab`,
             admin: {
               style: {
                 alignSelf: 'flex-end',
               },
               width: '50%',
             },
+            defaultValue: false,
             label: 'Open in new tab',
+            required: true,
             type: 'checkbox',
           },
         ],
+        required: true,
         type: 'row',
       },
     ],
-    interfaceName: 'LinkField',
+    interfaceName: hasDropdownCategories ? 'LinkFieldWithCategories' : 'LinkField',
     type: 'group',
   }
 
   const linkTypes: Field[] = [
     {
-      name: 'reference',
+      name: `reference`,
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'reference',
+        condition: (_, siblingData) => {
+          return siblingData?.type === 'reference'
+        },
       },
       label: 'Link',
       relationTo: linkTo,
-      required: true,
+      required: isRequired,
       type: 'relationship',
     },
     {
-      name: 'url',
+      name: `url`,
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'custom',
+        condition: (_, siblingData) => {
+          return siblingData?.type === 'custom'
+        },
       },
       label: 'Custom URL',
-      required: true,
+      required: isRequired,
       type: 'text',
     },
   ]
+
+  if (hasDropdownCategories) {
+    linkResult.fields.push({
+      name: 'categories',
+      fields: [
+        {
+          name: 'label',
+          localized: isTranslatable,
+          required: true,
+          type: 'text',
+        },
+        getLinkField({
+          hasDropdownCategories: false,
+          isRequired: true,
+          name: 'category',
+          disableLabel: true,
+        }),
+      ],
+      type: 'array',
+    })
+  }
 
   if (!disableLabel) {
     linkTypes.map((linkType) => ({
@@ -104,5 +147,5 @@ export const getLinkField: LinkType = ({ name = 'link', disableLabel = false, li
     ]
   }
 
-  return defu(linkResult, overrides)
+  return defu(linkResult, overrides) as Field
 }
