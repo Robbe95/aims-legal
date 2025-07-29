@@ -42,7 +42,7 @@
     "i18n-iso-countries": "7.14.0",
     "libphonenumber-js": "1.12.10",
     "maska": "3.2.0",
-    "nuxt": "3.18.0",
+    "nuxt": "4.0.2",
     "nuxt-schema-org": "5.0.6",
     "nuxt-tailwindcss4": "0.1.1",
     "pinia": "3.0.3",
