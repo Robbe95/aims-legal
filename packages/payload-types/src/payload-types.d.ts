@@ -203,8 +203,8 @@ export interface HeroBlock {
  * via the `definition` "LinkField".
  */
 export interface LinkField {
-  type?: ('reference' | 'custom') | null;
-  newTab?: boolean | null;
+  type: 'reference' | 'custom';
+  newTab: boolean;
   reference?: {
     relationTo: 'pages';
     value: string | Page;
