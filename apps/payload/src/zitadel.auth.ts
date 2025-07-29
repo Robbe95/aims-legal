@@ -4,15 +4,19 @@ import {
   createRemoteJWKSet,
   jwtVerify,
 } from 'jose'
-import type { AuthStrategy } from 'payload'
+import type {
+  AuthStrategy,
+  AuthStrategyResult,
+} from 'payload'
 
-export const USER_NOT_AUTHENTICATED = {
+export const USER_NOT_AUTHENTICATED: AuthStrategyResult = {
   user: null,
 }
 export const zitadalStrategy: AuthStrategy = {
   name: 'zitadel',
   authenticate: async (ctx) => {
     const payload = await getPayload()
+
     const env = getEnv()
 
     const authorizationHeader = ctx.headers.get('Authorization')
@@ -34,9 +38,12 @@ export const zitadalStrategy: AuthStrategy = {
 
       const users = await payload.find({
         collection: 'users',
-        where: { email: { equals: userEmail } },
+        where: {
+          email: {
+            equals: userEmail,
+          },
+        },
       })
-
       const singleUser = users.docs[0]
 
       if (singleUser == null) {
@@ -82,11 +89,9 @@ export const zitadalStrategy: AuthStrategy = {
 
         return {
           user: {
-            id: createdUser.id,
+            ...createdUser,
             collection: 'users',
-            email: createdUser.email,
-            role: createdUser.role,
-            username: createdUser.email,
+
           },
         }
       }
@@ -97,11 +102,8 @@ export const zitadalStrategy: AuthStrategy = {
 
       return {
         user: {
-          id: singleUser.id,
           collection: 'users',
-          email: singleUser.email,
-          role: singleUser.role,
-          username: singleUser.email,
+          ...singleUser,
         },
       }
     }
@@ -125,11 +127,8 @@ export const tempZitadalStrategy: AuthStrategy = {
 
     return {
       user: {
-        id: singleUser.id,
+        ...singleUser,
         collection: 'users',
-        email: singleUser.email,
-        role: singleUser.role,
-        username: singleUser.email,
       },
     }
   },
