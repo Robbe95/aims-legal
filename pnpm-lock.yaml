@@ -147,8 +147,8 @@ importers:
         specifier: 2.0.1
         version: 2.0.1
       '@wisemen/vue-core-components':
-        specifier: 1.5.6
-        version: 1.5.6(motion-v@1.0.0-beta.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(vue@3.5.18(typescript@5.8.3)))(tailwindcss@4.1.11)(vue-i18n@11.1.11(vue@3.5.18(typescript@5.8.3)))(vue@3.5.18(typescript@5.8.3))
+        specifier: 1.12.0
+        version: 1.12.0(motion-v@1.0.0-beta.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(vue@3.5.18(typescript@5.8.3)))(reka-ui@2.4.0(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3)))(tailwindcss@4.1.11)(vue-i18n@11.1.11(vue@3.5.18(typescript@5.8.3)))(vue@3.5.18(typescript@5.8.3))
       formango:
         specifier: 3.1.0
         version: 3.1.0(vue@3.5.18(typescript@5.8.3))(zod@3.25.76)
@@ -5577,12 +5577,13 @@ packages:
   '@wisemen/vue-core-auth@2.0.1':
     resolution: {integrity: sha512-pSIbQeoEqr479Qqo9L/iA7SL6+U0rZSTgqDEbb/Jw2Yk4b1HKmSUH52mLLatlcFKZUBGyC5VYMYJpavYGu5O/w==}
 
-  '@wisemen/vue-core-components@1.5.6':
-    resolution: {integrity: sha512-TBMBUwy3myNATbsLuCqJ/6/hdou+NZtrLkE7H6UbN/TepTL1GPtkDsydwQWIU2i53JAJ7CEv09SH1WTUFUyy3w==}
+  '@wisemen/vue-core-components@1.12.0':
+    resolution: {integrity: sha512-Lcm5j0ZSd6zp717+N34lFzsF/Fi82jeLgBKj3t6p1tcefeZASgdNQ/BGHFqPSbgbSxd+dnQ8iqB+oI92ZnxieQ==}
     peerDependencies:
-      motion-v: 1.0.0-beta.2
-      vue: 3.5.13
-      vue-i18n: 11.1.2
+      motion-v: 1.6.1
+      reka-ui: 2.2.0
+      vue: 3.5.14
+      vue-i18n: 11.1.3
 
   abbrev@2.0.0:
     resolution: {integrity: sha512-6/mh1E2u2YgEsCHdY0Yx5oW+61gZU+1vXaoiHHrpKeuRNNgFvS+/jrwHiQhB5apAf5oB7UB7E19ol2R2LKH8hQ==}
@@ -17734,9 +17735,10 @@ snapshots:
     dependencies:
       pkce-challenge: 4.1.0
 
-  '@wisemen/vue-core-components@1.5.6(motion-v@1.0.0-beta.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(vue@3.5.18(typescript@5.8.3)))(tailwindcss@4.1.11)(vue-i18n@11.1.11(vue@3.5.18(typescript@5.8.3)))(vue@3.5.18(typescript@5.8.3))':
+  '@wisemen/vue-core-components@1.12.0(motion-v@1.0.0-beta.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(vue@3.5.18(typescript@5.8.3)))(reka-ui@2.4.0(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3)))(tailwindcss@4.1.11)(vue-i18n@11.1.11(vue@3.5.18(typescript@5.8.3)))(vue@3.5.18(typescript@5.8.3))':
     dependencies:
       motion-v: 1.0.0-beta.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(vue@3.5.18(typescript@5.8.3))
+      reka-ui: 2.4.0(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
       tailwind-variants: 1.0.0(tailwindcss@4.1.11)
       vue: 3.5.18(typescript@5.8.3)
       vue-i18n: 11.1.11(vue@3.5.18(typescript@5.8.3))
