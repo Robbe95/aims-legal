@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type {
-  HubspotField,
-} from '@cms/types/hubspotForm.type'
+import type { HubspotField } from '@cms/types/hubspotForm.type'
 import type { VcRadioGroupItemProps } from '@wisemen/vue-core-components'
 import {
   VcCheckboxGroup,

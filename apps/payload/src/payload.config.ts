@@ -57,7 +57,10 @@ export default buildConfig({
   }),
   editor: lexicalEditor(),
   i18n: {
-    supportedLanguages: { en, nl },
+    supportedLanguages: {
+      en,
+      nl,
+    },
   },
   localization: {
     defaultLocale: 'nl',

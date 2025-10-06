@@ -8,18 +8,18 @@ const props = defineProps<{
 
 <template>
   <div class="flex w-full flex-1 flex-col">
-    <div class="bg-primary sticky top-0 z-10">
+    <div class="sticky top-0 z-10 bg-primary">
       <AppContainer>
         <div class="flex min-h-10 items-center justify-between">
           <h1
-            class="text-display-xs text-primary font-semibold"
+            class="text-display-xs font-semibold text-primary"
           >
             {{ props.title }}
           </h1>
 
           <div
             id="header-actions"
-            class="gap-xl flex items-center justify-end"
+            class="flex items-center justify-end gap-xl"
           >
             <slot name="header-actions" />
           </div>
@@ -27,7 +27,7 @@ const props = defineProps<{
       </AppContainer>
     </div>
 
-    <AppContainer class="pb-4xl pt-4xl flex flex-1 flex-col overflow-hidden">
+    <AppContainer class="flex flex-1 flex-col overflow-hidden pt-4xl pb-4xl">
       <slot />
     </AppContainer>
   </div>

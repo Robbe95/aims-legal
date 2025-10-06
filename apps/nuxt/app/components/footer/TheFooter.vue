@@ -4,6 +4,6 @@
 
 <template>
   <footer
-    class="border-primary/10 w-screen border-t border-solid bg-neutral-100"
+    class="w-screen border-t border-solid border-primary/10 bg-gray-100"
   />
 </template>

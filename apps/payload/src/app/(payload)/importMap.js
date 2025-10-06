@@ -31,12 +31,13 @@ import { BlockquoteFeatureClient as BlockquoteFeatureClient_e70f5e05f09f93e00b99
 import { UploadFeatureClient as UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { AssignTenantFieldTrigger as AssignTenantFieldTrigger_1d0591e3cf4f332c83a86da13a0de59a } from '@payloadcms/plugin-multi-tenant/client'
 import { FieldArrayRowLabelSocials as FieldArrayRowLabelSocials_74d5e02f096141f70b09954462dc3382 } from '@payload/components/fields/FieldArrayRowLabelSocials.tsx'
 import { DefaultNav as DefaultNav_d8691970b9e3d58f48458f5e8648b24e } from '@payload/components/nav/Nav'
 import { Icon as Icon_6236c4428afca49e72929850c0e65ebf } from '../../components/logo/Logo'
 import { Logo as Logo_6236c4428afca49e72929850c0e65ebf } from '../../components/logo/Logo'
 import { default as default_c770db15fe70a71fc10bf2ed4f13089d } from '@payload/components/auth/LoginButton'
-import { TenantSelector as TenantSelector_1d0591e3cf4f332c83a86da13a0de59a } from '@payloadcms/plugin-multi-tenant/client'
+import { TenantSelector as TenantSelector_d6d5f193a167989e2ee7d14202901e62 } from '@payloadcms/plugin-multi-tenant/rsc'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { TenantSelectionProvider as TenantSelectionProvider_d6d5f193a167989e2ee7d14202901e62 } from '@payloadcms/plugin-multi-tenant/rsc'
 
@@ -75,12 +76,13 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UploadFeatureClient": UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/plugin-multi-tenant/client#AssignTenantFieldTrigger": AssignTenantFieldTrigger_1d0591e3cf4f332c83a86da13a0de59a,
   "@payload/components/fields/FieldArrayRowLabelSocials.tsx#FieldArrayRowLabelSocials": FieldArrayRowLabelSocials_74d5e02f096141f70b09954462dc3382,
   "@payload/components/nav/Nav#DefaultNav": DefaultNav_d8691970b9e3d58f48458f5e8648b24e,
   "/components/logo/Logo#Icon": Icon_6236c4428afca49e72929850c0e65ebf,
   "/components/logo/Logo#Logo": Logo_6236c4428afca49e72929850c0e65ebf,
   "@payload/components/auth/LoginButton#default": default_c770db15fe70a71fc10bf2ed4f13089d,
-  "@payloadcms/plugin-multi-tenant/client#TenantSelector": TenantSelector_1d0591e3cf4f332c83a86da13a0de59a,
+  "@payloadcms/plugin-multi-tenant/rsc#TenantSelector": TenantSelector_d6d5f193a167989e2ee7d14202901e62,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "@payloadcms/plugin-multi-tenant/rsc#TenantSelectionProvider": TenantSelectionProvider_d6d5f193a167989e2ee7d14202901e62
 }

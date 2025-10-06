@@ -26,7 +26,6 @@ export default defineNuxtConfig({
           700,
         ],
       },
-
     ],
   },
   modules: [

@@ -47,7 +47,9 @@ interface DeleteOptions<T extends z.ZodType> {
 }
 
 export function createHttpZodClient(
-  { fetch, onZodError }: CreateHttpZodClientOptions,
+  {
+    fetch, onZodError,
+  }: CreateHttpZodClientOptions,
 ): CreateHttpZodClientReturnType {
   async function get<T extends z.ZodType>(options: GetOptions<T>): Promise<z.infer<T>> {
     const {
@@ -79,7 +81,7 @@ export function createHttpZodClient(
     }
   }
 
-  async function post<T extends z.ZodType>(options: PostOptions<T>) {
+  async function post<T extends z.ZodType>(options: PostOptions<T>): Promise<any> {
     const {
       body,
       config,
@@ -111,7 +113,7 @@ export function createHttpZodClient(
     }
   }
 
-  async function put<T extends z.ZodType>(options: PutOptions<T>) {
+  async function put<T extends z.ZodType>(options: PutOptions<T>): Promise<any> {
     const {
       body,
       config,
@@ -143,7 +145,7 @@ export function createHttpZodClient(
     }
   }
 
-  async function del<T extends z.ZodType>(options: DeleteOptions<T>) {
+  async function del<T extends z.ZodType>(options: DeleteOptions<T>): Promise<any> {
     const {
       body,
       config,

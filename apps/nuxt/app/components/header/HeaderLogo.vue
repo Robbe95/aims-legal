@@ -8,7 +8,7 @@ import AppLogo from '~base/components/app/AppLogo.vue'
     :to="{
       name: 'index',
     }"
-    class="focus-ring-white"
+    class="focus:ring-white"
   >
     <AppLogo class="h-12" />
   </NuxtLinkLocale>

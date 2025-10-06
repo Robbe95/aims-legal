@@ -1,4 +1,7 @@
-import type { HubspotField, HubspotForm } from '@cms/types/hubspotForm.type'
+import type {
+  HubspotField,
+  HubspotForm,
+} from '@cms/types/hubspotForm.type'
 import type { ZodSchema } from 'zod'
 import {
   z,
@@ -6,7 +9,7 @@ import {
   ZodString,
 } from 'zod'
 
-export function getFieldValidation(field: HubspotField) {
+export function getFieldValidation(field: HubspotField): z.ZodAny | z.ZodString {
   if (field.fieldType === 'single_line_text') {
     return z.string()
   }
@@ -27,9 +30,9 @@ export function getFieldValidation(field: HubspotField) {
 }
 
 export function setRequiredFields({
-  field,
-  zodShape,
-}: { field: HubspotField, zodShape: ZodAny | ZodString }) {
+  field, zodShape,
+}: { field: HubspotField
+  zodShape: ZodAny | ZodString }): z.ZodAny | z.ZodOptional<z.ZodAny> | z.ZodOptional<z.ZodString> | z.ZodString {
   if (field.required && zodShape instanceof ZodString) {
     return zodShape.min(1)
   }

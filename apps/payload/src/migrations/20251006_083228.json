@@ -1,5 +1,5 @@
 {
-  "id": "2eba6fbb-8efc-416b-bcfc-603de14f54d8",
+  "id": "de1bdb2e-7d54-4531-bca1-eae84d49285a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -67,7 +67,8 @@
           "name": "cta_link_new_tab",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": false
         },
         "cta_link_url": {
           "name": "cta_link_url",
@@ -633,7 +634,8 @@
           "name": "cta_link_new_tab",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": false
         },
         "cta_link_url": {
           "name": "cta_link_url",
@@ -906,7 +908,8 @@
           "name": "cta_link_new_tab",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": false
         },
         "cta_link_url": {
           "name": "cta_link_url",
@@ -1835,7 +1838,8 @@
           "name": "cta_link_new_tab",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": false
         },
         "cta_link_url": {
           "name": "cta_link_url",
@@ -2602,7 +2606,8 @@
           "name": "cta_link_new_tab",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": false
         },
         "cta_link_url": {
           "name": "cta_link_url",
@@ -3196,7 +3201,8 @@
           "name": "cta_link_new_tab",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": false
         },
         "cta_link_url": {
           "name": "cta_link_url",
@@ -3483,7 +3489,8 @@
           "name": "cta_link_new_tab",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": false
         },
         "cta_link_url": {
           "name": "cta_link_url",
@@ -4461,7 +4468,8 @@
           "name": "cta_link_new_tab",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": false
         },
         "cta_link_url": {
           "name": "cta_link_url",

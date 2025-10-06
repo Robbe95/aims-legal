@@ -7,7 +7,10 @@ import { sortNavGroups } from '@payload/utils/payload/sortNavGroups.util'
 import { Logout } from '@payloadcms/ui'
 import { RenderServerComponent } from '@payloadcms/ui/elements/RenderServerComponent'
 import type { EntityToGroup } from '@payloadcms/ui/shared'
-import { EntityType, groupNavItems } from '@payloadcms/ui/shared'
+import {
+  EntityType,
+  groupNavItems,
+} from '@payloadcms/ui/shared'
 import type {
   SanitizedPermissions,
   ServerProps,
@@ -35,13 +38,17 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
     visibleEntities,
   } = props
 
-  if (!payload?.config) {
+  if (!payload?.config || user === undefined) {
     return null
   }
 
   const {
     admin: {
-      components: { afterNavLinks, beforeNavLinks, logout },
+      components: {
+        afterNavLinks,
+        beforeNavLinks,
+        logout,
+      },
     },
     collections,
     globals,
@@ -50,7 +57,9 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
   const groups = groupNavItems(
     [
       ...collections
-        .filter(({ slug }) => visibleEntities?.collections.includes(slug))
+        .filter(({
+          slug,
+        }) => visibleEntities?.collections.includes(slug))
         .map(
           (collection) =>
             ({
@@ -59,7 +68,9 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
             }) satisfies EntityToGroup,
         ),
       ...globals
-        .filter(({ slug }) => visibleEntities?.globals.includes(slug))
+        .filter(({
+          slug,
+        }) => visibleEntities?.globals.includes(slug))
         .map(
           (global) =>
             ({
@@ -74,8 +85,10 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
 
   const sortedGroups = sortNavGroups(groups)
 
-  // @ts-expect-error TODO fix this
-  const navPreferences = await getNavPrefs({ payload, user })
+  const navPreferences = await getNavPrefs({
+    payload,
+    user,
+  })
 
   const LogoutComponent = RenderServerComponent({
     Component: logout?.Button,
@@ -98,7 +111,14 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
         ${baseClass}__wrap
       `}
       >
-        <div style={{ alignItems: 'center', display: 'flex', justifyItems: 'center', marginBottom: '1.5rem', width: '100%' }}>
+        <div style={{
+          alignItems: 'center',
+          display: 'flex',
+          justifyItems: 'center',
+          marginBottom: '1.5rem',
+          width: '100%',
+        }}
+        >
           <Logo />
         </div>
         {RenderServerComponent({

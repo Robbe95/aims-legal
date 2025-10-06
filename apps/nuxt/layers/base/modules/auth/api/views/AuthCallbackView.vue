@@ -10,7 +10,7 @@ const localeRoute = useLocaleRoute()
 const routeQuery = useRoute()
 const toast = useVcToast()
 
-async function loginCallback() {
+async function loginCallback(): Promise<void> {
   const authorizationCode = routeQuery.query.code as string
 
   if (authorizationCode === undefined) {

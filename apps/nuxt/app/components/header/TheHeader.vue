@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { useVcDialog, VcButton } from '@wisemen/vue-core-components'
+import {
+  useVcDialog,
+  VcButton,
+} from '@wisemen/vue-core-components'
 
 import { NuxtLinkLocale } from '#components'
 import HeaderLogo from '~/components/header/HeaderLogo.vue'
 import TheLocaleSelector from '~/components/locale/TheLocaleSelector.vue'
 
-const { t } = useI18n()
+const {
+  t,
+} = useI18n()
 
 const settingsDialog = useVcDialog({
   component: () => import('~settings/dialog/SettingsDialog.vue'),
@@ -23,7 +28,7 @@ function onSettingsOpen(): void {
       <div class="container mx-auto px-4">
         <div
           class="
-            bg-primary-500 flex items-center justify-between
+            flex items-center justify-between
             lg:grid lg:grid-cols-3 lg:items-center lg:justify-center
           "
         >

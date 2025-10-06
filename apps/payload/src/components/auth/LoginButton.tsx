@@ -5,7 +5,10 @@ import { getEnv } from '@payload/env'
 import { getCookie } from 'cookies-next'
 import { setCookie } from 'cookies-next/client'
 import pkceChallenge from 'pkce-challenge'
-import React, { useEffect, useState } from 'react'
+import React, {
+  useEffect,
+  useState,
+} from 'react'
 
 async function getLoginUrl(): Promise<string> {
   const env = getEnv()

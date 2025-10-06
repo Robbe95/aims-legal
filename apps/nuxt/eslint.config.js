@@ -14,7 +14,13 @@ export default withNuxt(
   },
   {
     rules: {
+      'project-structure/independent-modules': 'off',
       'ts/explicit-function-return-type': 'off',
+    },
+    settings: {
+      'better-tailwindcss': {
+        entryPoint: 'layers/base/assets/styles/base.css',
+      },
     },
   },
 )

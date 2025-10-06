@@ -4,7 +4,9 @@ import type { HubspotForm } from '@cms/types/hubspotForm.type'
 import { useQuery } from '~base/composables/query/useQuery'
 import { getEnv } from '~base/utils/env/getEnv.utils'
 
-export function useHubspotFormQuery({ formId }: { formId: string }) {
+export function useHubspotFormQuery({
+  formId,
+}: { formId: string }) {
   const BASE_URL = getEnv().CMS_BASE_URL
 
   return useQuery({

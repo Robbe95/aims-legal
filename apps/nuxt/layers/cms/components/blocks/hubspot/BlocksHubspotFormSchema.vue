@@ -94,7 +94,6 @@ const form = useForm({
 
 <style>
 #privacy-text a {
-
-  text-decoration: underline
+  text-decoration: underline;
 }
 </style>

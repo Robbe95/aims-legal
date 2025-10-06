@@ -27,7 +27,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form'
   );
@@ -73,7 +73,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form'
   );
@@ -96,7 +96,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form'
   );
@@ -167,7 +167,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form'
   );
@@ -222,7 +222,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form',
   	"_uuid" varchar
@@ -272,7 +272,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form',
   	"_uuid" varchar
@@ -297,7 +297,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form',
   	"_uuid" varchar
@@ -375,7 +375,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form',
   	"_uuid" varchar

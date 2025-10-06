@@ -36,7 +36,11 @@ export const userCollection: CollectionConfig = {
   access: {
     delete: () => false,
     read: () => true,
-    update: ({ req: { user } }) => {
+    update: ({
+      req: {
+        user,
+      },
+    }) => {
       if (user == null) {
         return false
       }

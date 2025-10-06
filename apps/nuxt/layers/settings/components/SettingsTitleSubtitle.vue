@@ -8,12 +8,12 @@ const props = defineProps<{
 <template>
   <div class="mb-2 flex flex-col">
     <h2
-      class="text-primary font-medium"
+      class="font-medium text-primary"
     >
       {{ props.title }}
     </h2>
     <p
-      class="mt-sm text-secondary text-sm"
+      class="mt-sm text-sm text-secondary"
     >
       {{ props.subtitle }}
     </p>

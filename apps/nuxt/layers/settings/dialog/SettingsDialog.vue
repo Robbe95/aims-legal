@@ -21,7 +21,9 @@ import type { SettingKey } from '~settings/types/settingsKey.type'
 // import AppAsyncComponent from '@/components/app/async-component/AppAsyncComponent.vue'
 // import AppTextHighlight from '@/components/app/text-highlight/AppTextHighlight.vue'
 
-const { t } = useI18n()
+const {
+  t,
+} = useI18n()
 
 interface MenuItem<TKey> {
   title: string
@@ -69,14 +71,14 @@ function onMenuItemClick(key: SettingKey): void {
 
     <div
       class="
-        bg-tertiary py-xl gap-xl border-secondary px-2xl flex w-full
-        max-w-[16rem] shrink-0 flex-col overflow-y-auto border-r
+        flex w-full max-w-[16rem] shrink-0 flex-col gap-xl overflow-y-auto
+        border-r border-secondary bg-tertiary px-2xl py-xl
       "
     >
-      <div class="gap-xl flex flex-col">
+      <div class="flex flex-col gap-xl">
         <VisuallyHidden>
           <VcDialogTitle>
-            <h1 class="text-primary text-lg font-bold">
+            <h1 class="text-lg font-bold text-primary">
               {{ t('settings.title') }}
             </h1>
           </VcDialogTitle>
@@ -84,30 +86,30 @@ function onMenuItemClick(key: SettingKey): void {
       </div>
 
       <div
-        class="gap-lg flex flex-col"
+        class="flex flex-col gap-lg"
       >
-        <span class="text-tertiary text-xs font-semibold uppercase">{{ menuItems.title }}</span>
+        <span class="text-xs font-semibold text-tertiary uppercase">{{ menuItems.title }}</span>
 
         <div
           v-for="item in menuItems.items"
           :key="item.key"
         >
-          <div class="-mx-xs gap-sm flex flex-col">
+          <div class="-mx-xs flex flex-col gap-sm">
             <AppUnstyledButton
               class="
-                gap-lg p-xxs group flex w-full cursor-pointer items-center
-                rounded-lg transition-all
+                group flex w-full cursor-pointer items-center gap-lg rounded-lg
+                p-xxs transition-all
               "
               @click="onMenuItemClick(item.key)"
             >
               <span
                 :class="{
-                  'bg-brand-solid border-brand text-primary-on-brand': isActive(item.key),
-                  'bg-primary border-primary text-primary': !isActive(item.key),
+                  'border-brand bg-brand-solid text-primary-on-brand': isActive(item.key),
+                  'border-primary bg-primary text-primary': !isActive(item.key),
                 }"
                 class="
+                  flex items-center justify-center rounded-lg border p-md
                   group-hover:border-brand
-                  p-md flex items-center justify-center rounded-lg border
                 "
               >
                 <VcIcon
@@ -121,8 +123,8 @@ function onMenuItemClick(key: SettingKey): void {
                   'text-tertiary': !isActive(item.key),
                 }"
                 class="
-                  group-hover:text-primary
                   text-sm font-medium
+                  group-hover:text-primary
                 "
               >
                 {{ item.title }}
@@ -132,7 +134,7 @@ function onMenuItemClick(key: SettingKey): void {
         </div>
       </div>
     </div>
-    <div class="gap-2xl p-2xl flex w-full flex-col">
+    <div class="flex w-full flex-col gap-2xl p-2xl">
       <SettingsAccounts v-if="isActive('account')" />
       <SettingsAppearance v-else-if="isActive('appearance')" />
     </div>
@@ -140,10 +142,12 @@ function onMenuItemClick(key: SettingKey): void {
 </template>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.1s;
 }
-.fade-enter-from, .fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { VcIcon, VcSpinner } from '@wisemen/vue-core-components'
+import {
+  VcIcon,
+  VcSpinner,
+} from '@wisemen/vue-core-components'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
@@ -8,7 +11,9 @@ const props = defineProps<{
   autoSaveErrorMessage: string | null
 }>()
 
-const { t } = useI18n()
+const {
+  t,
+} = useI18n()
 </script>
 
 <template>
@@ -32,8 +37,8 @@ const { t } = useI18n()
             <VcIcon
               icon="alertCircle"
               class="
-                text-fg-error-primary absolute top-1/2 left-1/2 size-3.5
-                -translate-x-1/2 -translate-y-1/2
+                absolute top-1/2 left-1/2 size-3.5 -translate-x-1/2
+                -translate-y-1/2 text-fg-error-primary
               "
             />
           </div>
@@ -45,8 +50,8 @@ const { t } = useI18n()
             <VcIcon
               icon="check"
               class="
-                text-fg-success-primary absolute top-1/2 left-1/2 size-3.5
-                -translate-x-1/2 -translate-y-1/2
+                absolute top-1/2 left-1/2 size-3.5 -translate-x-1/2
+                -translate-y-1/2 text-fg-success-primary
               "
             />
           </div>
@@ -62,7 +67,7 @@ const { t } = useI18n()
         >
           <span
             :key="`${props.isAutoSaving}${props.hasUnsavedChanges}`"
-            class="text-secondary inline-block text-xs whitespace-nowrap"
+            class="inline-block text-xs whitespace-nowrap text-secondary"
           >
             <template v-if="props.isAutoSaving">
               {{ t('base.shared.saving_changes') }}

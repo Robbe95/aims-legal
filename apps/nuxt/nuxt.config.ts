@@ -19,19 +19,34 @@ export default defineNuxtConfig({
     head: {
       title: 'Nuxt Project Template',
       link: [
-        { href: '/favicon.ico', rel: 'icon', type: 'image/ico' },
+        {
+          href: '/favicon.ico',
+          rel: 'icon',
+          type: 'image/ico',
+        },
       ],
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { id: 'description', name: 'description', content: '' },
+        {
+          charset: 'utf-8',
+        },
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1',
+        },
+        {
+          id: 'description',
+          name: 'description',
+          content: '',
+        },
       ],
     },
   },
 
   components: [],
 
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+  },
 
   eslint: {
     config: {
@@ -56,9 +71,24 @@ export default defineNuxtConfig({
     },
     langDir: 'locales',
     locales: [
-      { iso: 'en-US', code: 'en', file: 'en.json', language: 'en-US' },
-      { iso: 'nl-BE', code: 'nl', file: 'nl.json', language: 'nl-BE' },
-      { iso: 'fr-FR', code: 'fr', file: 'fr.json', language: 'fr-FR' },
+      {
+        iso: 'en-US',
+        code: 'en',
+        file: 'en.json',
+        language: 'en-US',
+      },
+      {
+        iso: 'nl-BE',
+        code: 'nl',
+        file: 'nl.json',
+        language: 'nl-BE',
+      },
+      {
+        iso: 'fr-FR',
+        code: 'fr',
+        file: 'fr.json',
+        language: 'fr-FR',
+      },
     ],
     strategy: 'prefix',
   },
