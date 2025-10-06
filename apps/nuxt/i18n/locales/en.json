@@ -178,5 +178,6 @@
   "settings.interface_theme.system_preference": "System preference",
   "settings.title": "Settings",
   "shared.base.saving_failed": "Saving failed",
-  "shared.base.unsaved_changes": "Has unsaved changes"
+  "shared.base.unsaved_changes": "Has unsaved changes",
+  "shared.loading": "Loading"
 }

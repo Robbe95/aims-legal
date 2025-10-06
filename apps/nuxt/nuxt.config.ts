@@ -1,4 +1,3 @@
-/* eslint-disable node/prefer-global/process */
 import path from 'node:path'
 
 export default defineNuxtConfig({
@@ -55,12 +54,8 @@ export default defineNuxtConfig({
     typedPages: true,
   },
 
-  future: {
-    compatibilityVersion: 4,
-  },
-
   i18n: {
-    baseUrl: process.env.NUXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
+    baseUrl: '',
     defaultLocale: 'nl',
     experimental: {
       typedOptionsAndMessages: 'default',

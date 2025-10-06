@@ -178,5 +178,6 @@
   "settings.interface_theme.system_preference": "Préférence du système",
   "settings.title": "Paramètres",
   "shared.base.saving_failed": "L'épargne a échoué",
-  "shared.base.unsaved_changes": "A des changements non sauvés"
+  "shared.base.unsaved_changes": "A des changements non sauvés",
+  "shared.loading": "Chargement"
 }
