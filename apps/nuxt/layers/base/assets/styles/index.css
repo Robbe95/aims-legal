@@ -1,0 +1,7 @@
+/* Do not change the order of imports or styling might break. */
+@import './themes/default.css';
+@import 'tailwindcss';
+@source '../../../node_modules/@wisemen';
+@import './core/colors.css';
+@import './core/tokens.css';
+@import './application.css';

@@ -24,7 +24,7 @@ function onSettingsOpen(): void {
 
 <template>
   <header class="sticky top-0 z-20 w-full">
-    <div class="bg-black to-transparent py-6">
+    <div class="bg-primary to-transparent py-6">
       <div class="container mx-auto px-4">
         <div
           class="

@@ -25,4 +25,5 @@
   ],
   "eslint.runtime": "node",
   "typescript.tsdk": "node_modules/typescript/lib",
+  "css.customData": [".vscode/tailwind.json"],
 }

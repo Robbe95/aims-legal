@@ -12,9 +12,7 @@ export default defineNuxtConfig({
     '~root': path.resolve(__dirname, './'),
     '~settings': path.resolve(__dirname, './layers/settings'),
     '~~': path.resolve(__dirname, './disable'),
-
   },
-
   app: {
     head: {
       title: 'Nuxt Project Template',
@@ -41,7 +39,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-
   components: [],
 
   devtools: {
@@ -96,10 +93,10 @@ export default defineNuxtConfig({
   imports: {
     scan: false,
   },
+
   modules: [
     '@nuxt/eslint',
   ],
-
   nitro: {
     compressPublicAssets: {
       brotli: true,
@@ -107,5 +104,9 @@ export default defineNuxtConfig({
     prerender: {
       failOnError: false,
     },
+  },
+
+  typescript: {
+    includeWorkspace: true,
   },
 })

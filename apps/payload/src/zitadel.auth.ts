@@ -52,23 +52,23 @@ export const zitadalStrategy: AuthStrategy = {
           limit: 1,
         })
 
-        const existingTenants = await payload.find({
-          collection: 'tenants',
-          limit: 1,
-        })
+        // const existingTenants = await payload.find({
+        //   collection: 'tenants',
+        //   limit: 1,
+        // })
 
-        let existingTenant = existingTenants.docs[0]
+        // let existingTenant = existingTenants.docs[0]
         const isFirstUser = existingUsers.docs.length === 0
-        const isFirstTenant = existingTenant == null
+        // const isFirstTenant = existingTenant == null
 
-        if (isFirstTenant) {
-          existingTenant = await payload.create({
-            collection: 'tenants',
-            data: {
-              title: 'Global',
-            },
-          })
-        }
+        // if (isFirstTenant) {
+        //   existingTenant = await payload.create({
+        //     collection: 'tenants',
+        //     data: {
+        //       title: 'Global',
+        //     },
+        //   })
+        // }
 
         const createdUser = await payload.create({
           collection: 'users',
@@ -76,14 +76,14 @@ export const zitadalStrategy: AuthStrategy = {
             darkMode: 'light',
             email: userEmail,
             role: isFirstUser ? 'super-admin' : 'user',
-            tenants: [
-              {
-                roles: [
-                  'tenant-admin',
-                ],
-                tenant: existingTenant.id,
-              },
-            ],
+            // tenants: [
+            //   {
+            //     roles: [
+            //       'tenant-admin',
+            //     ],
+            //     tenant: existingTenant.id,
+            //   },
+            // ],
           },
         })
 

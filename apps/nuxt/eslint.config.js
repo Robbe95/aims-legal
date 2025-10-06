@@ -19,7 +19,7 @@ export default withNuxt(
     },
     settings: {
       'better-tailwindcss': {
-        entryPoint: 'layers/base/assets/styles/base.css',
+        entryPoint: 'layers/base/assets/styles/index.css',
       },
     },
   },
