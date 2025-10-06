@@ -7,7 +7,7 @@ import { useGlobalI18n } from '~base/composables/i18n/useGlobaI18n'
 import { useAuthStore } from '~base/stores/auth.store'
 import { getEnv } from '~base/utils/env/getEnv.utils'
 
-async function handleAuth(headers: Record<string, string>) {
+async function handleAuth(headers: Record<string, string>): Promise<Record<string, string>> {
   const authStore = useAuthStore()
   const oAuthClient = useNuxtApp().$oAuthClient
 
@@ -28,11 +28,15 @@ async function handleAuth(headers: Record<string, string>) {
 }
 
 export function useOrpc() {
-  const { CMS_BASE_URL } = getEnv()
-  const { locale } = useGlobalI18n()
+  const {
+    CMS_BASE_URL,
+  } = getEnv()
+  const {
+    locale,
+  } = useGlobalI18n()
 
   const link = new RPCLink({
-    async headers() {
+    async headers(): Promise<Record<string, string>> {
       let headers: Record<string, string> = {}
 
       headers['Accept-Language'] = locale.value

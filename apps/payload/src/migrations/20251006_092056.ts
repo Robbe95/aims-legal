@@ -10,7 +10,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_pages_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__pages_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__pages_v_published_locale" AS ENUM('en', 'nl', 'fr');
-  CREATE TYPE "public"."enum_users_tenants_roles" AS ENUM('tenant-admin', 'tenant-viewer');
   CREATE TYPE "public"."enum_users_dark_mode" AS ENUM('dark', 'light', 'system');
   CREATE TYPE "public"."enum_user_role" AS ENUM('super-admin', 'user', 'admin', 'editor');
   CREATE TYPE "public"."enum_addresses_type" AS ENUM('billing', 'shipping');
@@ -27,7 +26,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form'
   );
@@ -73,7 +72,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form'
   );
@@ -96,7 +95,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form'
   );
@@ -125,16 +124,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_path" text NOT NULL,
   	"_locale" "_locales" NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"block_name" varchar
-  );
-  
-  CREATE TABLE "pages_blocks_hubspot_form" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"_locale" "_locales" NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"hubspot_form_id" uuid,
   	"block_name" varchar
   );
   
@@ -167,7 +156,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form'
   );
@@ -181,6 +170,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"text" varchar,
   	"icon_id" uuid,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "pages_blocks_hubspot_form" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"hubspot_form_id" uuid,
   	"block_name" varchar
   );
   
@@ -222,7 +221,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form',
   	"_uuid" varchar
@@ -272,7 +271,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form',
   	"_uuid" varchar
@@ -297,7 +296,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form',
   	"_uuid" varchar
@@ -333,17 +332,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE "_pages_v_blocks_hubspot_form" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"_path" text NOT NULL,
-  	"_locale" "_locales" NOT NULL,
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"hubspot_form_id" uuid,
-  	"_uuid" varchar,
-  	"block_name" varchar
-  );
-  
   CREATE TABLE "_pages_v_blocks_image_text" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
@@ -375,7 +363,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"cta_cta_variant" "cta_variant" DEFAULT 'primary',
   	"cta_cta_type" "cta_type" DEFAULT 'link',
   	"cta_link_type" "link_type" DEFAULT 'reference',
-  	"cta_link_new_tab" boolean,
+  	"cta_link_new_tab" boolean DEFAULT false,
   	"cta_link_url" varchar,
   	"cta_event" "cta_event" DEFAULT 'some_form',
   	"_uuid" varchar
@@ -390,6 +378,17 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"text" varchar,
   	"icon_id" uuid,
+  	"_uuid" varchar,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "_pages_v_blocks_hubspot_form" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
+  	"_path" text NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"hubspot_form_id" uuid,
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -428,34 +427,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"locale" "_locales",
   	"pages_id" uuid,
   	"images_id" uuid
-  );
-  
-  CREATE TABLE "form_hubspot" (
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"form_id" varchar NOT NULL,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
-  );
-  
-  CREATE TABLE "form_hubspot_locales" (
-  	"title" varchar NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"_locale" "_locales" NOT NULL,
-  	"_parent_id" uuid NOT NULL
-  );
-  
-  CREATE TABLE "users_tenants_roles" (
-  	"order" integer NOT NULL,
-  	"parent_id" varchar NOT NULL,
-  	"value" "enum_users_tenants_roles",
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL
-  );
-  
-  CREATE TABLE "users_tenants" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" uuid NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"tenant_id" uuid NOT NULL
   );
   
   CREATE TABLE "users" (
@@ -563,22 +534,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"focal_y" numeric
   );
   
-  CREATE TABLE "tenants" (
-  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
-  );
-  
-  CREATE TABLE "tenants_locales" (
-  	"title" varchar NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"_locale" "_locales" NOT NULL,
-  	"_parent_id" uuid NOT NULL
-  );
-  
   CREATE TABLE "blogs" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"tenant_id" uuid,
   	"blog" jsonb NOT NULL,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
@@ -587,6 +544,20 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "blogs_locales" (
   	"title" varchar NOT NULL,
   	"slug" varchar NOT NULL,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
+  );
+  
+  CREATE TABLE "form_hubspot" (
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"form_id" varchar NOT NULL,
+  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
+  CREATE TABLE "form_hubspot_locales" (
+  	"title" varchar NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
   	"_parent_id" uuid NOT NULL
@@ -635,13 +606,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"parent_id" uuid NOT NULL,
   	"path" varchar NOT NULL,
   	"pages_id" uuid,
-  	"form_hubspot_id" uuid,
   	"users_id" uuid,
   	"addresses_id" uuid,
   	"images_id" uuid,
   	"icons_id" uuid,
-  	"tenants_id" uuid,
   	"blogs_id" uuid,
+  	"form_hubspot_id" uuid,
   	"payload_jobs_id" uuid
   );
   
@@ -697,13 +667,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "pages_blocks_column_text_cta" ADD CONSTRAINT "pages_blocks_column_text_cta_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_column_columns" ADD CONSTRAINT "pages_blocks_column_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_column"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_column" ADD CONSTRAINT "pages_blocks_column_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "pages_blocks_hubspot_form" ADD CONSTRAINT "pages_blocks_hubspot_form_hubspot_form_id_form_hubspot_id_fk" FOREIGN KEY ("hubspot_form_id") REFERENCES "public"."form_hubspot"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "pages_blocks_hubspot_form" ADD CONSTRAINT "pages_blocks_hubspot_form_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_image_text" ADD CONSTRAINT "pages_blocks_image_text_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_carousel" ADD CONSTRAINT "pages_blocks_carousel_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_banner_ctas" ADD CONSTRAINT "pages_blocks_banner_ctas_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_banner"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_banner" ADD CONSTRAINT "pages_blocks_banner_icon_id_icons_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."icons"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "pages_blocks_banner" ADD CONSTRAINT "pages_blocks_banner_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "pages_blocks_hubspot_form" ADD CONSTRAINT "pages_blocks_hubspot_form_hubspot_form_id_form_hubspot_id_fk" FOREIGN KEY ("hubspot_form_id") REFERENCES "public"."form_hubspot"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "pages_blocks_hubspot_form" ADD CONSTRAINT "pages_blocks_hubspot_form_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_locales" ADD CONSTRAINT "pages_locales_seo_image_id_images_id_fk" FOREIGN KEY ("seo_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "pages_locales" ADD CONSTRAINT "pages_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_rels" ADD CONSTRAINT "pages_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
@@ -720,39 +690,33 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "_pages_v_blocks_column_text_cta" ADD CONSTRAINT "_pages_v_blocks_column_text_cta_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_column_columns" ADD CONSTRAINT "_pages_v_blocks_column_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v_blocks_column"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_column" ADD CONSTRAINT "_pages_v_blocks_column_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "_pages_v_blocks_hubspot_form" ADD CONSTRAINT "_pages_v_blocks_hubspot_form_hubspot_form_id_form_hubspot_id_fk" FOREIGN KEY ("hubspot_form_id") REFERENCES "public"."form_hubspot"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "_pages_v_blocks_hubspot_form" ADD CONSTRAINT "_pages_v_blocks_hubspot_form_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_image_text" ADD CONSTRAINT "_pages_v_blocks_image_text_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_carousel" ADD CONSTRAINT "_pages_v_blocks_carousel_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_banner_ctas" ADD CONSTRAINT "_pages_v_blocks_banner_ctas_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v_blocks_banner"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_banner" ADD CONSTRAINT "_pages_v_blocks_banner_icon_id_icons_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."icons"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_pages_v_blocks_banner" ADD CONSTRAINT "_pages_v_blocks_banner_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "_pages_v_blocks_hubspot_form" ADD CONSTRAINT "_pages_v_blocks_hubspot_form_hubspot_form_id_form_hubspot_id_fk" FOREIGN KEY ("hubspot_form_id") REFERENCES "public"."form_hubspot"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "_pages_v_blocks_hubspot_form" ADD CONSTRAINT "_pages_v_blocks_hubspot_form_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v" ADD CONSTRAINT "_pages_v_parent_id_pages_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."pages"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_pages_v_locales" ADD CONSTRAINT "_pages_v_locales_version_seo_image_id_images_id_fk" FOREIGN KEY ("version_seo_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "_pages_v_locales" ADD CONSTRAINT "_pages_v_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_rels" ADD CONSTRAINT "_pages_v_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_rels" ADD CONSTRAINT "_pages_v_rels_pages_fk" FOREIGN KEY ("pages_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_pages_v_rels" ADD CONSTRAINT "_pages_v_rels_images_fk" FOREIGN KEY ("images_id") REFERENCES "public"."images"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "form_hubspot_locales" ADD CONSTRAINT "form_hubspot_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."form_hubspot"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "users_tenants_roles" ADD CONSTRAINT "users_tenants_roles_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."users_tenants"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "users_tenants" ADD CONSTRAINT "users_tenants_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "users_tenants" ADD CONSTRAINT "users_tenants_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "users_rels" ADD CONSTRAINT "users_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "users_rels" ADD CONSTRAINT "users_rels_addresses_fk" FOREIGN KEY ("addresses_id") REFERENCES "public"."addresses"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "addresses_type" ADD CONSTRAINT "addresses_type_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."addresses"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "tenants_locales" ADD CONSTRAINT "tenants_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."tenants"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "blogs" ADD CONSTRAINT "blogs_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "blogs_locales" ADD CONSTRAINT "blogs_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."blogs"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "form_hubspot_locales" ADD CONSTRAINT "form_hubspot_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."form_hubspot"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_jobs_log" ADD CONSTRAINT "payload_jobs_log_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."payload_jobs"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_locked_documents"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_pages_fk" FOREIGN KEY ("pages_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_form_hubspot_fk" FOREIGN KEY ("form_hubspot_id") REFERENCES "public"."form_hubspot"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_addresses_fk" FOREIGN KEY ("addresses_id") REFERENCES "public"."addresses"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_images_fk" FOREIGN KEY ("images_id") REFERENCES "public"."images"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_icons_fk" FOREIGN KEY ("icons_id") REFERENCES "public"."icons"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_tenants_fk" FOREIGN KEY ("tenants_id") REFERENCES "public"."tenants"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_blogs_fk" FOREIGN KEY ("blogs_id") REFERENCES "public"."blogs"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_form_hubspot_fk" FOREIGN KEY ("form_hubspot_id") REFERENCES "public"."form_hubspot"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_payload_jobs_fk" FOREIGN KEY ("payload_jobs_id") REFERENCES "public"."payload_jobs"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_preferences"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
@@ -794,11 +758,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "pages_blocks_column_parent_id_idx" ON "pages_blocks_column" USING btree ("_parent_id");
   CREATE INDEX "pages_blocks_column_path_idx" ON "pages_blocks_column" USING btree ("_path");
   CREATE INDEX "pages_blocks_column_locale_idx" ON "pages_blocks_column" USING btree ("_locale");
-  CREATE INDEX "pages_blocks_hubspot_form_order_idx" ON "pages_blocks_hubspot_form" USING btree ("_order");
-  CREATE INDEX "pages_blocks_hubspot_form_parent_id_idx" ON "pages_blocks_hubspot_form" USING btree ("_parent_id");
-  CREATE INDEX "pages_blocks_hubspot_form_path_idx" ON "pages_blocks_hubspot_form" USING btree ("_path");
-  CREATE INDEX "pages_blocks_hubspot_form_locale_idx" ON "pages_blocks_hubspot_form" USING btree ("_locale");
-  CREATE INDEX "pages_blocks_hubspot_form_hubspot_form_idx" ON "pages_blocks_hubspot_form" USING btree ("hubspot_form_id");
   CREATE INDEX "pages_blocks_image_text_order_idx" ON "pages_blocks_image_text" USING btree ("_order");
   CREATE INDEX "pages_blocks_image_text_parent_id_idx" ON "pages_blocks_image_text" USING btree ("_parent_id");
   CREATE INDEX "pages_blocks_image_text_path_idx" ON "pages_blocks_image_text" USING btree ("_path");
@@ -815,6 +774,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "pages_blocks_banner_path_idx" ON "pages_blocks_banner" USING btree ("_path");
   CREATE INDEX "pages_blocks_banner_locale_idx" ON "pages_blocks_banner" USING btree ("_locale");
   CREATE INDEX "pages_blocks_banner_icon_idx" ON "pages_blocks_banner" USING btree ("icon_id");
+  CREATE INDEX "pages_blocks_hubspot_form_order_idx" ON "pages_blocks_hubspot_form" USING btree ("_order");
+  CREATE INDEX "pages_blocks_hubspot_form_parent_id_idx" ON "pages_blocks_hubspot_form" USING btree ("_parent_id");
+  CREATE INDEX "pages_blocks_hubspot_form_path_idx" ON "pages_blocks_hubspot_form" USING btree ("_path");
+  CREATE INDEX "pages_blocks_hubspot_form_locale_idx" ON "pages_blocks_hubspot_form" USING btree ("_locale");
+  CREATE INDEX "pages_blocks_hubspot_form_hubspot_form_idx" ON "pages_blocks_hubspot_form" USING btree ("hubspot_form_id");
   CREATE INDEX "pages_updated_at_idx" ON "pages" USING btree ("updated_at");
   CREATE INDEX "pages_created_at_idx" ON "pages" USING btree ("created_at");
   CREATE INDEX "pages__status_idx" ON "pages" USING btree ("_status");
@@ -863,11 +827,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_pages_v_blocks_column_parent_id_idx" ON "_pages_v_blocks_column" USING btree ("_parent_id");
   CREATE INDEX "_pages_v_blocks_column_path_idx" ON "_pages_v_blocks_column" USING btree ("_path");
   CREATE INDEX "_pages_v_blocks_column_locale_idx" ON "_pages_v_blocks_column" USING btree ("_locale");
-  CREATE INDEX "_pages_v_blocks_hubspot_form_order_idx" ON "_pages_v_blocks_hubspot_form" USING btree ("_order");
-  CREATE INDEX "_pages_v_blocks_hubspot_form_parent_id_idx" ON "_pages_v_blocks_hubspot_form" USING btree ("_parent_id");
-  CREATE INDEX "_pages_v_blocks_hubspot_form_path_idx" ON "_pages_v_blocks_hubspot_form" USING btree ("_path");
-  CREATE INDEX "_pages_v_blocks_hubspot_form_locale_idx" ON "_pages_v_blocks_hubspot_form" USING btree ("_locale");
-  CREATE INDEX "_pages_v_blocks_hubspot_form_hubspot_form_idx" ON "_pages_v_blocks_hubspot_form" USING btree ("hubspot_form_id");
   CREATE INDEX "_pages_v_blocks_image_text_order_idx" ON "_pages_v_blocks_image_text" USING btree ("_order");
   CREATE INDEX "_pages_v_blocks_image_text_parent_id_idx" ON "_pages_v_blocks_image_text" USING btree ("_parent_id");
   CREATE INDEX "_pages_v_blocks_image_text_path_idx" ON "_pages_v_blocks_image_text" USING btree ("_path");
@@ -884,6 +843,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_pages_v_blocks_banner_path_idx" ON "_pages_v_blocks_banner" USING btree ("_path");
   CREATE INDEX "_pages_v_blocks_banner_locale_idx" ON "_pages_v_blocks_banner" USING btree ("_locale");
   CREATE INDEX "_pages_v_blocks_banner_icon_idx" ON "_pages_v_blocks_banner" USING btree ("icon_id");
+  CREATE INDEX "_pages_v_blocks_hubspot_form_order_idx" ON "_pages_v_blocks_hubspot_form" USING btree ("_order");
+  CREATE INDEX "_pages_v_blocks_hubspot_form_parent_id_idx" ON "_pages_v_blocks_hubspot_form" USING btree ("_parent_id");
+  CREATE INDEX "_pages_v_blocks_hubspot_form_path_idx" ON "_pages_v_blocks_hubspot_form" USING btree ("_path");
+  CREATE INDEX "_pages_v_blocks_hubspot_form_locale_idx" ON "_pages_v_blocks_hubspot_form" USING btree ("_locale");
+  CREATE INDEX "_pages_v_blocks_hubspot_form_hubspot_form_idx" ON "_pages_v_blocks_hubspot_form" USING btree ("hubspot_form_id");
   CREATE INDEX "_pages_v_parent_idx" ON "_pages_v" USING btree ("parent_id");
   CREATE INDEX "_pages_v_version_version_updated_at_idx" ON "_pages_v" USING btree ("version_updated_at");
   CREATE INDEX "_pages_v_version_version_created_at_idx" ON "_pages_v" USING btree ("version_created_at");
@@ -903,14 +867,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_pages_v_rels_locale_idx" ON "_pages_v_rels" USING btree ("locale");
   CREATE INDEX "_pages_v_rels_pages_id_idx" ON "_pages_v_rels" USING btree ("pages_id","locale");
   CREATE INDEX "_pages_v_rels_images_id_idx" ON "_pages_v_rels" USING btree ("images_id","locale");
-  CREATE INDEX "form_hubspot_updated_at_idx" ON "form_hubspot" USING btree ("updated_at");
-  CREATE INDEX "form_hubspot_created_at_idx" ON "form_hubspot" USING btree ("created_at");
-  CREATE UNIQUE INDEX "form_hubspot_locales_locale_parent_id_unique" ON "form_hubspot_locales" USING btree ("_locale","_parent_id");
-  CREATE INDEX "users_tenants_roles_order_idx" ON "users_tenants_roles" USING btree ("order");
-  CREATE INDEX "users_tenants_roles_parent_idx" ON "users_tenants_roles" USING btree ("parent_id");
-  CREATE INDEX "users_tenants_order_idx" ON "users_tenants" USING btree ("_order");
-  CREATE INDEX "users_tenants_parent_id_idx" ON "users_tenants" USING btree ("_parent_id");
-  CREATE INDEX "users_tenants_tenant_idx" ON "users_tenants" USING btree ("tenant_id");
   CREATE INDEX "users_updated_at_idx" ON "users" USING btree ("updated_at");
   CREATE INDEX "users_created_at_idx" ON "users" USING btree ("created_at");
   CREATE INDEX "users_rels_order_idx" ON "users_rels" USING btree ("order");
@@ -932,13 +888,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "icons_updated_at_idx" ON "icons" USING btree ("updated_at");
   CREATE INDEX "icons_created_at_idx" ON "icons" USING btree ("created_at");
   CREATE UNIQUE INDEX "icons_filename_idx" ON "icons" USING btree ("filename");
-  CREATE INDEX "tenants_updated_at_idx" ON "tenants" USING btree ("updated_at");
-  CREATE INDEX "tenants_created_at_idx" ON "tenants" USING btree ("created_at");
-  CREATE UNIQUE INDEX "tenants_locales_locale_parent_id_unique" ON "tenants_locales" USING btree ("_locale","_parent_id");
-  CREATE INDEX "blogs_tenant_idx" ON "blogs" USING btree ("tenant_id");
   CREATE INDEX "blogs_updated_at_idx" ON "blogs" USING btree ("updated_at");
   CREATE INDEX "blogs_created_at_idx" ON "blogs" USING btree ("created_at");
   CREATE UNIQUE INDEX "blogs_locales_locale_parent_id_unique" ON "blogs_locales" USING btree ("_locale","_parent_id");
+  CREATE INDEX "form_hubspot_updated_at_idx" ON "form_hubspot" USING btree ("updated_at");
+  CREATE INDEX "form_hubspot_created_at_idx" ON "form_hubspot" USING btree ("created_at");
+  CREATE UNIQUE INDEX "form_hubspot_locales_locale_parent_id_unique" ON "form_hubspot_locales" USING btree ("_locale","_parent_id");
   CREATE INDEX "payload_jobs_log_order_idx" ON "payload_jobs_log" USING btree ("_order");
   CREATE INDEX "payload_jobs_log_parent_id_idx" ON "payload_jobs_log" USING btree ("_parent_id");
   CREATE INDEX "payload_jobs_completed_at_idx" ON "payload_jobs" USING btree ("completed_at");
@@ -958,13 +913,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_locked_documents_rels_parent_idx" ON "payload_locked_documents_rels" USING btree ("parent_id");
   CREATE INDEX "payload_locked_documents_rels_path_idx" ON "payload_locked_documents_rels" USING btree ("path");
   CREATE INDEX "payload_locked_documents_rels_pages_id_idx" ON "payload_locked_documents_rels" USING btree ("pages_id");
-  CREATE INDEX "payload_locked_documents_rels_form_hubspot_id_idx" ON "payload_locked_documents_rels" USING btree ("form_hubspot_id");
   CREATE INDEX "payload_locked_documents_rels_users_id_idx" ON "payload_locked_documents_rels" USING btree ("users_id");
   CREATE INDEX "payload_locked_documents_rels_addresses_id_idx" ON "payload_locked_documents_rels" USING btree ("addresses_id");
   CREATE INDEX "payload_locked_documents_rels_images_id_idx" ON "payload_locked_documents_rels" USING btree ("images_id");
   CREATE INDEX "payload_locked_documents_rels_icons_id_idx" ON "payload_locked_documents_rels" USING btree ("icons_id");
-  CREATE INDEX "payload_locked_documents_rels_tenants_id_idx" ON "payload_locked_documents_rels" USING btree ("tenants_id");
   CREATE INDEX "payload_locked_documents_rels_blogs_id_idx" ON "payload_locked_documents_rels" USING btree ("blogs_id");
+  CREATE INDEX "payload_locked_documents_rels_form_hubspot_id_idx" ON "payload_locked_documents_rels" USING btree ("form_hubspot_id");
   CREATE INDEX "payload_locked_documents_rels_payload_jobs_id_idx" ON "payload_locked_documents_rels" USING btree ("payload_jobs_id");
   CREATE INDEX "payload_preferences_key_idx" ON "payload_preferences" USING btree ("key");
   CREATE INDEX "payload_preferences_updated_at_idx" ON "payload_preferences" USING btree ("updated_at");
@@ -992,11 +946,11 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "pages_blocks_column_text_cta" CASCADE;
   DROP TABLE "pages_blocks_column_columns" CASCADE;
   DROP TABLE "pages_blocks_column" CASCADE;
-  DROP TABLE "pages_blocks_hubspot_form" CASCADE;
   DROP TABLE "pages_blocks_image_text" CASCADE;
   DROP TABLE "pages_blocks_carousel" CASCADE;
   DROP TABLE "pages_blocks_banner_ctas" CASCADE;
   DROP TABLE "pages_blocks_banner" CASCADE;
+  DROP TABLE "pages_blocks_hubspot_form" CASCADE;
   DROP TABLE "pages" CASCADE;
   DROP TABLE "pages_locales" CASCADE;
   DROP TABLE "pages_rels" CASCADE;
@@ -1010,28 +964,24 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "_pages_v_blocks_column_text_cta" CASCADE;
   DROP TABLE "_pages_v_blocks_column_columns" CASCADE;
   DROP TABLE "_pages_v_blocks_column" CASCADE;
-  DROP TABLE "_pages_v_blocks_hubspot_form" CASCADE;
   DROP TABLE "_pages_v_blocks_image_text" CASCADE;
   DROP TABLE "_pages_v_blocks_carousel" CASCADE;
   DROP TABLE "_pages_v_blocks_banner_ctas" CASCADE;
   DROP TABLE "_pages_v_blocks_banner" CASCADE;
+  DROP TABLE "_pages_v_blocks_hubspot_form" CASCADE;
   DROP TABLE "_pages_v" CASCADE;
   DROP TABLE "_pages_v_locales" CASCADE;
   DROP TABLE "_pages_v_rels" CASCADE;
-  DROP TABLE "form_hubspot" CASCADE;
-  DROP TABLE "form_hubspot_locales" CASCADE;
-  DROP TABLE "users_tenants_roles" CASCADE;
-  DROP TABLE "users_tenants" CASCADE;
   DROP TABLE "users" CASCADE;
   DROP TABLE "users_rels" CASCADE;
   DROP TABLE "addresses_type" CASCADE;
   DROP TABLE "addresses" CASCADE;
   DROP TABLE "images" CASCADE;
   DROP TABLE "icons" CASCADE;
-  DROP TABLE "tenants" CASCADE;
-  DROP TABLE "tenants_locales" CASCADE;
   DROP TABLE "blogs" CASCADE;
   DROP TABLE "blogs_locales" CASCADE;
+  DROP TABLE "form_hubspot" CASCADE;
+  DROP TABLE "form_hubspot_locales" CASCADE;
   DROP TABLE "payload_jobs_log" CASCADE;
   DROP TABLE "payload_jobs" CASCADE;
   DROP TABLE "payload_locked_documents" CASCADE;
@@ -1049,7 +999,6 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum_pages_status";
   DROP TYPE "public"."enum__pages_v_version_status";
   DROP TYPE "public"."enum__pages_v_published_locale";
-  DROP TYPE "public"."enum_users_tenants_roles";
   DROP TYPE "public"."enum_users_dark_mode";
   DROP TYPE "public"."enum_user_role";
   DROP TYPE "public"."enum_addresses_type";

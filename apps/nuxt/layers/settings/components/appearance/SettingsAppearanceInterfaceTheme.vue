@@ -19,7 +19,9 @@ interface ThemeOption {
   value: ThemeValue
 }
 
-const { t } = useI18n()
+const {
+  t,
+} = useI18n()
 const theme = useTheme()
 const darkMode = useDarkMode()
 
@@ -57,7 +59,7 @@ const value = computed<'dark' | 'light' | 'system'>({
     >
       <div
         class="
-          gap-lg grid w-full
+          grid w-full gap-lg
           lg:grid-cols-3
         "
       >
@@ -74,11 +76,11 @@ const value = computed<'dark' | 'light' | 'system'>({
           >
             <div
               class="
-                bg-tertiary ring-brand-primary-500 relative h-40 w-full
-                overflow-hidden rounded-xl border-2 border-solid
-                border-transparent ring-offset-1 duration-200
-                group-data-[state=checked]:border-brand
+                relative h-40 w-full overflow-hidden rounded-xl border-2
+                border-solid border-transparent bg-tertiary ring-brand-500
+                ring-offset-1 duration-200
                 group-focus-visible:ring-2
+                group-data-[state=checked]:border-brand
               "
             >
               <SettingsAppearanceOverviewMiniDashboard
@@ -87,7 +89,7 @@ const value = computed<'dark' | 'light' | 'system'>({
             </div>
           </AppThemeProvider>
 
-          <span class="mt-md text-primary block text-sm">
+          <span class="mt-md block text-sm text-primary">
             {{ item.label }}
           </span>
         </VcRadioGroupItem>

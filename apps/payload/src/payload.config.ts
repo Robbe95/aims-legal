@@ -50,14 +50,17 @@ export default buildConfig({
   db: postgresAdapter({
     idType: 'uuid',
     prodMigrations: migrations,
-    push: true,
+    push: false,
     pool: {
       connectionString: process.env.POSTGRES_URI ?? '',
     },
   }),
   editor: lexicalEditor(),
   i18n: {
-    supportedLanguages: { en, nl },
+    supportedLanguages: {
+      en,
+      nl,
+    },
   },
   localization: {
     defaultLocale: 'nl',
@@ -76,14 +79,9 @@ export default buildConfig({
     deleteJobOnComplete: false,
   },
   secret: process.env.PAYLOAD_SECRET ?? '',
-
   sharp,
   typescript: {
     autoGenerate: true,
     outputFile: path.resolve(`${dirname}/../../../packages/payload-types/src`, 'payload-types.d.ts'),
   },
-  async onInit() {
-
-  },
-
 })

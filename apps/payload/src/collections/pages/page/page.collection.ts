@@ -18,7 +18,9 @@ export const pageCollection: CollectionConfig = {
       'slug',
     ],
     livePreview: {
-      url: ({ data }) => {
+      url: ({
+        data,
+      }) => {
         return `http://localhost:3000/${data.slug}`
       },
     },

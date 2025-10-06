@@ -25,7 +25,6 @@ export const navSorting: Record<string, (CollectionSlug | GlobalSlug)[]> = {
   ],
   settings: [
     'settings',
-    'tenants',
   ],
 }
 

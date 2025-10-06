@@ -26,12 +26,15 @@ const form = useForm({
    */
 
     const reformedData: Record<string, any> = {}
+    const typedData = data as Record<string, Record<string, any>>
 
-    for (const groupName of Object.keys(data)) {
-      const group = data[groupName]
+    for (const groupName of Object.keys(typedData)) {
+      const group = typedData[groupName]
 
-      for (const fieldName of Object.keys(group)) {
-        reformedData[fieldName] = group[fieldName]
+      if (group) {
+        for (const fieldName of Object.keys(group)) {
+          reformedData[fieldName] = group[fieldName]
+        }
       }
     }
 
@@ -94,7 +97,6 @@ const form = useForm({
 
 <style>
 #privacy-text a {
-
-  text-decoration: underline
+  text-decoration: underline;
 }
 </style>

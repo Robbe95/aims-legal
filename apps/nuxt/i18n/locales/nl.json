@@ -167,10 +167,10 @@
   "base.shared.never_saved": "Niet opgeslagen",
   "base.shared.save_error": "Er ging iets mis met het opslaan van de informatie",
   "base.shared.saving_changes": "Wijzigingen opslaan",
-  "settings.account": "Rekening",
+  "settings.account.label": "Rekening",
   "settings.account.personal_info.subtitle": "Bewerk uw persoonlijke info",
   "settings.account.personal_info.title": "Persoonlijke info",
-  "settings.appearance": "Verschijning",
+  "settings.appearance.label": "Verschijning",
   "settings.appearance.interface_theme.description": "Selecteer of pas uw UI -thema aan",
   "settings.appearance.interface_theme.title": "Interfacethema",
   "settings.general_settings": "Algemene instellingen",
@@ -178,5 +178,6 @@
   "settings.interface_theme.light": "Licht",
   "settings.interface_theme.system_preference": "Systeemvoorkeur",
   "shared.base.saving_failed": "Opslaan mislukt",
-  "shared.base.unsaved_changes": "Heeft niet -geredde veranderingen"
+  "shared.base.unsaved_changes": "Heeft niet -geredde veranderingen",
+  "shared.loading": "Bezig met laden"
 }

@@ -1,4 +1,3 @@
-/* eslint-disable check-file/folder-naming-convention */
 import { getPayload } from '@payload/utils/payload/getPayload.util'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
@@ -26,7 +25,9 @@ function convertValue(value: any | any[]): any {
   return value
 }
 
-async function getHubspotForm(request: NextRequest, { params }: { params: Promise<{ form: string }> }) {
+async function getHubspotForm(request: NextRequest, {
+  params,
+}: { params: Promise<{ form: string }> }) {
   const payload = await getPayload()
   const awaitedParams = await params
 
@@ -38,7 +39,11 @@ async function getHubspotForm(request: NextRequest, { params }: { params: Promis
   const hubspotPortalId = globalSettings.hubspot?.portalId
 
   if (hubspotAccessToken == null || hubspotPortalId == null) {
-    return NextResponse.json({ error: 'No Hubspot access token or portal ID found' }, { status: 400 })
+    return NextResponse.json({
+      error: 'No Hubspot access token or portal ID found',
+    }, {
+      status: 400,
+    })
   }
 
   const formResponse = await fetch(`https://api.hubapi.com/marketing/v3/forms/${awaitedParams.form}`, {
@@ -54,7 +59,9 @@ async function getHubspotForm(request: NextRequest, { params }: { params: Promis
   return NextResponse.json(jsonResponse)
 }
 
-async function postHubspotForm(request: NextRequest, { params }: { params: Promise<{ form: string }> }) {
+async function postHubspotForm(request: NextRequest, {
+  params,
+}: { params: Promise<{ form: string }> }) {
   const payload = await getPayload()
   const awaitedParams = await params
   const body = await request.json()
@@ -67,7 +74,11 @@ async function postHubspotForm(request: NextRequest, { params }: { params: Promi
   const hubspotPortalId = globalSettings.hubspot?.portalId
 
   if (hubspotAccessToken == null || hubspotPortalId == null) {
-    return NextResponse.json({ error: 'No Hubspot access token or portal ID found' }, { status: 400 })
+    return NextResponse.json({
+      error: 'No Hubspot access token or portal ID found',
+    }, {
+      status: 400,
+    })
   }
 
   /**
@@ -108,4 +119,6 @@ async function postHubspotForm(request: NextRequest, { params }: { params: Promi
   return NextResponse.json(jsonResponse)
 }
 
-export { getHubspotForm as GET, postHubspotForm as POST }
+export {
+  getHubspotForm as GET, postHubspotForm as POST,
+}

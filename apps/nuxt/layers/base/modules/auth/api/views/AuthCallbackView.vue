@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useVcToast } from '@wisemen/vue-core-components'
+import { useToast } from '@wisemen/vue-core-components'
 import { useI18n } from 'vue-i18n'
 
 import { useAuthStore } from '~base/stores/auth.store'
@@ -8,9 +8,9 @@ const i18n = useI18n()
 const authStore = useAuthStore()
 const localeRoute = useLocaleRoute()
 const routeQuery = useRoute()
-const toast = useVcToast()
+const toast = useToast()
 
-async function loginCallback() {
+async function loginCallback(): Promise<void> {
   const authorizationCode = routeQuery.query.code as string
 
   if (authorizationCode === undefined) {

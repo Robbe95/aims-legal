@@ -1,7 +1,7 @@
 {
-  "name": "nuxt-layer-template",
+  "name": "payload-nuxt-monorepo-template",
   "type": "module",
-  "packageManager": "pnpm@10.6.5",
+  "packageManager": "pnpm@10.18.0",
   "version": "0.0.0",
   "license": "MIT",
   "workspaces": [
@@ -24,11 +24,12 @@
   "pnpm": {
     "overrides": {
       "@intlify/eslint-plugin-vue-i18n>@intlify/core-base": "^10.0.4",
-      "@intlify/eslint-plugin-vue-i18n>@intlify/message-compiler": "^10.0.4"
+      "@intlify/eslint-plugin-vue-i18n>@intlify/message-compiler": "^10.0.4",
+      "esbuild": "0.25.10"
     }
   },
   "dependencies": {
-    "turbo": "2.5.5"
+    "turbo": "2.5.8"
   },
   "devDependencies": {
     "vitest": "catalog:test"

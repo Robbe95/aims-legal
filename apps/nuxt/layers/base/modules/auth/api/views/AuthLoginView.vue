@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { useVcToast, VcButton } from '@wisemen/vue-core-components'
+import {
+  useToast,
+  VcButton,
+} from '@wisemen/vue-core-components'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -8,10 +11,14 @@ import { useAuthStore } from '~base/stores/auth.store'
 
 const authStore = useAuthStore()
 
-const { lastLoggedInUser } = storeToRefs(authStore)
+const {
+  lastLoggedInUser,
+} = storeToRefs(authStore)
 
-const { t } = useI18n()
-const toast = useVcToast()
+const {
+  t,
+} = useI18n()
+const toast = useToast()
 const isZitadelLoading = ref<boolean>(false)
 
 const title = computed<string>(() => {

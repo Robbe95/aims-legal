@@ -12,7 +12,7 @@ defineProps<Props>()
 <template>
   <div
     v-if="block.blockType === 'hero'"
-    class="bg-brand-primary flex h-dvh flex-col items-center justify-center"
+    class="flex h-dvh flex-col items-center justify-center bg-brand-primary"
   >
     <div class="w-full flex-1 overflow-hidden">
       <CmsImage
@@ -22,7 +22,7 @@ defineProps<Props>()
       />
     </div>
 
-    <div class="bg-brand-primary text-brand-primary w-full py-12">
+    <div class="w-full bg-brand-primary py-12 text-brand-primary">
       <div class="container mx-auto flex flex-col px-4 py-1">
         <div
           class="
@@ -30,10 +30,10 @@ defineProps<Props>()
             lg:grid-cols-[0.6fr,0.4fr]
           "
         >
-          <span class="text-hero leading-[4.5rem]">
+          <span class="text-4xl leading-[4.5rem]">
             {{ block.title }}
           </span>
-          <span class="text-subtext">
+          <span class="text-md">
             {{ block.text }}
           </span>
         </div>

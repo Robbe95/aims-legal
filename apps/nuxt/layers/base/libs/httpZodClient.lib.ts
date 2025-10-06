@@ -47,7 +47,9 @@ interface DeleteOptions<T extends z.ZodType> {
 }
 
 export function createHttpZodClient(
-  { fetch, onZodError }: CreateHttpZodClientOptions,
+  {
+    fetch, onZodError,
+  }: CreateHttpZodClientOptions,
 ): CreateHttpZodClientReturnType {
   async function get<T extends z.ZodType>(options: GetOptions<T>): Promise<z.infer<T>> {
     const {
@@ -72,14 +74,14 @@ export function createHttpZodClient(
           url,
         })
 
-        return data
+        return data as z.output<T>
       }
 
       throw error
     }
   }
 
-  async function post<T extends z.ZodType>(options: PostOptions<T>) {
+  async function post<T extends z.ZodType>(options: PostOptions<T>): Promise<z.core.output<T>> {
     const {
       body,
       config,
@@ -104,14 +106,14 @@ export function createHttpZodClient(
           url,
         })
 
-        return data
+        return data as z.output<T>
       }
 
       throw error
     }
   }
 
-  async function put<T extends z.ZodType>(options: PutOptions<T>) {
+  async function put<T extends z.ZodType>(options: PutOptions<T>): Promise<z.core.output<T>> {
     const {
       body,
       config,
@@ -136,14 +138,14 @@ export function createHttpZodClient(
           url,
         })
 
-        return data
+        return data as z.output<T>
       }
 
       throw error
     }
   }
 
-  async function del<T extends z.ZodType>(options: DeleteOptions<T>) {
+  async function del<T extends z.ZodType>(options: DeleteOptions<T>): Promise<z.core.output<T>> {
     const {
       body,
       config,
@@ -158,7 +160,7 @@ export function createHttpZodClient(
     })
 
     if (responseSchema == null) {
-      return
+      return undefined as unknown as z.output<T>
     }
 
     try {
@@ -172,7 +174,7 @@ export function createHttpZodClient(
           url,
         })
 
-        return data
+        return data as z.output<T>
       }
 
       throw error

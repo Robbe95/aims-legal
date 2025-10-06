@@ -18,7 +18,9 @@ const hubspotFormId = computed<string>(() => {
 
   return props.block.hubspotForm.formId
 })
-const hubspotFormQuery = useHubspotFormQuery({ formId: hubspotFormId.value })
+const hubspotFormQuery = useHubspotFormQuery({
+  formId: hubspotFormId.value,
+})
 
 onServerPrefetch(async () => {
   await hubspotFormQuery.suspense()

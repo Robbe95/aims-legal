@@ -9,7 +9,9 @@ import { toFormField } from '~base/utils/form/toFormField.util'
 import { useUpdateCurrentUserMutation } from '~settings/api/update-current-user/mutations/useUpdateCurrentUser.mutation'
 import SettingsTitleSubtitle from '~settings/components/SettingsTitleSubtitle.vue'
 
-const { t } = useI18n()
+const {
+  t,
+} = useI18n()
 const authStore = useAuthStore()
 const updateCurrentUserMutation = useUpdateCurrentUserMutation()
 const form = useForm({
@@ -32,7 +34,9 @@ debouncedWatch(() => [
   lastName.value.value,
 ], () => {
   form.submit()
-}, { debounce: 500 })
+}, {
+  debounce: 500,
+})
 
 const errorMessage = computed<string | null>(() => {
   if (updateCurrentUserMutation.isError.value) {

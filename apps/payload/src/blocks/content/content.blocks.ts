@@ -10,8 +10,8 @@ export const contentBlocks = [
   contentHeroBlock,
   contentTextBlock,
   contentColumnBlock,
-  contentHubspotFormBlock,
   contentImageTextBlock,
   contentCarouselBlock,
   contentBannerBlock,
+  contentHubspotFormBlock,
 ]

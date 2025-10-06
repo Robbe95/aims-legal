@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import TheFooter from '~/components/footer/TheFooter.vue'
 import TheHeader from '~/components/header/TheHeader.vue'
 </script>
 
 <template>
-  <div>
-    <div class="flex min-h-screen flex-col">
-      <TheHeader />
-      <div class="flex w-full flex-1 flex-col items-center justify-center">
-        <slot />
-      </div>
+  <div class="flex flex-col">
+    <TheHeader />
+    <div class="flex w-full flex-1 flex-col items-center justify-center">
+      <slot />
     </div>
+    <TheFooter />
   </div>
 </template>

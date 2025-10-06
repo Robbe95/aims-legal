@@ -6,10 +6,10 @@ import {
 import { zitadalStrategy } from '@payload/zitadel.auth'
 import { tenantsArrayField } from '@payloadcms/plugin-multi-tenant/fields'
 import { isAdmin } from '@repo/utils'
-// import { zitadalStrategy } from '@payload/zitadel.auth'
 import type { CollectionConfig } from 'payload'
 
-const defaultTenantArrayField = tenantsArrayField({
+// Activate if you need tenants
+const _defaultTenantArrayField = tenantsArrayField({
   arrayFieldAccess: {},
   rowFields: [
     {
@@ -36,7 +36,11 @@ export const userCollection: CollectionConfig = {
   access: {
     delete: () => false,
     read: () => true,
-    update: ({ req: { user } }) => {
+    update: ({
+      req: {
+        user,
+      },
+    }) => {
       if (user == null) {
         return false
       }
@@ -48,17 +52,15 @@ export const userCollection: CollectionConfig = {
     useAsTitle: 'email',
   },
   auth: {
-    lockTime: LOCK_TIME, // Time period to allow the max login attempts
+    lockTime: LOCK_TIME,
     disableLocalStrategy: true,
-    maxLoginAttempts: MAX_LOGIN_ATTEMPTS, // Automatically lock a user out after X amount of failed logins
+    maxLoginAttempts: MAX_LOGIN_ATTEMPTS,
     strategies: [
       zitadalStrategy,
-      // tempZitadalStrategy,
     ],
-    tokenExpiration: ACCESS_TOKEN_EXPIRATION, // How many seconds to keep the user logged in
-    verify: false, // Require email verification before being allowed to authenticate
+    tokenExpiration: ACCESS_TOKEN_EXPIRATION,
+    verify: false,
   },
-
   fields: [
     {
       tabs: [
@@ -195,12 +197,13 @@ export const userCollection: CollectionConfig = {
               type: 'select',
             },
 
-            {
-              ...defaultTenantArrayField,
-              admin: {
-                ...defaultTenantArrayField?.admin,
-              },
-            },
+            // Active if you need tenants
+            // {
+            //   ...defaultTenantArrayField,
+            //   admin: {
+            //     ...defaultTenantArrayField?.admin,
+            //   },
+            // },
 
           ],
           label: {

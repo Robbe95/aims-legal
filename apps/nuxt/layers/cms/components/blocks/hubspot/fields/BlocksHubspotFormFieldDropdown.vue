@@ -16,7 +16,9 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const { t } = useI18n()
+const {
+  t,
+} = useI18n()
 const model = computed<any>({
   get() {
     return props.hubspotField.options?.find((hubspotFieldOption) =>
@@ -27,7 +29,7 @@ const model = computed<any>({
   },
 })
 
-function displayFunction(hubspotFieldOption: HubspotFieldOption) {
+function displayFunction(hubspotFieldOption: HubspotFieldOption): string {
   return hubspotFieldOption.label
 }
 

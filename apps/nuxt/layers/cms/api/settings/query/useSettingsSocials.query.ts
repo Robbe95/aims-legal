@@ -6,7 +6,9 @@ import { useQuery } from '~base/composables/query/useQuery'
 
 export function useSettingsSocialsQuery() {
   const orpc = useOrpc()
-  const { locale } = useGlobalI18n()
+  const {
+    locale,
+  } = useGlobalI18n()
 
   return useQuery({
     queryFn: async () => {

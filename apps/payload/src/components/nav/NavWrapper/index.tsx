@@ -1,4 +1,3 @@
-/* eslint-disable check-file/folder-naming-convention */
 /* eslint-disable func-style */
 
 'use client'
@@ -12,7 +11,9 @@ export const NavWrapper: React.FC<{
   baseClass?: string
   children: React.ReactNode
 }> = (props) => {
-  const { baseClass, children } = props
+  const {
+    baseClass, children,
+  } = props
 
   const {
     hydrated,
