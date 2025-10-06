@@ -28,7 +28,7 @@ async function getLoginUrl(): Promise<string> {
 
   const scopes = DEFAULT_SCOPES
 
-  searchParams.append('client_id', `290541882453367555@template`)
+  searchParams.append('client_id', env.AUTH_CLIENT_ID)
   searchParams.append('redirect_uri', `${env.CMS_BASE_URL}/auth/callback`)
   searchParams.append('response_type', 'code')
   searchParams.append('prompt', 'login')
