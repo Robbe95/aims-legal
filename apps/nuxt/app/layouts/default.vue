@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import TheFooter from '~/components/footer/TheFooter.vue'
 import TheHeader from '~/components/header/TheHeader.vue'
 </script>
 
@@ -8,5 +9,6 @@ import TheHeader from '~/components/header/TheHeader.vue'
     <div class="flex w-full flex-1 flex-col items-center justify-center">
       <slot />
     </div>
+    <TheFooter />
   </div>
 </template>

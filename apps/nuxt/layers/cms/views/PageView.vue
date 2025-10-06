@@ -10,10 +10,10 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="mb-24 flex flex-col gap-4">
+  <main class="mb-24 flex flex-col gap-4">
     <BlocksRenderer
       v-if="page.blocks"
       :blocks="page.blocks"
     />
-  </div>
+  </main>
 </template>
