@@ -7,7 +7,7 @@ export function pluginSeo() {
     }) => doc.excerpt,
     generateTitle: ({
       doc,
-    }) => `Forax — ${doc.title}`,
+    }) => `Template — ${doc.title}`,
     tabbedUI: true,
     uploadsCollection: 'images',
   })

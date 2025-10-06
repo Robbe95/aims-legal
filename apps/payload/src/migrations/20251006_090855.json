@@ -1,5 +1,5 @@
 {
-  "id": "de1bdb2e-7d54-4531-bca1-eae84d49285a",
+  "id": "5e81970d-f56a-44eb-80bc-b24b4821e1b8",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -1337,165 +1337,6 @@
         "pages_blocks_column_parent_id_fk": {
           "name": "pages_blocks_column_parent_id_fk",
           "tableFrom": "pages_blocks_column",
-          "tableTo": "pages",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.pages_blocks_hubspot_form": {
-      "name": "pages_blocks_hubspot_form",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_path": {
-          "name": "_path",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_locale": {
-          "name": "_locale",
-          "type": "_locales",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "varchar",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "hubspot_form_id": {
-          "name": "hubspot_form_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "block_name": {
-          "name": "block_name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "pages_blocks_hubspot_form_order_idx": {
-          "name": "pages_blocks_hubspot_form_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "pages_blocks_hubspot_form_parent_id_idx": {
-          "name": "pages_blocks_hubspot_form_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "pages_blocks_hubspot_form_path_idx": {
-          "name": "pages_blocks_hubspot_form_path_idx",
-          "columns": [
-            {
-              "expression": "_path",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "pages_blocks_hubspot_form_locale_idx": {
-          "name": "pages_blocks_hubspot_form_locale_idx",
-          "columns": [
-            {
-              "expression": "_locale",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "pages_blocks_hubspot_form_hubspot_form_idx": {
-          "name": "pages_blocks_hubspot_form_hubspot_form_idx",
-          "columns": [
-            {
-              "expression": "hubspot_form_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "pages_blocks_hubspot_form_hubspot_form_id_form_hubspot_id_fk": {
-          "name": "pages_blocks_hubspot_form_hubspot_form_id_form_hubspot_id_fk",
-          "tableFrom": "pages_blocks_hubspot_form",
-          "tableTo": "form_hubspot",
-          "columnsFrom": [
-            "hubspot_form_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "pages_blocks_hubspot_form_parent_id_fk": {
-          "name": "pages_blocks_hubspot_form_parent_id_fk",
-          "tableFrom": "pages_blocks_hubspot_form",
           "tableTo": "pages",
           "columnsFrom": [
             "_parent_id"
@@ -3962,172 +3803,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._pages_v_blocks_hubspot_form": {
-      "name": "_pages_v_blocks_hubspot_form",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_path": {
-          "name": "_path",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_locale": {
-          "name": "_locale",
-          "type": "_locales",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "hubspot_form_id": {
-          "name": "hubspot_form_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "_uuid": {
-          "name": "_uuid",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "block_name": {
-          "name": "block_name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "_pages_v_blocks_hubspot_form_order_idx": {
-          "name": "_pages_v_blocks_hubspot_form_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_pages_v_blocks_hubspot_form_parent_id_idx": {
-          "name": "_pages_v_blocks_hubspot_form_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_pages_v_blocks_hubspot_form_path_idx": {
-          "name": "_pages_v_blocks_hubspot_form_path_idx",
-          "columns": [
-            {
-              "expression": "_path",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_pages_v_blocks_hubspot_form_locale_idx": {
-          "name": "_pages_v_blocks_hubspot_form_locale_idx",
-          "columns": [
-            {
-              "expression": "_locale",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_pages_v_blocks_hubspot_form_hubspot_form_idx": {
-          "name": "_pages_v_blocks_hubspot_form_hubspot_form_idx",
-          "columns": [
-            {
-              "expression": "hubspot_form_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "_pages_v_blocks_hubspot_form_hubspot_form_id_form_hubspot_id_fk": {
-          "name": "_pages_v_blocks_hubspot_form_hubspot_form_id_form_hubspot_id_fk",
-          "tableFrom": "_pages_v_blocks_hubspot_form",
-          "tableTo": "form_hubspot",
-          "columnsFrom": [
-            "hubspot_form_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "_pages_v_blocks_hubspot_form_parent_id_fk": {
-          "name": "_pages_v_blocks_hubspot_form_parent_id_fk",
-          "tableFrom": "_pages_v_blocks_hubspot_form",
-          "tableTo": "_pages_v",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public._pages_v_blocks_image_text": {
       "name": "_pages_v_blocks_image_text",
       "schema": "",
@@ -5347,345 +5022,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.form_hubspot": {
-      "name": "form_hubspot",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "form_id": {
-          "name": "form_id",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp(3) with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp(3) with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "form_hubspot_updated_at_idx": {
-          "name": "form_hubspot_updated_at_idx",
-          "columns": [
-            {
-              "expression": "updated_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "form_hubspot_created_at_idx": {
-          "name": "form_hubspot_created_at_idx",
-          "columns": [
-            {
-              "expression": "created_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.form_hubspot_locales": {
-      "name": "form_hubspot_locales",
-      "schema": "",
-      "columns": {
-        "title": {
-          "name": "title",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "_locale": {
-          "name": "_locale",
-          "type": "_locales",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "form_hubspot_locales_locale_parent_id_unique": {
-          "name": "form_hubspot_locales_locale_parent_id_unique",
-          "columns": [
-            {
-              "expression": "_locale",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "form_hubspot_locales_parent_id_fk": {
-          "name": "form_hubspot_locales_parent_id_fk",
-          "tableFrom": "form_hubspot_locales",
-          "tableTo": "form_hubspot",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.users_tenants_roles": {
-      "name": "users_tenants_roles",
-      "schema": "",
-      "columns": {
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "parent_id": {
-          "name": "parent_id",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "value": {
-          "name": "value",
-          "type": "enum_users_tenants_roles",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        }
-      },
-      "indexes": {
-        "users_tenants_roles_order_idx": {
-          "name": "users_tenants_roles_order_idx",
-          "columns": [
-            {
-              "expression": "order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "users_tenants_roles_parent_idx": {
-          "name": "users_tenants_roles_parent_idx",
-          "columns": [
-            {
-              "expression": "parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "users_tenants_roles_parent_fk": {
-          "name": "users_tenants_roles_parent_fk",
-          "tableFrom": "users_tenants_roles",
-          "tableTo": "users_tenants",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.users_tenants": {
-      "name": "users_tenants",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "varchar",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "users_tenants_order_idx": {
-          "name": "users_tenants_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "users_tenants_parent_id_idx": {
-          "name": "users_tenants_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "users_tenants_tenant_idx": {
-          "name": "users_tenants_tenant_idx",
-          "columns": [
-            {
-              "expression": "tenant_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "users_tenants_tenant_id_tenants_id_fk": {
-          "name": "users_tenants_tenant_id_tenants_id_fk",
-          "tableFrom": "users_tenants",
-          "tableTo": "tenants",
-          "columnsFrom": [
-            "tenant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "users_tenants_parent_id_fk": {
-          "name": "users_tenants_parent_id_fk",
-          "tableFrom": "users_tenants",
-          "tableTo": "users",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.users": {
       "name": "users",
       "schema": "",
@@ -6666,145 +6002,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.tenants": {
-      "name": "tenants",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp(3) with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp(3) with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "tenants_updated_at_idx": {
-          "name": "tenants_updated_at_idx",
-          "columns": [
-            {
-              "expression": "updated_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "tenants_created_at_idx": {
-          "name": "tenants_created_at_idx",
-          "columns": [
-            {
-              "expression": "created_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.tenants_locales": {
-      "name": "tenants_locales",
-      "schema": "",
-      "columns": {
-        "title": {
-          "name": "title",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "_locale": {
-          "name": "_locale",
-          "type": "_locales",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "tenants_locales_locale_parent_id_unique": {
-          "name": "tenants_locales_locale_parent_id_unique",
-          "columns": [
-            {
-              "expression": "_locale",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "tenants_locales_parent_id_fk": {
-          "name": "tenants_locales_parent_id_fk",
-          "tableFrom": "tenants_locales",
-          "tableTo": "tenants",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.blogs": {
       "name": "blogs",
       "schema": "",
@@ -6815,12 +6012,6 @@
           "primaryKey": true,
           "notNull": true,
           "default": "gen_random_uuid()"
-        },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
         },
         "blog": {
           "name": "blog",
@@ -6844,21 +6035,6 @@
         }
       },
       "indexes": {
-        "blogs_tenant_idx": {
-          "name": "blogs_tenant_idx",
-          "columns": [
-            {
-              "expression": "tenant_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "blogs_updated_at_idx": {
           "name": "blogs_updated_at_idx",
           "columns": [
@@ -6890,21 +6066,7 @@
           "with": {}
         }
       },
-      "foreignKeys": {
-        "blogs_tenant_id_tenants_id_fk": {
-          "name": "blogs_tenant_id_tenants_id_fk",
-          "tableFrom": "blogs",
-          "tableTo": "tenants",
-          "columnsFrom": [
-            "tenant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
@@ -7488,12 +6650,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "form_hubspot_id": {
-          "name": "form_hubspot_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
         "users_id": {
           "name": "users_id",
           "type": "uuid",
@@ -7514,12 +6670,6 @@
         },
         "icons_id": {
           "name": "icons_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "tenants_id": {
-          "name": "tenants_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
@@ -7598,21 +6748,6 @@
           "method": "btree",
           "with": {}
         },
-        "payload_locked_documents_rels_form_hubspot_id_idx": {
-          "name": "payload_locked_documents_rels_form_hubspot_id_idx",
-          "columns": [
-            {
-              "expression": "form_hubspot_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "payload_locked_documents_rels_users_id_idx": {
           "name": "payload_locked_documents_rels_users_id_idx",
           "columns": [
@@ -7663,21 +6798,6 @@
           "columns": [
             {
               "expression": "icons_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "payload_locked_documents_rels_tenants_id_idx": {
-          "name": "payload_locked_documents_rels_tenants_id_idx",
-          "columns": [
-            {
-              "expression": "tenants_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -7746,19 +6866,6 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "payload_locked_documents_rels_form_hubspot_fk": {
-          "name": "payload_locked_documents_rels_form_hubspot_fk",
-          "tableFrom": "payload_locked_documents_rels",
-          "tableTo": "form_hubspot",
-          "columnsFrom": [
-            "form_hubspot_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
         "payload_locked_documents_rels_users_fk": {
           "name": "payload_locked_documents_rels_users_fk",
           "tableFrom": "payload_locked_documents_rels",
@@ -7804,19 +6911,6 @@
           "tableTo": "icons",
           "columnsFrom": [
             "icons_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "payload_locked_documents_rels_tenants_fk": {
-          "name": "payload_locked_documents_rels_tenants_fk",
-          "tableFrom": "payload_locked_documents_rels",
-          "tableTo": "tenants",
-          "columnsFrom": [
-            "tenants_id"
           ],
           "columnsTo": [
             "id"
@@ -8388,14 +7482,6 @@
         "en",
         "nl",
         "fr"
-      ]
-    },
-    "public.enum_users_tenants_roles": {
-      "name": "enum_users_tenants_roles",
-      "schema": "public",
-      "values": [
-        "tenant-admin",
-        "tenant-viewer"
       ]
     },
     "public.enum_users_dark_mode": {

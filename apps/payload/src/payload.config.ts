@@ -79,14 +79,9 @@ export default buildConfig({
     deleteJobOnComplete: false,
   },
   secret: process.env.PAYLOAD_SECRET ?? '',
-
   sharp,
   typescript: {
     autoGenerate: true,
     outputFile: path.resolve(`${dirname}/../../../packages/payload-types/src`, 'payload-types.d.ts'),
   },
-  async onInit() {
-
-  },
-
 })
