@@ -62,8 +62,8 @@ catalogs:
       specifier: 5.9.3
       version: 5.9.3
     zod:
-      specifier: 3.25.76
-      version: 3.25.76
+      specifier: 4.1.11
+      version: 4.1.11
 
 overrides:
   '@intlify/eslint-plugin-vue-i18n>@intlify/core-base': ^10.0.4
@@ -152,7 +152,7 @@ importers:
         version: 1.17.0(motion-v@1.6.1(@vueuse/core@13.9.0(vue@3.5.22(typescript@5.9.3)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vue@3.5.22(typescript@5.9.3)))(reka-ui@2.5.1(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3)))(tailwind-merge@3.3.1)(tailwindcss@4.1.14)(vue-i18n@11.1.12(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))
       formango:
         specifier: 3.1.0
-        version: 3.1.0(vue@3.5.22(typescript@5.9.3))(zod@3.25.76)
+        version: 3.1.0(vue@3.5.22(typescript@5.9.3))(zod@4.1.11)
       i18n-iso-countries:
         specifier: 7.14.0
         version: 7.14.0
@@ -194,7 +194,7 @@ importers:
         version: 4.5.1(vue@3.5.22(typescript@5.9.3))
       zod:
         specifier: catalog:types
-        version: 3.25.76
+        version: 4.1.11
     devDependencies:
       '@nuxt/devtools':
         specifier: 2.6.5
@@ -315,7 +315,7 @@ importers:
         version: 0.34.4
       zod:
         specifier: catalog:types
-        version: 3.25.76
+        version: 4.1.11
     devDependencies:
       '@types/body-scroll-lock':
         specifier: 3.1.2
@@ -367,7 +367,7 @@ importers:
         version: link:../payload-types
       zod:
         specifier: catalog:types
-        version: 3.25.76
+        version: 4.1.11
     devDependencies:
       '@wisemen/eslint-config-vue':
         specifier: catalog:lint
@@ -8793,8 +8793,8 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
-  zod@3.25.76:
-    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+  zod@4.1.11:
+    resolution: {integrity: sha512-WPsqwxITS2tzx1bzhIKsEs19ABD5vmCVa4xBo2tq/SrV4RNZtfws1EnCWQXM6yh8bD08a1idvkB5MZSBiZsjwg==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -14769,12 +14769,12 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  formango@3.1.0(vue@3.5.22(typescript@5.9.3))(zod@3.25.76):
+  formango@3.1.0(vue@3.5.22(typescript@5.9.3))(zod@4.1.11):
     dependencies:
       '@vue/devtools-api': 6.6.4
       clone-deep: 4.0.1
       vue: 3.5.22(typescript@5.9.3)
-      zod: 3.25.76
+      zod: 4.1.11
 
   format@0.2.2: {}
 
@@ -19023,6 +19023,6 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod@3.25.76: {}
+  zod@4.1.11: {}
 
   zwitch@2.0.4: {}

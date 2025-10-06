@@ -7,7 +7,7 @@ catalogs:
     eslint: 9.37.0
   types:
     typescript: 5.9.3
-    zod: 3.25.76
+    zod: 4.1.11
   test:
     vitest: 3.2.4
   payload:

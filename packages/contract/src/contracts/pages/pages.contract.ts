@@ -5,13 +5,15 @@ import { ERROR_NOT_FOUND } from '../../errors/errors'
 import { publicProcedure } from '../../procedures/procedures'
 
 export const zodPage = z.custom<Page>((val) => {
-  if (val.slug == null) {
-    return false
+  if (typeof val === 'object' && val !== null && 'slug' in val) {
+    const slug = (val as { slug: unknown }).slug
+
+    return typeof slug === 'string' && slug.length > 0
   }
 
-  return true
+  return false
 }, {
-  message: 'Page is invalid',
+  message: 'Page is invalid or is missing a valid slug.',
 })
 
 const getPageBySlug = publicProcedure
