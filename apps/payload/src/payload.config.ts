@@ -50,7 +50,7 @@ export default buildConfig({
   db: postgresAdapter({
     idType: 'uuid',
     prodMigrations: migrations,
-    push: true,
+    push: false,
     pool: {
       connectionString: process.env.POSTGRES_URI ?? '',
     },
