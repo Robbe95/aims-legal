@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { VcDropdownMenuItemProps } from '@wisemen/vue-core-components'
 import {
+  VcButton,
   VcDropdownMenu,
-  VcIcon,
+  VcDropdownMenuGroup,
+  VcDropdownMenuItem,
 } from '@wisemen/vue-core-components'
-
-import { translateLocale } from '~base/translations/locale.translate'
 
 const {
   locale, locales,
@@ -17,38 +16,27 @@ const switchLocalePath = useSwitchLocalePath()
 const availableLocales = computed<LocaleObject[]>(() => {
   return locales.value.filter((i) => i.code !== locale.value)
 })
-
-const dropdownItems = computed<VcDropdownMenuItemProps[]>(() => {
-  return availableLocales.value.map((i) => ({
-    label: translateLocale(i.code),
-    type: 'option',
-    onSelect: (): void => {
-      void navigateTo(switchLocalePath(i.code))
-    },
-  }))
-})
 </script>
 
 <template>
   <VcDropdownMenu
-    :items="dropdownItems"
     popover-align="end"
   >
     <template #trigger>
-      <button
-        class="
-          flex items-center gap-1 px-2 py-1 text-sm font-medium text-white
-          uppercase
-        "
-      >
-        <span>
-          {{ locale }}
-        </span>
-        <VcIcon
-          icon="chevronDown"
-          class="size-4"
+      <VcButton variant="secondary">
+        {{ locale.toUpperCase() }}
+      </VcButton>
+    </template>
+
+    <template #content>
+      <VcDropdownMenuGroup>
+        <VcDropdownMenuItem
+          v-for="availableLocale in availableLocales"
+          :key="availableLocale.code"
+          :label="availableLocale.code.toUpperCase()"
+          @select="navigateTo(switchLocalePath(availableLocale.code))"
         />
-      </button>
+      </VcDropdownMenuGroup>
     </template>
   </VcDropdownMenu>
 </template>

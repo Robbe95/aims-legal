@@ -83,6 +83,7 @@ export interface Config {
     images: Image;
     icons: Icon;
     blogs: Blog;
+    'form-hubspot': FormHubspot;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -96,6 +97,7 @@ export interface Config {
     images: ImagesSelect<false> | ImagesSelect<true>;
     icons: IconsSelect<false> | IconsSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
+    'form-hubspot': FormHubspotSelect<false> | FormHubspotSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -155,7 +157,9 @@ export interface Page {
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
-  blocks?: (HeroBlock | TextBlock | ColumnBlock | ImageTextBlock | CarouselBlock | BannerBlock)[] | null;
+  blocks?:
+    | (HeroBlock | TextBlock | ColumnBlock | ImageTextBlock | CarouselBlock | BannerBlock | HubspotFormBlock)[]
+    | null;
   seo?: {
     title?: string | null;
     description?: string | null;
@@ -403,6 +407,27 @@ export interface Icon {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HubspotFormBlock".
+ */
+export interface HubspotFormBlock {
+  hubspotForm: string | FormHubspot;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hubspot-form';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-hubspot".
+ */
+export interface FormHubspot {
+  id: string;
+  title: string;
+  formId: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -587,6 +612,10 @@ export interface PayloadLockedDocument {
         value: string | Blog;
       } | null)
     | ({
+        relationTo: 'form-hubspot';
+        value: string | FormHubspot;
+      } | null)
+    | ({
         relationTo: 'payload-jobs';
         value: string | PayloadJob;
       } | null);
@@ -649,6 +678,7 @@ export interface PagesSelect<T extends boolean = true> {
         'image-text'?: T | ImageTextBlockSelect<T>;
         carousel?: T | CarouselBlockSelect<T>;
         banner?: T | BannerBlockSelect<T>;
+        'hubspot-form'?: T | HubspotFormBlockSelect<T>;
       };
   seo?:
     | T
@@ -827,6 +857,15 @@ export interface BannerBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HubspotFormBlock_select".
+ */
+export interface HubspotFormBlockSelect<T extends boolean = true> {
+  hubspotForm?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -957,6 +996,16 @@ export interface BlogsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   blog?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-hubspot_select".
+ */
+export interface FormHubspotSelect<T extends boolean = true> {
+  title?: T;
+  formId?: T;
   updatedAt?: T;
   createdAt?: T;
 }
