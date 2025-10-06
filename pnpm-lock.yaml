@@ -148,11 +148,11 @@ importers:
         specifier: 2.2.0
         version: 2.2.0
       '@wisemen/vue-core-components':
-        specifier: 1.17.0
-        version: 1.17.0(motion-v@1.6.1(@vueuse/core@13.9.0(vue@3.5.22(typescript@5.9.3)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vue@3.5.22(typescript@5.9.3)))(reka-ui@2.5.1(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3)))(tailwind-merge@3.3.1)(tailwindcss@4.1.14)(vue-i18n@11.1.12(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))
+        specifier: 2.0.0-beta.1
+        version: 2.0.0-beta.1(motion-v@1.6.1(@vueuse/core@13.9.0(vue@3.5.22(typescript@5.9.3)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vue@3.5.22(typescript@5.9.3)))(reka-ui@2.5.1(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3)))(tailwind-merge@3.3.1)(tailwindcss@4.1.14)(temporal-polyfill@0.3.0)(vue-i18n@11.1.12(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))
       formango:
-        specifier: 3.1.0
-        version: 3.1.0(vue@3.5.22(typescript@5.9.3))(zod@4.1.11)
+        specifier: 3.2.0-beta.4
+        version: 3.2.0-beta.4(vue@3.5.22(typescript@5.9.3))(zod@4.1.11)
       i18n-iso-countries:
         specifier: 7.14.0
         version: 7.14.0
@@ -3617,13 +3617,14 @@ packages:
   '@wisemen/vue-core-auth@2.2.0':
     resolution: {integrity: sha512-++bMhLMIA5H8Jk9rP+RbYooygRZ912PcSSD++WR+wMY+51tUMwFwGJ2cqbPj23LlR6ZFZ8OotZUm65exul5P6A==}
 
-  '@wisemen/vue-core-components@1.17.0':
-    resolution: {integrity: sha512-WntP5XWdr6WhpbYrvdH6BJZVgcTIyhGGLg0Hp/dwy//JWphkpWJ9KN14eEkUhbI6A0AOTIrZPGu6wHmo6fvhvA==}
+  '@wisemen/vue-core-components@2.0.0-beta.1':
+    resolution: {integrity: sha512-5bvOYcmJ9f72bLFoCrHoKJzfrqZeMBf0wBlnlbpAz5aGf87n/HoPVbkBRg3RTuiOS0HQWCbfHkmENlZTIAgUKw==}
     peerDependencies:
-      motion-v: 1.6.1
-      reka-ui: 2.2.0
-      vue: 3.5.14
-      vue-i18n: 11.1.3
+      motion-v: '>=1.6.0'
+      reka-ui: '>=2.2.0'
+      temporal-polyfill: '>=0.3.0'
+      vue: '>=3.5.0'
+      vue-i18n: '>=11.0.0'
 
   abbrev@2.0.0:
     resolution: {integrity: sha512-6/mh1E2u2YgEsCHdY0Yx5oW+61gZU+1vXaoiHHrpKeuRNNgFvS+/jrwHiQhB5apAf5oB7UB7E19ol2R2LKH8hQ==}
@@ -5228,8 +5229,8 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
-  formango@3.1.0:
-    resolution: {integrity: sha512-Qwbd+awzMDqcdYsMUQdL0j4wsUkPyyA9QNS/1V3BDuu9wze9yODQNEhxwPpsphZuQ7xjoGp/9R4JOppKmLsc9A==}
+  formango@3.2.0-beta.4:
+    resolution: {integrity: sha512-ptOQnZxCEOjPzCDV3f11+Rz2xyVKnbErNECC5xt6QclKQMc2SThJnot1Zr4VUfOrqwBkGSaQNHTLduVgB8Xo6Q==}
     peerDependencies:
       vue: ^3.2.47
       zod: ^3.24.1
@@ -7967,16 +7968,6 @@ packages:
   tailwind-merge@3.3.1:
     resolution: {integrity: sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g==}
 
-  tailwind-variants@3.1.0:
-    resolution: {integrity: sha512-ieiYaEfUr+sNhw/k++dosmZfVA4VIG5bV+G1eGdJSC4FcflqQv0iSIlOLj/RbzRuTu/VrIiNSlwh1esBM3BXUg==}
-    engines: {node: '>=16.x', pnpm: '>=7.x'}
-    peerDependencies:
-      tailwind-merge: '>=3.0.0'
-      tailwindcss: '*'
-    peerDependenciesMeta:
-      tailwind-merge:
-        optional: true
-
   tailwind-variants@3.1.1:
     resolution: {integrity: sha512-ftLXe3krnqkMHsuBTEmaVUXYovXtPyTK7ckEfDRXS8PBZx0bAUas+A0jYxuKA5b8qg++wvQ3d2MQ7l/xeZxbZQ==}
     engines: {node: '>=16.x', pnpm: '>=7.x'}
@@ -8008,6 +7999,12 @@ packages:
   tar@7.5.1:
     resolution: {integrity: sha512-nlGpxf+hv0v7GkWBK2V9spgactGOp0qvfWRxUMjqHyzrt3SgwE48DIv/FhqPHJYLHpgW1opq3nERbz5Anq7n1g==}
     engines: {node: '>=18'}
+
+  temporal-polyfill@0.3.0:
+    resolution: {integrity: sha512-qNsTkX9K8hi+FHDfHmf22e/OGuXmfBm9RqNismxBrnSmZVJKegQ+HYYXT+R7Ha8F/YSm2Y34vmzD4cxMu2u95g==}
+
+  temporal-spec@0.3.0:
+    resolution: {integrity: sha512-n+noVpIqz4hYgFSMOSiINNOUOMFtV5cZQNCmmszA6GiVFVRt3G7AqVyhXjhCSmowvQn+NsGn+jMDMKJYHd3bSQ==}
 
   terser@5.44.0:
     resolution: {integrity: sha512-nIVck8DK+GM/0Frwd+nIhZ84pR/BX7rmXMfYwyg+Sri5oGVE99/E3KvXqpC2xHFxyqXyGHTKBSioxxplrO4I4w==}
@@ -13004,11 +13001,12 @@ snapshots:
     dependencies:
       pkce-challenge: 4.1.0
 
-  '@wisemen/vue-core-components@1.17.0(motion-v@1.6.1(@vueuse/core@13.9.0(vue@3.5.22(typescript@5.9.3)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vue@3.5.22(typescript@5.9.3)))(reka-ui@2.5.1(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3)))(tailwind-merge@3.3.1)(tailwindcss@4.1.14)(vue-i18n@11.1.12(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))':
+  '@wisemen/vue-core-components@2.0.0-beta.1(motion-v@1.6.1(@vueuse/core@13.9.0(vue@3.5.22(typescript@5.9.3)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vue@3.5.22(typescript@5.9.3)))(reka-ui@2.5.1(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3)))(tailwind-merge@3.3.1)(tailwindcss@4.1.14)(temporal-polyfill@0.3.0)(vue-i18n@11.1.12(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       motion-v: 1.6.1(@vueuse/core@13.9.0(vue@3.5.22(typescript@5.9.3)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vue@3.5.22(typescript@5.9.3))
       reka-ui: 2.5.1(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
-      tailwind-variants: 3.1.0(tailwind-merge@3.3.1)(tailwindcss@4.1.14)
+      tailwind-variants: 3.1.1(tailwind-merge@3.3.1)(tailwindcss@4.1.14)
+      temporal-polyfill: 0.3.0
       vue: 3.5.22(typescript@5.9.3)
       vue-i18n: 11.1.12(vue@3.5.22(typescript@5.9.3))
       vue-sonner: 1.3.0
@@ -14769,7 +14767,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  formango@3.1.0(vue@3.5.22(typescript@5.9.3))(zod@4.1.11):
+  formango@3.2.0-beta.4(vue@3.5.22(typescript@5.9.3))(zod@4.1.11):
     dependencies:
       '@vue/devtools-api': 6.6.4
       clone-deep: 4.0.1
@@ -18109,12 +18107,6 @@ snapshots:
 
   tailwind-merge@3.3.1: {}
 
-  tailwind-variants@3.1.0(tailwind-merge@3.3.1)(tailwindcss@4.1.14):
-    dependencies:
-      tailwindcss: 4.1.14
-    optionalDependencies:
-      tailwind-merge: 3.3.1
-
   tailwind-variants@3.1.1(tailwind-merge@3.3.1)(tailwindcss@4.1.14):
     dependencies:
       tailwindcss: 4.1.14
@@ -18170,6 +18162,12 @@ snapshots:
       minipass: 7.1.2
       minizlib: 3.1.0
       yallist: 5.0.0
+
+  temporal-polyfill@0.3.0:
+    dependencies:
+      temporal-spec: 0.3.0
+
+  temporal-spec@0.3.0: {}
 
   terser@5.44.0:
     dependencies:

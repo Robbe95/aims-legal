@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  useVcToast,
+  useToast,
   VcButton,
 } from '@wisemen/vue-core-components'
 import { storeToRefs } from 'pinia'
@@ -18,7 +18,7 @@ const {
 const {
   t,
 } = useI18n()
-const toast = useVcToast()
+const toast = useToast()
 const isZitadelLoading = ref<boolean>(false)
 
 const title = computed<string>(() => {
