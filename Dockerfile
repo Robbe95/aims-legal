@@ -42,7 +42,7 @@ RUN pnpm --filter ./apps/payload build
 #
 # --- Stage: nuxt ---
 #
-FROM ghcr.io/wisemen-digital/nuxt-base:${NODE_VERSION}-unsecured AS nuxt
+FROM ghcr.io/wisemen-digital/nuxt-base:${NODE_VERSION} AS nuxt
 COPY --from=build-nuxt --chown=nobody /app/apps/nuxt/.output /app/www/
 
 #
