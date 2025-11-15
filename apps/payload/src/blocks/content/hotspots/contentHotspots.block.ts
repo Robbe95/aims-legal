@@ -5,7 +5,7 @@ import type { Block } from 'payload'
 
 export const contentHotspotsBlock: Block = {
   admin: {
-    group: BLOCK_GROUPS.images,
+    group: BLOCK_GROUPS.content,
   },
   fields: [
     {
@@ -79,5 +79,9 @@ export const contentHotspotsBlock: Block = {
     }),
   ],
   interfaceName: 'HotspotsBlock',
+  labels: {
+    plural: 'Hotspots',
+    singular: 'Hotspot',
+  },
   slug: 'hotspots',
 }

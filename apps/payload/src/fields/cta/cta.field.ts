@@ -1,11 +1,13 @@
 import { getLinkField } from '@payload/fields/link/link.field'
 import type {
+  Condition,
   Field,
   GroupField,
 } from 'payload'
 
 export interface GetCtaFieldOptions {
   name: string
+  condition?: Condition<any, any>
   label: GroupField['label']
 }
 
@@ -17,7 +19,9 @@ export const CTA_EVENTS = [
 ]
 
 export function getCtaField({
-  name, label,
+  name,
+  condition,
+  label,
 }: GetCtaFieldOptions): GroupField {
   const fields: Field[] = [
     {
@@ -81,7 +85,11 @@ export function getCtaField({
 
   return {
     name,
+    admin: {
+      condition,
+    },
     fields,
+    interfaceName: 'CtaField',
     label,
     type: 'group',
   }

@@ -38,7 +38,7 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
     visibleEntities,
   } = props
 
-  if (!payload?.config || user === undefined) {
+  if (!payload?.config) {
     return null
   }
 
@@ -87,6 +87,7 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
 
   const navPreferences = await getNavPrefs({
     payload,
+    // @ts-expect-error TODO fix this
     user,
   })
 

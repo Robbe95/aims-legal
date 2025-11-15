@@ -1,18 +1,21 @@
 import type { UploadField } from 'payload'
 
 export interface GetImageFieldOptions {
+  isRequired?: boolean
   name: string
   label: string
 }
 
 export function getImageField({
-  name, label,
+  isRequired,
+  name,
+  label,
 }: GetImageFieldOptions): UploadField {
   return {
     name,
     label,
     relationTo: 'images',
-    required: true,
+    required: isRequired ?? true,
     type: 'upload',
   }
 }

@@ -1,11 +1,14 @@
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
 import type { Config } from '@repo/payload-types'
 
-export function pluginMultiTentant() {
+export function pluginMultiTenant() {
   return multiTenantPlugin<Config>({
     collections: {
-      blogs: {},
+      articles: {},
+      images: {},
+      pages: {},
     },
+    enabled: true,
     tenantField: {
       access: {
         read: () => true,
@@ -15,6 +18,7 @@ export function pluginMultiTentant() {
     tenantsArrayField: {
       includeDefaultField: false,
     },
+    tenantSelectorLabel: 'Site',
     userHasAccessToAllTenants: (user) => {
       return user.role === 'super-admin'
     },

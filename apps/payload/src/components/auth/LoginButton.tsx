@@ -1,7 +1,6 @@
 'use client'
 
-import { DEFAULT_SCOPES } from '@payload/auth/authData'
-import { getEnv } from '@payload/env'
+import { getDefaultScopes } from '@payload/auth/authData'
 import { getCookie } from 'cookies-next'
 import { setCookie } from 'cookies-next/client'
 import pkceChallenge from 'pkce-challenge'
@@ -10,9 +9,21 @@ import React, {
   useState,
 } from 'react'
 
-async function getLoginUrl(): Promise<string> {
-  const env = getEnv()
+interface EnvVars {
 
+  AUTH_BASE_URL: string
+  AUTH_CLIENT_ID: string
+  AUTH_ORGANIZATION_ID: string
+  CMS_BASE_URL: string
+
+}
+
+async function getLoginUrl({
+  AUTH_BASE_URL,
+  AUTH_CLIENT_ID,
+  AUTH_ORGANIZATION_ID,
+  CMS_BASE_URL,
+}: EnvVars): Promise<string> {
   const searchParams = new URLSearchParams()
   let codeChallenge = await getCookie('code_challenge')
   const codeVerifier = await getCookie('code_verifier')
@@ -26,20 +37,25 @@ async function getLoginUrl(): Promise<string> {
     codeChallenge = codes.code_challenge
   }
 
-  const scopes = DEFAULT_SCOPES
+  const scopes = getDefaultScopes(AUTH_ORGANIZATION_ID)
 
-  searchParams.append('client_id', env.AUTH_CLIENT_ID)
-  searchParams.append('redirect_uri', `${env.CMS_BASE_URL}/auth/callback`)
+  searchParams.append('client_id', `${AUTH_CLIENT_ID}`)
+  searchParams.append('redirect_uri', `${CMS_BASE_URL}/auth/callback`)
   searchParams.append('response_type', 'code')
   searchParams.append('prompt', 'login')
   searchParams.append('scope', scopes.join(' '))
   searchParams.append('code_challenge', codeChallenge)
   searchParams.append('code_challenge_method', 'S256')
 
-  return `${env.AUTH_BASE_URL}/oauth/v2/authorize?${searchParams.toString()}`
+  return `${AUTH_BASE_URL}/oauth/v2/authorize?${searchParams.toString()}`
 }
 
-function LoginButton() {
+function LoginButton({
+  AUTH_BASE_URL,
+  AUTH_CLIENT_ID,
+  AUTH_ORGANIZATION_ID,
+  CMS_BASE_URL,
+}: EnvVars) {
   const [
     url,
     setUrl,
@@ -47,7 +63,12 @@ function LoginButton() {
 
   // 3. Create out useEffect function
   useEffect(() => {
-    getLoginUrl().then((value) => {
+    getLoginUrl({
+      AUTH_BASE_URL,
+      AUTH_CLIENT_ID,
+      AUTH_ORGANIZATION_ID,
+      CMS_BASE_URL,
+    }).then((value) => {
       setUrl(value)
     })
   }, [])
@@ -65,7 +86,6 @@ function LoginButton() {
         }}
         href={url ?? ''}
       >
-
         Sign in
       </a>
     </div>

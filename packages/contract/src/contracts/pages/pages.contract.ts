@@ -1,19 +1,17 @@
 import type { Page } from '@repo/payload-types'
 import { z } from 'zod'
 
-import { ERROR_NOT_FOUND } from '../../errors/errors'
-import { publicProcedure } from '../../procedures/procedures'
+import { ERROR_NOT_FOUND } from '#errors/errors.ts'
+import { publicProcedure } from '#procedures/procedures.ts'
 
-export const zodPage = z.custom<Page>((val) => {
-  if (typeof val === 'object' && val !== null && 'slug' in val) {
-    const slug = (val as { slug: unknown }).slug
-
-    return typeof slug === 'string' && slug.length > 0
+export const zodPage = z.custom<Page>((val): val is Page => {
+  if (typeof val !== 'object' || val === null || !('slug' in val)) {
+    return false
   }
 
-  return false
+  return true
 }, {
-  message: 'Page is invalid or is missing a valid slug.',
+  message: 'Page is invalid',
 })
 
 const getPageBySlug = publicProcedure
@@ -22,6 +20,7 @@ const getPageBySlug = publicProcedure
   })
   .input(z.object({
     slug: z.string(),
+    subsiteSlug: z.string(),
   }))
   .output(zodPage)
   .errors({

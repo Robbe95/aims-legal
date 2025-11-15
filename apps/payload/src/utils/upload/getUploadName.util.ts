@@ -13,3 +13,15 @@ export function getUploadName(fileName: string) {
     fileNameWithExtension: `${fileNameWithoutExtension}_${dateString}_${timeString}.${extension}`,
   }
 }
+
+export function getUploadWithoutTime(fileName: string) {
+  const normalizedFileName = fileName.replace(/\s/g, '-').toLowerCase ()
+  const extension = normalizedFileName.split('.').pop()
+  const fileNameWithoutExtension = normalizedFileName.replace(`.${extension}`, '')
+
+  return {
+    extension,
+    fileName: `${fileNameWithoutExtension}`,
+    fileNameWithExtension: `${fileNameWithoutExtension}.${extension}`,
+  }
+}

@@ -3,7 +3,7 @@ import type { Block } from 'payload'
 
 export const contentTextBlock: Block = {
   admin: {
-    group: BLOCK_GROUPS.text,
+    group: BLOCK_GROUPS.content,
   },
   fields: [
     {
@@ -13,10 +13,21 @@ export const contentTextBlock: Block = {
     },
     {
       name: 'text',
-      required: true,
+      required: false,
       type: 'textarea',
     },
+    {
+      name: 'richtext',
+      required: false,
+      type: 'richText',
+    },
+
   ],
+  imageURL: '/blocks/preview-text.png',
   interfaceName: 'TextBlock',
+  labels: {
+    plural: 'Texts',
+    singular: 'Text',
+  },
   slug: 'text',
 }

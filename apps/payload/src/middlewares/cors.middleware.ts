@@ -16,7 +16,7 @@ export function withCorsMiddleware(customMiddleware: CustomMiddleware) {
 
   responseHeaders.set('Access-Control-Allow-Origin', process.env.SITE_BASE_URL)
   responseHeaders.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-  responseHeaders.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  responseHeaders.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Site-Name')
 
   return {
     request,

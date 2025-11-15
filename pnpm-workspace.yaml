@@ -1,33 +1,98 @@
 packages:
   - apps/*
   - packages/*
+
 catalogs:
-  lint:
-    '@wisemen/eslint-config-vue': 1.7.3
-    eslint: 9.37.0
-  types:
-    typescript: 5.9.3
-    zod: 4.1.11
-  test:
-    vitest: 3.2.4
   payload:
-    '@payloadcms/db-postgres': 3.58.0
-    '@payloadcms/next': 3.58.0
-    '@payloadcms/plugin-seo': 3.58.0
-    '@payloadcms/richtext-lexical': 3.58.0
-    '@payloadcms/storage-s3': 3.58.0
-    '@payloadcms/ui': 3.58.0
-    '@payloadcms/live-preview-vue': 3.58.0
-    '@payloadcms/live-preview': 3.58.0
-    payload: 3.58.0
-    '@payloadcms/plugin-multi-tenant': 3.58.0
+    "@payloadcms/db-postgres": "3.64.0"
+    "@payloadcms/next": "3.64.0"
+    "@payloadcms/plugin-seo": "3.64.0"
+    "@payloadcms/richtext-lexical": "3.64.0"
+    "@payloadcms/storage-s3": "3.64.0"
+    "@payloadcms/ui": "3.64.0"
+    "@payloadcms/live-preview": "3.64.0"
+    "@payloadcms/live-preview-vue": "3.64.0"
+    "payload": "3.64.0"
+    "@payloadcms/plugin-multi-tenant": "3.64.0"
   orpc:
-    '@orpc/server': 1.9.3
-    '@orpc/contract': 1.9.3
-    '@orpc/client': 1.9.3
-onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
-  - esbuild
-  - sharp
-  - unrs-resolver
-  - vue-demi
+    "@orpc/server": "1.11.2"
+    "@orpc/contract": "1.11.2"
+    "@orpc/client": "1.11.2"
+    "@orpc/vue-query": "1.11.2"
+  lint:
+    "@wisemen/eslint-config-vue": "1.7.6"
+    "eslint": "9.39.1"
+    "eslint-config-next": "16.0.3"
+  shared:
+    "zod": "4.1.12"
+  build:
+    "typescript": "5.9.3"
+    "vue-tsc": "3.1.4"
+    "sass": "1.94.0"
+
+  test:
+    "vitest": "4.0.9"
+    "@nuxt/test-utils": "3.20.1"
+    "@vue/test-utils": "2.4.6"
+
+  monorepo:
+    "turbo": "2.6.1"
+  frontend:
+    "@nuxt/scripts": "0.13.0"
+    "@tailwindcss/vite": "4.1.17"
+    "@tanstack/vue-query": "5.91.1"
+    "@tanstack/vue-query-devtools": "6.0.0"
+    "@vueuse/core": "14.0.0"
+    "@vueuse/nuxt": "14.0.0"
+    "@wisemen/vue-core-auth": "2.2.0"
+    "@wisemen/vue-core-components": "2.0.2"
+    client-zip: 2.5.0
+    "embla-carousel-vue": "8.6.0"
+    "formango": "3.2.0-beta.4"
+    "i18n-iso-countries": "7.14.0"
+    "libphonenumber-js": "1.12.26"
+    "maska": "3.2.0"
+    "motion-v": "1.7.4"
+    "nuxt": "4.2.1"
+    "nuxt-schema-org": "5.0.9"
+    "nuxt-tailwindcss4": "0.1.1"
+    "ol": "10.7.0"
+    "pinia": "3.0.4"
+    "reka-ui": "2.6.0"
+    "tailwind-merge": "3.4.0"
+    "tailwind-variants": "3.1.1"
+    "tailwindcss": "4.1.17"
+    "vue": "3.5.24"
+    "vue-router": "4.6.3"
+    "@nuxt/eslint": "1.10.0"
+    "@nuxt/fonts": "0.12.1"
+    "@nuxtjs/color-mode": "4.0.0"
+    "@nuxtjs/i18n": "10.2.0"
+    "@nuxtjs/robots": "5.5.6"
+    "@nuxtjs/sitemap": "7.4.7"
+    "@pinia/nuxt": "0.11.3"
+    "@nuxt/devtools": "latest"
+    "@nuxtjs/tailwindcss": "6.14.0"
+    "@tailwindcss/container-queries": "0.1.1"
+    "@tailwindcss/typography": "0.5.19"
+
+  backend:
+    "body-scroll-lock": "4.0.0-beta.0"
+    "cookies-next": "6.1.1"
+    "cross-env": "10.1.0"
+    "graphql": "16.12.0"
+    "jose": "6.1.1"
+    "next": "15.3.2"
+    "next-client-cookies": "2.1.0"
+    "pkce-challenge": "5.0.0"
+    "react": "19.2.0"
+    "react-dom": "19.2.0"
+    "sharp": "0.34.5"
+    "unstorage": "1.17.2"
+    "@faceless-ui/window-info": "3.0.1"
+  types:
+    "@types/body-scroll-lock": "3.1.2"
+    "@types/node": "24.10.1"
+    "@types/react": "19.2.5"
+    "@types/react-dom": "19.2.3"
+    "@types/dom-view-transitions": "1.0.6"

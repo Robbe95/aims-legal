@@ -20,9 +20,11 @@ export const tenantCollection: CollectionConfig = {
       type: 'text',
     },
   ],
+
   labels: {
     plural: 'Tenants',
     singular: 'Tenant',
   },
   slug: 'tenants',
+  trash: true,
 }

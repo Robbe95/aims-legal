@@ -4,7 +4,7 @@ import type { Block } from 'payload'
 
 export const contentColumnBlock: Block = {
   admin: {
-    group: BLOCK_GROUPS.images,
+    group: BLOCK_GROUPS.content,
   },
   fields: [
     {
@@ -29,10 +29,11 @@ export const contentColumnBlock: Block = {
       type: 'array',
     },
   ],
+  imageURL: '/blocks/preview-column.png',
   interfaceName: 'ColumnBlock',
   labels: {
-    plural: 'Column blocks',
-    singular: 'Column block',
+    plural: 'Columns',
+    singular: 'Column',
   },
   slug: 'column',
 }

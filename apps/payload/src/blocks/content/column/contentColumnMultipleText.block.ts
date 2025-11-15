@@ -1,7 +1,11 @@
+import { BLOCK_GROUPS } from '@payload/blocks/blockGroups'
 import { getCtasField } from '@payload/fields/cta/ctas.field'
 import type { Block } from 'payload'
 
 export const contentColumnMultipleTextBlock: Block = {
+  admin: {
+    group: BLOCK_GROUPS.content,
+  },
   fields: [
     {
       name: 'texts',
@@ -29,8 +33,8 @@ export const contentColumnMultipleTextBlock: Block = {
   ],
   interfaceName: 'ColumnMultipleTextBlock',
   labels: {
-    plural: 'Column multiple text blocks',
-    singular: 'Column multiple text block',
+    plural: 'Column texts',
+    singular: 'Column texts',
   },
   slug: 'columnMultipleText',
 }

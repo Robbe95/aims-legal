@@ -1,47 +1,26 @@
 import { createORPCClient } from '@orpc/client'
 import { RPCLink } from '@orpc/client/fetch'
 import type { ContractRouterClient } from '@orpc/contract'
+import { createORPCVueQueryUtils } from '@orpc/vue-query'
 import type { ORPC_CONTRACT } from '@repo/contract'
 
-import { useGlobalI18n } from '~base/composables/i18n/useGlobaI18n'
-import { useAuthStore } from '~base/stores/auth.store'
+import { useGlobalI18n } from '~base/composables/i18n/useGlobalI18n'
 import { getEnv } from '~base/utils/env/getEnv.utils'
-
-async function handleAuth(headers: Record<string, string>): Promise<Record<string, string>> {
-  const authStore = useAuthStore()
-  const oAuthClient = useNuxtApp().$oAuthClient
-
-  const isLoggedIn = await oAuthClient.isLoggedIn()
-
-  if (isLoggedIn) {
-    try {
-      const token = await authStore.getToken()
-
-      headers.Authorization = `Bearer ${token}`
-    }
-    catch {
-      authStore.logout()
-    }
-  }
-
-  return headers
-}
 
 export function useOrpc() {
   const {
-    CMS_BASE_URL,
+    CMS_BASE_URL, SITE_NAME,
   } = getEnv()
   const {
     locale,
   } = useGlobalI18n()
 
   const link = new RPCLink({
-    async headers(): Promise<Record<string, string>> {
-      let headers: Record<string, string> = {}
+    headers() {
+      const headers: Record<string, string> = {}
 
       headers['Accept-Language'] = locale.value
-
-      headers = await handleAuth(headers)
+      headers['X-Site-Name'] = SITE_NAME
 
       return headers
     },
@@ -51,4 +30,11 @@ export function useOrpc() {
   const client: ContractRouterClient<typeof ORPC_CONTRACT> = createORPCClient(link)
 
   return client
+}
+
+export function useOrpcQuery() {
+  const orpc = useOrpc()
+  const orpcQuery = createORPCVueQueryUtils(orpc)
+
+  return orpcQuery
 }

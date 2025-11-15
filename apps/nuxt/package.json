@@ -52,7 +52,7 @@
     "tailwindcss": "4.1.14",
     "vue": "3.5.22",
     "vue-router": "4.5.1",
-    "zod": "catalog:types"
+    "zod": "catalog:shared"
   },
   "devDependencies": {
     "@nuxt/devtools": "2.6.5",
@@ -64,7 +64,7 @@
     "@vue/test-utils": "2.4.6",
     "@wisemen/eslint-config-vue": "catalog:lint",
     "eslint": "catalog:lint",
-    "typescript": "catalog:types",
+    "typescript": "catalog:build",
     "vitest": "catalog:test",
     "vue-tsc": "3.1.0"
   }

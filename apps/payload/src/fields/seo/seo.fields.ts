@@ -16,11 +16,9 @@ export function getSeoFields(): Field[] {
     }),
     MetaTitleField({
       hasGenerateFn: true,
-
     }),
     MetaDescriptionField({
       hasGenerateFn: true,
-
     }),
     MetaImageField({
       relationTo: 'images',

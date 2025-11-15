@@ -13,6 +13,7 @@ type LinkType = (options?: {
   isRequired?: boolean
   isTranslatable?: boolean
   name?: string
+  canBeExternal?: boolean
   disableLabel?: boolean
   linkTo?: CollectionSlug[]
   overrides?: Partial<GroupField>
@@ -21,6 +22,25 @@ type LinkType = (options?: {
 
 const DEFAULT_LINK_TO: CollectionSlug[] = [
   'pages',
+  'articles',
+]
+
+const DEFAULT_LINK_TYPES = [
+  {
+    label: 'Internal link',
+    value: 'reference',
+  },
+  {
+    label: 'Custom URL',
+    value: 'custom',
+  },
+]
+
+const NO_EXTERNAL_LINK_TYPES = [
+  {
+    label: 'Internal link',
+    value: 'reference',
+  },
 ]
 
 export const getLinkField: LinkType = (
@@ -29,6 +49,7 @@ export const getLinkField: LinkType = (
     isRequired = true,
     isTranslatable = false,
     name = 'link',
+    canBeExternal = true,
     disableLabel = true,
     linkTo = DEFAULT_LINK_TO,
     overrides = {},
@@ -50,16 +71,7 @@ export const getLinkField: LinkType = (
             },
             defaultValue: 'reference',
             enumName: 'link_type',
-            options: [
-              {
-                label: 'Internal link',
-                value: 'reference',
-              },
-              {
-                label: 'Custom URL',
-                value: 'custom',
-              },
-            ],
+            options: canBeExternal ? DEFAULT_LINK_TYPES : NO_EXTERNAL_LINK_TYPES,
             required: true,
             type: 'radio',
           },

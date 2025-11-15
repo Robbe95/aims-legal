@@ -3,6 +3,9 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
+  "imports": {
+    "#*": "./src/*"
+  },
   "exports": {
     ".": "./src/index.ts"
   },
@@ -17,7 +20,7 @@
   "devDependencies": {
     "@wisemen/eslint-config-vue": "catalog:lint",
     "eslint": "catalog:lint",
-    "typescript": "catalog:types",
+    "typescript": "catalog:build",
     "vitest": "catalog:test"
   }
 }

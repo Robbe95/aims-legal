@@ -4,7 +4,7 @@ import BlocksHubspotFormSchema from '@cms/components/blocks/hubspot/BlocksHubspo
 import type { HubspotFormBlock } from '@repo/payload-types'
 
 import AppHeightTransition from '~base/components/app/AppHeightTransition.vue'
-import AppContainer from '~base/components/app/container/AppContainer.vue'
+import AppContainer from '~base/components/app/container/Container.vue'
 
 interface Props {
   block: HubspotFormBlock

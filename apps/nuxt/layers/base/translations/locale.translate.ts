@@ -1,4 +1,4 @@
-import { useGlobalI18n } from '~base/composables/i18n/useGlobaI18n'
+import { useGlobalI18n } from '~base/composables/i18n/useGlobalI18n'
 
 export function translateLocale(type: string): string {
   const {

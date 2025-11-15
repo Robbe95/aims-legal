@@ -3,6 +3,10 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
+  "imports": {
+    "#*": "./src/*"
+  },
+
   "exports": {
     ".": "./src/index.ts"
   },
@@ -20,6 +24,6 @@
     "@repo/payload-types": "workspace:*",
     "@wisemen/eslint-config-vue": "catalog:lint",
     "eslint": "catalog:lint",
-    "typescript": "catalog:types"
+    "typescript": "catalog:build"
   }
 }

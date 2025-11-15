@@ -1,11 +1,10 @@
 import { BLOCK_GROUPS } from '@payload/blocks/blockGroups'
 import { getCtasField } from '@payload/fields/cta/ctas.field'
-import { getIconField } from '@payload/fields/media/icon.field'
 import type { Block } from 'payload'
 
 export const contentBannerBlock: Block = {
   admin: {
-    group: BLOCK_GROUPS.other,
+    group: BLOCK_GROUPS.content,
   },
   fields: [
     {
@@ -18,10 +17,6 @@ export const contentBannerBlock: Block = {
       required: true,
       type: 'text',
     },
-    getIconField({
-      name: 'icon',
-      label: 'Icon',
-    }),
     getCtasField({
       name: 'ctas',
       label: 'CTAs',
@@ -29,10 +24,11 @@ export const contentBannerBlock: Block = {
       minItems: 0,
     }),
   ],
+  imageURL: '/blocks/preview-banner.png',
   interfaceName: 'BannerBlock',
   labels: {
-    plural: 'Banner blocks',
-    singular: 'Banner block',
+    plural: 'Banners',
+    singular: 'Banner',
   },
   slug: 'banner',
 }

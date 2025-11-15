@@ -1,7 +1,7 @@
 import { settingsQueryKey } from '@cms/api/settings/settings.queryKey'
 
 import { useOrpc } from '~base/composables/api/useOrpc'
-import { useGlobalI18n } from '~base/composables/i18n/useGlobaI18n'
+import { useGlobalI18n } from '~base/composables/i18n/useGlobalI18n'
 import { useQuery } from '~base/composables/query/useQuery'
 
 export function useSettingsSocialsQuery() {

@@ -20,6 +20,6 @@
     "@wisemen/eslint-config-vue": "catalog:lint",
     "eslint": "catalog:lint",
     "payload": "catalog:payload",
-    "typescript": "catalog:types"
+    "typescript": "catalog:build"
   }
 }

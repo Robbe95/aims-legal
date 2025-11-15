@@ -8,7 +8,7 @@ import {
   watch,
 } from 'vue'
 
-import { useGlobalI18n } from '~base/composables/i18n/useGlobaI18n'
+import { useGlobalI18n } from '~base/composables/i18n/useGlobalI18n'
 import { createI18nKeyMap } from '~base/types/i18n/i18n.type'
 
 type FontSize = 'default' | 'large' | 'larger' | 'small' | 'smaller'

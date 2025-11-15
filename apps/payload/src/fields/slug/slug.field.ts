@@ -11,9 +11,9 @@ interface Overrides {
   slugOverrides?: Partial<TextField>
 }
 
-type Slug = (fieldToUse?: string, overrides?: Overrides) => [TextField, CheckboxField]
+type Slug = (fieldToUse?: string, overrides?: Overrides, isLocalized?: boolean) => [TextField, CheckboxField]
 
-export const getSlugField: Slug = (fieldToUse = 'title', overrides = {}) => {
+export const getSlugField: Slug = (fieldToUse = 'title', overrides = {}, isLocalized = true) => {
   const {
     checkboxOverrides, slugOverrides,
   } = overrides
@@ -34,7 +34,7 @@ export const getSlugField: Slug = (fieldToUse = 'title', overrides = {}) => {
     name: 'slug',
     index: true,
     label: 'Slug',
-    localized: true,
+    localized: isLocalized,
     type: 'text',
     ...slugOverrides,
     admin: {

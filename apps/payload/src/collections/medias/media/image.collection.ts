@@ -5,12 +5,24 @@ export const imageCollection: CollectionConfig = {
   access: {
     read: () => true,
   },
+  enableQueryPresets: true,
   fields: [
+    {
+      name: 'id',
+      admin: {
+        hidden: true,
+      },
+      index: true,
+      required: true,
+      type: 'text',
+      unique: true,
+    },
     {
       name: 'alt',
       type: 'text',
     },
   ],
+  folders: true,
   hooks: {
     beforeOperation: [
       (req) => {
@@ -24,6 +36,13 @@ export const imageCollection: CollectionConfig = {
   },
   slug: 'images',
   upload: {
+    admin: {
+      components: {
+        controls: [
+          '@payload/components/upload/CustomUpload#customUpload',
+        ],
+      },
+    },
     adminThumbnail: 'thumbnail',
     imageSizes: [
       {

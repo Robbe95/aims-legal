@@ -1,7 +1,6 @@
-import type { Tab } from 'payload'
+import type { GlobalConfig } from 'payload'
 
-export const settingsHubspotTab: Tab = {
-  name: 'hubspot',
+export const settingsHubspotGlobal: GlobalConfig = {
   fields: [
     {
       name: 'portalId',
@@ -14,5 +13,5 @@ export const settingsHubspotTab: Tab = {
       type: 'text',
     },
   ],
-  label: 'Hubspot',
+  slug: 'settingsHubspot',
 }

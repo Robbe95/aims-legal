@@ -1,29 +1,11 @@
-'use client'
-import { loginWithCode } from '@payload/auth/loginWithCode'
-import { LoadingOverlay, } from '@payloadcms/ui'
-import { getCookie } from 'cookies-next'
-import { redirect, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import CallbackView from '@payload/components/auth/CallbackView'
+import { getEnv } from '@payload/env'
 export default function Callback() {
-  const searchParams = useSearchParams()
-  const code = searchParams.get('code')
-
-  if (code == null) {
-    redirect('/login')
-  }
-
-  const codeVerifier = getCookie('code_verifier') as string
-
-  useEffect(() => {
-    loginWithCode(code, codeVerifier)
-      .then(({ success }) => {
-        if (success) {
-          redirect('/')
-        }
-      })
-  }, [
-    codeVerifier,
-  ])
+  const {
+    AUTH_BASE_URL,
+    AUTH_CLIENT_ID,
+    CMS_BASE_URL,
+  } = getEnv()
 
   return (
     <div style={{
@@ -35,7 +17,11 @@ export default function Callback() {
       justifyContent: 'center',
     }}
     >
-      <LoadingOverlay />
+      <CallbackView
+        AUTH_BASE_URL={AUTH_BASE_URL}
+        AUTH_CLIENT_ID={AUTH_CLIENT_ID}
+        CMS_BASE_URL={CMS_BASE_URL}
+      />
     </div>
   )
 }

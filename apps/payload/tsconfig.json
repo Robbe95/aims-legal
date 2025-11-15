@@ -21,6 +21,7 @@
       "@contract": ["../../packages/contract/src/*"]
     },
     "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
     "allowJs": true,
     "strict": true,
     "noEmit": true,

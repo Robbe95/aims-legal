@@ -34,6 +34,15 @@ export interface AuthData {
 
 const env = getEnv()
 
+export function getDefaultScopes(AUTH_ORGANIZATION_ID: string) {
+  return [
+    'openid',
+    'profile',
+    'email',
+    'offline_access',
+    `urn:zitadel:iam:org:id:${AUTH_ORGANIZATION_ID}`,
+  ]
+}
 export const DEFAULT_SCOPES: string[] = [
   'openid',
   'profile',

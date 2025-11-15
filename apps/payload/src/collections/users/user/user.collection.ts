@@ -8,8 +8,7 @@ import { tenantsArrayField } from '@payloadcms/plugin-multi-tenant/fields'
 import { isAdmin } from '@repo/utils'
 import type { CollectionConfig } from 'payload'
 
-// Activate if you need tenants
-const _defaultTenantArrayField = tenantsArrayField({
+const defaultTenantArrayField = tenantsArrayField({
   arrayFieldAccess: {},
   rowFields: [
     {
@@ -48,21 +47,24 @@ export const userCollection: CollectionConfig = {
       return isAdmin(user)
     },
   },
+
   admin: {
     useAsTitle: 'email',
   },
   auth: {
-    lockTime: LOCK_TIME,
+    lockTime: LOCK_TIME, // Time period to allow the max login attempts
     disableLocalStrategy: true,
-    maxLoginAttempts: MAX_LOGIN_ATTEMPTS,
+    maxLoginAttempts: MAX_LOGIN_ATTEMPTS, // Automatically lock a user out after X amount of failed logins
     strategies: [
       zitadalStrategy,
     ],
-    tokenExpiration: ACCESS_TOKEN_EXPIRATION,
-    verify: false,
+    tokenExpiration: ACCESS_TOKEN_EXPIRATION, // How many seconds to keep the user logged in
+    verify: false, // Require email verification before being allowed to authenticate
   },
+  enableQueryPresets: true,
   fields: [
     {
+
       tabs: [
         {
           fields: [
@@ -197,13 +199,12 @@ export const userCollection: CollectionConfig = {
               type: 'select',
             },
 
-            // Active if you need tenants
-            // {
-            //   ...defaultTenantArrayField,
-            //   admin: {
-            //     ...defaultTenantArrayField?.admin,
-            //   },
-            // },
+            {
+              ...defaultTenantArrayField,
+              admin: {
+                ...defaultTenantArrayField?.admin,
+              },
+            },
 
           ],
           label: {
@@ -217,4 +218,5 @@ export const userCollection: CollectionConfig = {
 
   ],
   slug: 'users',
+  trash: true,
 }

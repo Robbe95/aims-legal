@@ -8,6 +8,17 @@
 
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BreadcrumbsField".
+ */
+export type BreadcrumbsField =
+  | {
+      label: string;
+      link: LinkField;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ColumnBlocks".
  */
 export type ColumnBlocks =
@@ -78,41 +89,55 @@ export interface Config {
   blocks: {};
   collections: {
     pages: Page;
+    'form-hubspot': FormHubspot;
     users: User;
     addresses: Address;
+    tenants: Tenant;
+    articles: Article;
     images: Image;
-    icons: Icon;
-    blogs: Blog;
-    'form-hubspot': FormHubspot;
     'payload-jobs': PayloadJob;
+    'payload-folders': FolderInterface;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
+    'payload-query-presets': PayloadQueryPreset;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    'payload-folders': {
+      documentsAndFolders: 'payload-folders' | 'images';
+    };
+  };
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
+    'form-hubspot': FormHubspotSelect<false> | FormHubspotSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     addresses: AddressesSelect<false> | AddressesSelect<true>;
+    tenants: TenantsSelect<false> | TenantsSelect<true>;
+    articles: ArticlesSelect<false> | ArticlesSelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
-    icons: IconsSelect<false> | IconsSelect<true>;
-    blogs: BlogsSelect<false> | BlogsSelect<true>;
-    'form-hubspot': FormHubspotSelect<false> | FormHubspotSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
+    'payload-folders': PayloadFoldersSelect<false> | PayloadFoldersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+    'payload-query-presets': PayloadQueryPresetsSelect<false> | PayloadQueryPresetsSelect<true>;
   };
   db: {
     defaultIDType: string;
   };
   globals: {
-    settings: Setting;
+    settingsFooter: SettingsFooter;
+    settingsHeader: SettingsHeader;
+    settingsHomePage: SettingsHomePage;
+    settingsHubspot: SettingsHubspot;
   };
   globalsSelect: {
-    settings: SettingsSelect<false> | SettingsSelect<true>;
+    settingsFooter: SettingsFooterSelect<false> | SettingsFooterSelect<true>;
+    settingsHeader: SettingsHeaderSelect<false> | SettingsHeaderSelect<true>;
+    settingsHomePage: SettingsHomePageSelect<false> | SettingsHomePageSelect<true>;
+    settingsHubspot: SettingsHubspotSelect<false> | SettingsHubspotSelect<true>;
   };
-  locale: 'en' | 'nl' | 'fr';
+  locale: 'en' | 'nl';
   user: User & {
     collection: 'users';
   };
@@ -154,11 +179,30 @@ export interface UserAuthOperations {
  */
 export interface Page {
   id: string;
+  tenant?: (string | null) | Tenant;
   title: string;
+  fullTitle?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  breadcrumbs?: BreadcrumbsField;
   blocks?:
-    | (HeroBlock | TextBlock | ColumnBlock | ImageTextBlock | CarouselBlock | BannerBlock | HubspotFormBlock)[]
+    | (
+        | HeroBlock
+        | TextBlock
+        | ColumnBlock
+        | ImageTextBlock
+        | CarouselBlock
+        | CarouselImageOnlyBlock
+        | BannerBlock
+        | DoubleImageBlock
+        | UspsBlock
+        | RichTextBlock
+        | CardListBlock
+        | TableBlock
+        | ArticlesIndexBlock
+        | ArticlesCarouselBlock
+        | HubspotFormBlock
+      )[]
     | null;
   seo?: {
     title?: string | null;
@@ -170,31 +214,19 @@ export interface Page {
   };
   updatedAt: string;
   createdAt: string;
+  deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock".
+ * via the `definition` "tenants".
  */
-export interface HeroBlock {
+export interface Tenant {
+  id: string;
   title: string;
-  text: string;
-  ctas?:
-    | {
-        cta: {
-          label: string;
-          ctaVariant?: ('primary' | 'secondary') | null;
-          ctaType?: ('link' | 'event') | null;
-          link?: LinkField;
-          event?: 'some_form' | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  backgroundImage: string | Image;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'hero';
+  updatedAt: string;
+  createdAt: string;
+  deletedAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -203,19 +235,73 @@ export interface HeroBlock {
 export interface LinkField {
   type: 'reference' | 'custom';
   newTab: boolean;
-  reference?: {
-    relationTo: 'pages';
-    value: string | Page;
-  } | null;
+  reference?:
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'articles';
+        value: string | Article;
+      } | null);
   url?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles".
+ */
+export interface Article {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  title: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  preview: {
+    title: string;
+    description?: string | null;
+    image: string | Image;
+  };
+  blocks?:
+    | (
+        | HeroBlock
+        | TextBlock
+        | ColumnBlock
+        | ImageTextBlock
+        | CarouselBlock
+        | CarouselImageOnlyBlock
+        | BannerBlock
+        | DoubleImageBlock
+        | UspsBlock
+        | RichTextBlock
+        | CardListBlock
+        | TableBlock
+        | ArticlesIndexBlock
+        | ArticlesCarouselBlock
+        | HubspotFormBlock
+      )[]
+    | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Image;
+  };
+  updatedAt: string;
+  createdAt: string;
+  deletedAt?: string | null;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "images".
  */
 export interface Image {
+  tenant?: (string | null) | Tenant;
   id: string;
   alt?: string | null;
+  folder?: (string | null) | FolderInterface;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -272,11 +358,83 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-folders".
+ */
+export interface FolderInterface {
+  id: string;
+  name: string;
+  folder?: (string | null) | FolderInterface;
+  documentsAndFolders?: {
+    docs?: (
+      | {
+          relationTo?: 'payload-folders';
+          value: string | FolderInterface;
+        }
+      | {
+          relationTo?: 'images';
+          value: string | Image;
+        }
+    )[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  folderType?: 'images'[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  title: string;
+  text: string;
+  variant: 'fullScreen' | 'partialScreen';
+  ctas?:
+    | {
+        cta: CtaField;
+        id?: string | null;
+      }[]
+    | null;
+  backgroundImage: string | Image;
+  backgroundVideo?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaField".
+ */
+export interface CtaField {
+  label: string;
+  ctaVariant?: ('primary' | 'secondary') | null;
+  ctaType?: ('link' | 'event') | null;
+  link?: LinkField;
+  event?: 'some_form' | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TextBlock".
  */
 export interface TextBlock {
   title: string;
-  text: string;
+  text?: string | null;
+  richtext?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'text';
@@ -303,13 +461,7 @@ export interface ColumnMultipleTextBlock {
   }[];
   ctas?:
     | {
-        cta: {
-          label: string;
-          ctaVariant?: ('primary' | 'secondary') | null;
-          ctaType?: ('link' | 'event') | null;
-          link?: LinkField;
-          event?: 'some_form' | null;
-        };
+        cta: CtaField;
         id?: string | null;
       }[]
     | null;
@@ -326,13 +478,7 @@ export interface ColumnTextCtaBlock {
   text: string;
   ctas?:
     | {
-        cta: {
-          label: string;
-          ctaVariant?: ('primary' | 'secondary') | null;
-          ctaType?: ('link' | 'event') | null;
-          link?: LinkField;
-          event?: 'some_form' | null;
-        };
+        cta: CtaField;
         id?: string | null;
       }[]
     | null;
@@ -346,7 +492,31 @@ export interface ColumnTextCtaBlock {
  */
 export interface ImageTextBlock {
   title: string;
-  text: string;
+  subtitle?: string | null;
+  text?: string | null;
+  richtext?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  ctas?:
+    | {
+        cta: CtaField;
+        id?: string | null;
+      }[]
+    | null;
+  image: string | Image;
+  variant: 'imageLeftSmall' | 'imageRightSmall' | 'imageLeftBig' | 'fullImage';
   id?: string | null;
   blockName?: string | null;
   blockType: 'image-text';
@@ -356,10 +526,32 @@ export interface ImageTextBlock {
  * via the `definition` "CarouselBlock".
  */
 export interface CarouselBlock {
-  images: (string | Image)[];
+  title?: string | null;
+  cta?: CtaField;
+  variant: 'big' | 'small';
+  items: {
+    title?: string | null;
+    tags?: string[] | null;
+    description?: string | null;
+    image: string | Image;
+    link: LinkField;
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'carousel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselImageOnlyBlock".
+ */
+export interface CarouselImageOnlyBlock {
+  title?: string | null;
+  variant: 'big' | 'small';
+  image: (string | Image)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'carousel-image-only';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -368,16 +560,9 @@ export interface CarouselBlock {
 export interface BannerBlock {
   title: string;
   text: string;
-  icon: string | Icon;
   ctas?:
     | {
-        cta: {
-          label: string;
-          ctaVariant?: ('primary' | 'secondary') | null;
-          ctaType?: ('link' | 'event') | null;
-          link?: LinkField;
-          event?: 'some_form' | null;
-        };
+        cta: CtaField;
         id?: string | null;
       }[]
     | null;
@@ -387,30 +572,140 @@ export interface BannerBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "icons".
+ * via the `definition` "DoubleImageBlock".
  */
-export interface Icon {
-  id: string;
-  alt?: string | null;
-  content?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+export interface DoubleImageBlock {
+  firstImage: string | Image;
+  secondImage: string | Image;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'double-image';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UspsBlock".
+ */
+export interface UspsBlock {
+  title?: string | null;
+  variant: 'gray' | 'white';
+  usps: {
+    title: string;
+    subtitle?: string | null;
+    description: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'usps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock".
+ */
+export interface RichTextBlock {
+  richtext: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'rich-text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardListBlock".
+ */
+export interface CardListBlock {
+  title?: string | null;
+  cta: CtaField;
+  cards: {
+    title: string;
+    description?: string | null;
+    tags?: string[] | null;
+    image: string | Image;
+    link: LinkField;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'card-list';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock".
+ */
+export interface TableBlock {
+  title?: string | null;
+  table: {
+    headers: {
+      label: string;
+      /**
+       * Unique identifier for this column (e.g., name, email, phone)
+       */
+      key: string;
+      id?: string | null;
+    }[];
+    rows?:
+      | {
+          cells?:
+            | {
+                value?: string | null;
+                /**
+                 * Must match a header key from above
+                 */
+                key: string;
+                id?: string | null;
+              }[]
+            | null;
+          rowImage?: (string | null) | Image;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'table';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArticlesIndexBlock".
+ */
+export interface ArticlesIndexBlock {
+  title: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'article-index';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArticlesCarouselBlock".
+ */
+export interface ArticlesCarouselBlock {
+  title: string;
+  articles: (string | Article)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'articles-carousel';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HubspotFormBlock".
  */
 export interface HubspotFormBlock {
+  title: string;
   hubspotForm: string | FormHubspot;
+  image?: (string | null) | Image;
   id?: string | null;
   blockName?: string | null;
   blockType: 'hubspot-form';
@@ -425,6 +720,7 @@ export interface FormHubspot {
   formId: string;
   updatedAt: string;
   createdAt: string;
+  deletedAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -438,8 +734,16 @@ export interface User {
   addresses?: (string | Address)[] | null;
   darkMode: 'dark' | 'light' | 'system';
   role: 'super-admin' | 'user' | 'admin' | 'editor';
+  tenants?:
+    | {
+        tenant: string | Tenant;
+        roles: ('tenant-admin' | 'tenant-viewer')[];
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
+  deletedAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -458,32 +762,6 @@ export interface Address {
   email?: string | null;
   phone?: string | null;
   type?: ('billing' | 'shipping')[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blogs".
- */
-export interface Blog {
-  id: string;
-  title: string;
-  slug: string;
-  blog: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
   updatedAt: string;
   createdAt: string;
 }
@@ -592,6 +870,10 @@ export interface PayloadLockedDocument {
         value: string | Page;
       } | null)
     | ({
+        relationTo: 'form-hubspot';
+        value: string | FormHubspot;
+      } | null)
+    | ({
         relationTo: 'users';
         value: string | User;
       } | null)
@@ -600,24 +882,24 @@ export interface PayloadLockedDocument {
         value: string | Address;
       } | null)
     | ({
+        relationTo: 'tenants';
+        value: string | Tenant;
+      } | null)
+    | ({
+        relationTo: 'articles';
+        value: string | Article;
+      } | null)
+    | ({
         relationTo: 'images';
         value: string | Image;
       } | null)
     | ({
-        relationTo: 'icons';
-        value: string | Icon;
-      } | null)
-    | ({
-        relationTo: 'blogs';
-        value: string | Blog;
-      } | null)
-    | ({
-        relationTo: 'form-hubspot';
-        value: string | FormHubspot;
-      } | null)
-    | ({
         relationTo: 'payload-jobs';
         value: string | PayloadJob;
+      } | null)
+    | ({
+        relationTo: 'payload-folders';
+        value: string | FolderInterface;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -663,12 +945,63 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-query-presets".
+ */
+export interface PayloadQueryPreset {
+  id: string;
+  title: string;
+  isShared?: boolean | null;
+  access?: {
+    read?: {
+      constraint?: ('everyone' | 'onlyMe' | 'specificUsers') | null;
+      users?: (string | User)[] | null;
+    };
+    update?: {
+      constraint?: ('everyone' | 'onlyMe' | 'specificUsers') | null;
+      users?: (string | User)[] | null;
+    };
+    delete?: {
+      constraint?: ('everyone' | 'onlyMe' | 'specificUsers') | null;
+      users?: (string | User)[] | null;
+    };
+  };
+  where?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  columns?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  relatedCollection: 'pages' | 'form-hubspot' | 'users' | 'articles' | 'images';
+  /**
+   * This is a temporary field used to determine if updating the preset would remove the user's access to it. When `true`, this record will be deleted after running the preset's `validate` function.
+   */
+  isTemp?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
+  tenant?: T;
   title?: T;
+  fullTitle?: T;
   slug?: T;
   slugLock?: T;
+  breadcrumbs?: T | BreadcrumbsFieldSelect<T>;
   blocks?:
     | T
     | {
@@ -677,7 +1010,15 @@ export interface PagesSelect<T extends boolean = true> {
         column?: T | ColumnBlockSelect<T>;
         'image-text'?: T | ImageTextBlockSelect<T>;
         carousel?: T | CarouselBlockSelect<T>;
+        'carousel-image-only'?: T | CarouselImageOnlyBlockSelect<T>;
         banner?: T | BannerBlockSelect<T>;
+        'double-image'?: T | DoubleImageBlockSelect<T>;
+        usps?: T | UspsBlockSelect<T>;
+        'rich-text'?: T | RichTextBlockSelect<T>;
+        'card-list'?: T | CardListBlockSelect<T>;
+        table?: T | TableBlockSelect<T>;
+        'article-index'?: T | ArticlesIndexBlockSelect<T>;
+        'articles-carousel'?: T | ArticlesCarouselBlockSelect<T>;
         'hubspot-form'?: T | HubspotFormBlockSelect<T>;
       };
   seo?:
@@ -689,32 +1030,17 @@ export interface PagesSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+  deletedAt?: T;
   _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock_select".
+ * via the `definition` "BreadcrumbsField_select".
  */
-export interface HeroBlockSelect<T extends boolean = true> {
-  title?: T;
-  text?: T;
-  ctas?:
-    | T
-    | {
-        cta?:
-          | T
-          | {
-              label?: T;
-              ctaVariant?: T;
-              ctaType?: T;
-              link?: T | LinkFieldSelect<T>;
-              event?: T;
-            };
-        id?: T;
-      };
-  backgroundImage?: T;
+export interface BreadcrumbsFieldSelect<T extends boolean = true> {
+  label?: T;
+  link?: T | LinkFieldSelect<T>;
   id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -728,11 +1054,42 @@ export interface LinkFieldSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  title?: T;
+  text?: T;
+  variant?: T;
+  ctas?:
+    | T
+    | {
+        cta?: T | CtaFieldSelect<T>;
+        id?: T;
+      };
+  backgroundImage?: T;
+  backgroundVideo?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaField_select".
+ */
+export interface CtaFieldSelect<T extends boolean = true> {
+  label?: T;
+  ctaVariant?: T;
+  ctaType?: T;
+  link?: T | LinkFieldSelect<T>;
+  event?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TextBlock_select".
  */
 export interface TextBlockSelect<T extends boolean = true> {
   title?: T;
   text?: T;
+  richtext?: T;
   id?: T;
   blockName?: T;
 }
@@ -773,15 +1130,7 @@ export interface ColumnMultipleTextBlockSelect<T extends boolean = true> {
   ctas?:
     | T
     | {
-        cta?:
-          | T
-          | {
-              label?: T;
-              ctaVariant?: T;
-              ctaType?: T;
-              link?: T | LinkFieldSelect<T>;
-              event?: T;
-            };
+        cta?: T | CtaFieldSelect<T>;
         id?: T;
       };
   id?: T;
@@ -797,15 +1146,7 @@ export interface ColumnTextCtaBlockSelect<T extends boolean = true> {
   ctas?:
     | T
     | {
-        cta?:
-          | T
-          | {
-              label?: T;
-              ctaVariant?: T;
-              ctaType?: T;
-              link?: T | LinkFieldSelect<T>;
-              event?: T;
-            };
+        cta?: T | CtaFieldSelect<T>;
         id?: T;
       };
   id?: T;
@@ -817,7 +1158,17 @@ export interface ColumnTextCtaBlockSelect<T extends boolean = true> {
  */
 export interface ImageTextBlockSelect<T extends boolean = true> {
   title?: T;
+  subtitle?: T;
   text?: T;
+  richtext?: T;
+  ctas?:
+    | T
+    | {
+        cta?: T | CtaFieldSelect<T>;
+        id?: T;
+      };
+  image?: T;
+  variant?: T;
   id?: T;
   blockName?: T;
 }
@@ -826,7 +1177,30 @@ export interface ImageTextBlockSelect<T extends boolean = true> {
  * via the `definition` "CarouselBlock_select".
  */
 export interface CarouselBlockSelect<T extends boolean = true> {
-  images?: T;
+  title?: T;
+  cta?: T | CtaFieldSelect<T>;
+  variant?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        tags?: T;
+        description?: T;
+        image?: T;
+        link?: T | LinkFieldSelect<T>;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselImageOnlyBlock_select".
+ */
+export interface CarouselImageOnlyBlockSelect<T extends boolean = true> {
+  title?: T;
+  variant?: T;
+  image?: T;
   id?: T;
   blockName?: T;
 }
@@ -837,21 +1211,121 @@ export interface CarouselBlockSelect<T extends boolean = true> {
 export interface BannerBlockSelect<T extends boolean = true> {
   title?: T;
   text?: T;
-  icon?: T;
   ctas?:
     | T
     | {
-        cta?:
+        cta?: T | CtaFieldSelect<T>;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DoubleImageBlock_select".
+ */
+export interface DoubleImageBlockSelect<T extends boolean = true> {
+  firstImage?: T;
+  secondImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "UspsBlock_select".
+ */
+export interface UspsBlockSelect<T extends boolean = true> {
+  title?: T;
+  variant?: T;
+  usps?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock_select".
+ */
+export interface RichTextBlockSelect<T extends boolean = true> {
+  richtext?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardListBlock_select".
+ */
+export interface CardListBlockSelect<T extends boolean = true> {
+  title?: T;
+  cta?: T | CtaFieldSelect<T>;
+  cards?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        tags?: T;
+        image?: T;
+        link?: T | LinkFieldSelect<T>;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock_select".
+ */
+export interface TableBlockSelect<T extends boolean = true> {
+  title?: T;
+  table?:
+    | T
+    | {
+        headers?:
           | T
           | {
               label?: T;
-              ctaVariant?: T;
-              ctaType?: T;
-              link?: T | LinkFieldSelect<T>;
-              event?: T;
+              key?: T;
+              id?: T;
             };
-        id?: T;
+        rows?:
+          | T
+          | {
+              cells?:
+                | T
+                | {
+                    value?: T;
+                    key?: T;
+                    id?: T;
+                  };
+              rowImage?: T;
+              id?: T;
+            };
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArticlesIndexBlock_select".
+ */
+export interface ArticlesIndexBlockSelect<T extends boolean = true> {
+  title?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArticlesCarouselBlock_select".
+ */
+export interface ArticlesCarouselBlockSelect<T extends boolean = true> {
+  title?: T;
+  articles?: T;
   id?: T;
   blockName?: T;
 }
@@ -860,9 +1334,22 @@ export interface BannerBlockSelect<T extends boolean = true> {
  * via the `definition` "HubspotFormBlock_select".
  */
 export interface HubspotFormBlockSelect<T extends boolean = true> {
+  title?: T;
   hubspotForm?: T;
+  image?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-hubspot_select".
+ */
+export interface FormHubspotSelect<T extends boolean = true> {
+  title?: T;
+  formId?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  deletedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -875,8 +1362,16 @@ export interface UsersSelect<T extends boolean = true> {
   addresses?: T;
   darkMode?: T;
   role?: T;
+  tenants?:
+    | T
+    | {
+        tenant?: T;
+        roles?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
+  deletedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -899,10 +1394,70 @@ export interface AddressesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenants_select".
+ */
+export interface TenantsSelect<T extends boolean = true> {
+  title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  deletedAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles_select".
+ */
+export interface ArticlesSelect<T extends boolean = true> {
+  tenant?: T;
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  preview?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  blocks?:
+    | T
+    | {
+        hero?: T | HeroBlockSelect<T>;
+        text?: T | TextBlockSelect<T>;
+        column?: T | ColumnBlockSelect<T>;
+        'image-text'?: T | ImageTextBlockSelect<T>;
+        carousel?: T | CarouselBlockSelect<T>;
+        'carousel-image-only'?: T | CarouselImageOnlyBlockSelect<T>;
+        banner?: T | BannerBlockSelect<T>;
+        'double-image'?: T | DoubleImageBlockSelect<T>;
+        usps?: T | UspsBlockSelect<T>;
+        'rich-text'?: T | RichTextBlockSelect<T>;
+        'card-list'?: T | CardListBlockSelect<T>;
+        table?: T | TableBlockSelect<T>;
+        'article-index'?: T | ArticlesIndexBlockSelect<T>;
+        'articles-carousel'?: T | ArticlesCarouselBlockSelect<T>;
+        'hubspot-form'?: T | HubspotFormBlockSelect<T>;
+      };
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  deletedAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "images_select".
  */
 export interface ImagesSelect<T extends boolean = true> {
+  tenant?: T;
+  id?: T;
   alt?: T;
+  folder?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -971,46 +1526,6 @@ export interface ImagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "icons_select".
- */
-export interface IconsSelect<T extends boolean = true> {
-  alt?: T;
-  content?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blogs_select".
- */
-export interface BlogsSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  blog?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "form-hubspot_select".
- */
-export interface FormHubspotSelect<T extends boolean = true> {
-  title?: T;
-  formId?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs_select".
  */
 export interface PayloadJobsSelect<T extends boolean = true> {
@@ -1038,6 +1553,18 @@ export interface PayloadJobsSelect<T extends boolean = true> {
   queue?: T;
   waitUntil?: T;
   processing?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-folders_select".
+ */
+export interface PayloadFoldersSelect<T extends boolean = true> {
+  name?: T;
+  folder?: T;
+  documentsAndFolders?: T;
+  folderType?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1075,54 +1602,139 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settings".
+ * via the `definition` "payload-query-presets_select".
  */
-export interface Setting {
+export interface PayloadQueryPresetsSelect<T extends boolean = true> {
+  title?: T;
+  isShared?: T;
+  access?:
+    | T
+    | {
+        read?:
+          | T
+          | {
+              constraint?: T;
+              users?: T;
+            };
+        update?:
+          | T
+          | {
+              constraint?: T;
+              users?: T;
+            };
+        delete?:
+          | T
+          | {
+              constraint?: T;
+              users?: T;
+            };
+      };
+  where?: T;
+  columns?: T;
+  relatedCollection?: T;
+  isTemp?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsFooter".
+ */
+export interface SettingsFooter {
   id: string;
-  socials?: {
-    socials?:
-      | {
-          social: Social;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  hubspot?: {
-    portalId?: string | null;
-    accessToken?: string | null;
-  };
+  links?:
+    | {
+        navLink: {
+          label: string;
+          navType: 'link' | 'event' | 'dropdown';
+          link?: LinkField;
+          event?: 'some_form' | null;
+          links?:
+            | {
+                label: string;
+                link: LinkField;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Social".
+ * via the `definition` "settingsHeader".
  */
-export interface Social {
-  name: string;
-  url?: string | null;
-  icon: string | Icon;
+export interface SettingsHeader {
+  id: string;
+  links?:
+    | {
+        navLink: {
+          label: string;
+          navType: 'link' | 'event' | 'dropdown';
+          link?: LinkField;
+          event?: 'some_form' | null;
+          links?:
+            | {
+                label: string;
+                link: LinkField;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settings_select".
+ * via the `definition` "settingsHomePage".
  */
-export interface SettingsSelect<T extends boolean = true> {
-  socials?:
+export interface SettingsHomePage {
+  id: string;
+  homePage: LinkField;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsHubspot".
+ */
+export interface SettingsHubspot {
+  id: string;
+  portalId?: string | null;
+  accessToken?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsFooter_select".
+ */
+export interface SettingsFooterSelect<T extends boolean = true> {
+  links?:
     | T
     | {
-        socials?:
+        navLink?:
           | T
           | {
-              social?: T | SocialSelect<T>;
-              id?: T;
+              label?: T;
+              navType?: T;
+              link?: T | LinkFieldSelect<T>;
+              event?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    link?: T | LinkFieldSelect<T>;
+                    id?: T;
+                  };
             };
-      };
-  hubspot?:
-    | T
-    | {
-        portalId?: T;
-        accessToken?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1130,12 +1742,53 @@ export interface SettingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Social_select".
+ * via the `definition` "settingsHeader_select".
  */
-export interface SocialSelect<T extends boolean = true> {
-  name?: T;
-  url?: T;
-  icon?: T;
+export interface SettingsHeaderSelect<T extends boolean = true> {
+  links?:
+    | T
+    | {
+        navLink?:
+          | T
+          | {
+              label?: T;
+              navType?: T;
+              link?: T | LinkFieldSelect<T>;
+              event?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    link?: T | LinkFieldSelect<T>;
+                    id?: T;
+                  };
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsHomePage_select".
+ */
+export interface SettingsHomePageSelect<T extends boolean = true> {
+  homePage?: T | LinkFieldSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsHubspot_select".
+ */
+export interface SettingsHubspotSelect<T extends boolean = true> {
+  portalId?: T;
+  accessToken?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1157,10 +1810,15 @@ export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
-    doc?: {
-      relationTo: 'pages';
-      value: string | Page;
-    } | null;
+    doc?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'articles';
+          value: string | Article;
+        } | null);
     global?: string | null;
     user?: (string | null) | User;
   };

@@ -1,15 +1,17 @@
 import type {
   NavPreferences,
   Payload,
-  TypedUser,
+  User,
 } from 'payload'
 import { cache } from 'react'
 
 export const getNavPrefs = cache(
   async ({
     payload, user,
-  }: { payload: Payload
-    user: TypedUser }): Promise<NavPreferences> =>
+  }: {
+    payload: Payload
+    user: User
+  }): Promise<NavPreferences> =>
     user
     // @ts-expect-error - ts mismatch Partial<TextFieldClientProps>
       ? await payload

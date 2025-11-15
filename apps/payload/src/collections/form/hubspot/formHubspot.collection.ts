@@ -4,6 +4,7 @@ export const formHubspotCollection: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
   },
+  enableQueryPresets: true,
   fields: [
     {
       name: 'title',
@@ -13,9 +14,11 @@ export const formHubspotCollection: CollectionConfig = {
     },
     {
       name: 'formId',
+      localized: true,
       required: true,
       type: 'text',
     },
   ],
   slug: 'form-hubspot',
+  trash: true,
 }

@@ -3,6 +3,7 @@ import type { Tab } from 'payload'
 
 export const pageStructureTab: Tab = {
   fields: [
+
     {
       name: 'blocks',
       blocks: contentBlocks,
@@ -10,6 +11,8 @@ export const pageStructureTab: Tab = {
       minRows: 1,
       type: 'blocks',
     },
+
   ],
   label: 'Structure',
+
 }

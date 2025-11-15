@@ -4,7 +4,7 @@ export default [
   ...(await WisemenEslintConfig),
   {
     rules: {
-      'path/no-relative-imports': 'off',
+      'project-structure/independent-modules': 'off',
       'ts/explicit-function-return-type': 'off',
     },
   },

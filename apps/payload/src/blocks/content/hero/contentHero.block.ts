@@ -5,7 +5,8 @@ import type { Block } from 'payload'
 
 export const contentHeroBlock: Block = {
   admin: {
-    group: BLOCK_GROUPS.hero,
+    group: BLOCK_GROUPS.content,
+
   },
   fields: [
     {
@@ -18,21 +19,44 @@ export const contentHeroBlock: Block = {
       required: true,
       type: 'textarea',
     },
+    {
+      name: 'variant',
+      defaultValue: 'fullScreen',
+      enumName: 'heroVariant',
+      options: [
+        {
+          label: 'Full screen',
+          value: 'fullScreen',
+        },
+        {
+          label: 'Partial screen',
+          value: 'partialScreen',
+        },
+      ],
+      required: true,
+      type: 'select',
+    },
     getCtasField({
       name: 'ctas',
       label: 'CTAs',
-      maxItems: 2,
+      maxItems: 6,
       minItems: 0,
     }),
     getImageField({
       name: 'backgroundImage',
       label: 'Background image',
     }),
+    {
+      name: 'backgroundVideo',
+      label: 'Youtube URL',
+      type: 'text',
+    },
   ],
+  imageURL: '/blocks/preview-hero.png',
   interfaceName: 'HeroBlock',
   labels: {
-    plural: 'Hero blocks',
-    singular: 'Hero block',
+    plural: 'Heros',
+    singular: 'Hero',
   },
   slug: 'hero',
 }

@@ -3,7 +3,7 @@ import type { User } from '@repo/payload-types'
 import type {
   CurrentUser,
   UserId,
-} from './current-user/currentUser.model'
+} from '#auth/current-user/currentUser.model.ts'
 
 export class AuthTransformer {
   static toCurrentUser(dto: User): CurrentUser {
