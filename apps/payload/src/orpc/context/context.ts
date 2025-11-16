@@ -4,7 +4,6 @@ import type { TypedLocale } from 'payload'
 export interface ContextHeaders {
   'Accept-Language': string | null
   'Authorization': string | null
-  'X-Site-Name': string | null
 }
 
 export interface Context {

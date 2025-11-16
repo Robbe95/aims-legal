@@ -9,7 +9,7 @@ import { getEnv } from '~base/utils/env/getEnv.utils'
 
 export function useOrpc() {
   const {
-    CMS_BASE_URL, SITE_NAME,
+    CMS_BASE_URL,
   } = getEnv()
   const {
     locale,
@@ -20,7 +20,6 @@ export function useOrpc() {
       const headers: Record<string, string> = {}
 
       headers['Accept-Language'] = locale.value
-      headers['X-Site-Name'] = SITE_NAME
 
       return headers
     },

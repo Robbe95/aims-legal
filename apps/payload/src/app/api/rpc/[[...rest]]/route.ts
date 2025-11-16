@@ -10,7 +10,6 @@ async function handleRequest(request: Request) {
     context: {
       'Accept-Language': request.headers.get('Accept-Language'),
       'Authorization': request.headers.get('Authorization'),
-      'X-Site-Name': request.headers.get('X-Site-Name'),
     },
     prefix: '/api/rpc',
   })

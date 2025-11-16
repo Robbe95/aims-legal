@@ -47,8 +47,6 @@ export default defineNuxtPlugin({
       async onRequest({
         options,
       }) {
-        options.headers.append('X-Site-Name', SITE_NAME)
-
         const token = await oAuthClient.getAccessToken()
 
         if (token == null) {
