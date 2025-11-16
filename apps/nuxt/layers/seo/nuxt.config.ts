@@ -1,18 +1,6 @@
 import path from 'node:path'
 
 export default defineNuxtConfig({
-  $production: {
-    routeRules: {
-      '**': {
-        cache: {
-          name: 'redis',
-          base: 'redis',
-          maxAge: 60,
-          swr: true,
-        },
-      },
-    },
-  },
   alias: {
     '~base': path.resolve(__dirname, '../base'),
   },
@@ -78,47 +66,47 @@ export default defineNuxtConfig({
     enabled: false,
   },
 
-  sitemap: {
-    debug: true,
-    defaultSitemapsChunkSize: 2000,
-    sitemaps: {
-      'de-DE': {
-        chunks: true,
-        sources: [
-          '/sitemapGenerate?locale=de',
-        ],
-      },
-      'en-US': {
-        chunks: true,
-        sources: [
-          '/sitemapGenerate?locale=en',
-        ],
-      },
-      'es-ES': {
-        chunks: true,
-        sources: [
-          '/sitemapGenerate?locale=es',
-        ],
-      },
-      'fr-FR': {
-        chunks: true,
-        sources: [
-          '/sitemapGenerate?locale=fr',
-        ],
-      },
-      'it-IT': {
-        chunks: true,
-        sources: [
-          '/sitemapGenerate?locale=it',
-        ],
-      },
-      'nl-BE': {
-        chunks: true, // Enable chunking with default size
-        sources: [
-          '/sitemapGenerate?locale=nl',
-        ],
-      },
-    },
-  },
+  // sitemap: {
+  //   debug: true,
+  //   defaultSitemapsChunkSize: 2000,
+  //   sitemaps: {
+  //     'de-DE': {
+  //       chunks: true,
+  //       sources: [
+  //         '/sitemapGenerate?locale=de',
+  //       ],
+  //     },
+  //     'en-US': {
+  //       chunks: true,
+  //       sources: [
+  //         '/sitemapGenerate?locale=en',
+  //       ],
+  //     },
+  //     'es-ES': {
+  //       chunks: true,
+  //       sources: [
+  //         '/sitemapGenerate?locale=es',
+  //       ],
+  //     },
+  //     'fr-FR': {
+  //       chunks: true,
+  //       sources: [
+  //         '/sitemapGenerate?locale=fr',
+  //       ],
+  //     },
+  //     'it-IT': {
+  //       chunks: true,
+  //       sources: [
+  //         '/sitemapGenerate?locale=it',
+  //       ],
+  //     },
+  //     'nl-BE': {
+  //       chunks: true, // Enable chunking with default size
+  //       sources: [
+  //         '/sitemapGenerate?locale=nl',
+  //       ],
+  //     },
+  //   },
+  // },
 
 })
