@@ -31,6 +31,7 @@ provideNavHeaderContext({
       '[--dropdown-spacing:7.5rem]': isTop,
       '[--dropdown-spacing:4.5rem]': !isTop,
     }"
+    class="flex min-h-screen flex-col justify-between"
   >
     <PageNavHeader />
     <main>
