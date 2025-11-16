@@ -54,7 +54,7 @@ const rootTextColor = computed<string>(() => {
           'rotate-180': isThisDropdownOpen,
         }"
         icon="chevronDown"
-        class="size-lg ml-2 duration-200"
+        class="ml-2 size-4 duration-200"
         size="sm"
       />
     </div>

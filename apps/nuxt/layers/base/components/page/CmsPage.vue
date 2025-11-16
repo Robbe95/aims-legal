@@ -12,7 +12,7 @@ const props = defineProps<{
       <Container>
         <div class="flex min-h-10 items-center justify-between">
           <h1
-            class="text-display-xs font-semibold text-primary"
+            class="text-xs font-semibold text-primary"
           >
             {{ props.title }}
           </h1>

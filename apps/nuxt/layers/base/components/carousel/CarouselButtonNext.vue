@@ -14,7 +14,7 @@ const carousel = useCarousel()
     @click="carousel.scrollNext"
   >
     <VcIcon
-      class="size-xl"
+      class="size-6"
       icon="arrowRight"
     />
   </button>

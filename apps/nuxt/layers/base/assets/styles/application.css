@@ -2,6 +2,10 @@
   /* Define your application's custom theme configuration here */
   --container-padding-x: var(--spacing-2xl);
   --font-default: Geist, sans-serif;
+  /* 60px */
+  --text-hero: 2.75rem;
+  --text-hero--line-height: var(--line-height-hero);
+  --line-height-hero: 3.25rem;
 }
 
 @keyframes fade-in-from-top {

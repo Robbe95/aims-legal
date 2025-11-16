@@ -28,7 +28,7 @@ function handleDropdownClick(): void {
 
       <VcIcon
         icon="arrowRight"
-        class="ml-2 size-lg duration-200"
+        class="ml-2 size-4 duration-200"
         size="sm"
       />
     </div>

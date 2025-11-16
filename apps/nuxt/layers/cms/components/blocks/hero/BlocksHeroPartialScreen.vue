@@ -16,7 +16,7 @@ defineProps<Props>()
 <template>
   <section
     class="
-      bg-brand relative flex h-dvh flex-col justify-between overflow-hidden
+      relative flex h-dvh flex-col justify-between overflow-hidden bg-primary
     "
   >
     <!-- Hero content -->
