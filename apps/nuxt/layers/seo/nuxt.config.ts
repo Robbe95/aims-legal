@@ -65,6 +65,9 @@ export default defineNuxtConfig({
   ogImage: {
     enabled: false,
   },
+  routeRules: {
+    '**': { isr: true },
+  },
 
   // sitemap: {
   //   debug: true,
