@@ -5,22 +5,19 @@ import {
   useSchemaOrg,
 } from '#imports'
 
-const config = useRuntimeConfig()
-const siteName = config.public.siteName
-
 useSchemaOrg([
   defineLocalBusiness({
-    'name': siteName === 'vektron' ? 'Vektron' : 'Kreon',
+    'name': 'Example',
     '@type': 'HomeAndConstructionBusiness',
     'address': {
       addressCountry: 'Belgium',
-      addressLocality: 'Oudsbergen',
-      addressRegion: 'Flanders',
-      postalCode: '3660',
-      streetAddress: 'Industrieweg Noord 1152',
+      addressLocality: 'Example City',
+      addressRegion: 'Example Region',
+      postalCode: '1234',
+      streetAddress: '123 Example Street',
     },
     'logo': '/favicon.svg',
-    'url': siteName === 'vektron' ? 'https://vektron.com' : 'https://kreon.com',
+    'url': 'https://www.example.com',
   }),
 ])
 </script>

@@ -27,14 +27,6 @@ await socials.suspense()
     <Container class="pt-12 pb-24">
       <div
         class="
-          flex justify-end pb-20 text-4xl text-gray-500
-          lg:text-[48px]
-        "
-      >
-        {{ t('cms.footer.work_together') }}
-      </div>
-      <div
-        class="
           grid grid-cols-1 gap-y-6
           lg:grid-cols-[0.2fr_0.8fr]
         "

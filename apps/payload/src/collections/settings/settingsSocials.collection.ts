@@ -39,7 +39,7 @@ export const settingsSocialsCollection: CollectionConfig = {
   ],
   labels: {
     plural: 'Socials',
-    singular: 'Social',
+    singular: 'Socials',
   },
   slug: 'settingsSocials',
 }

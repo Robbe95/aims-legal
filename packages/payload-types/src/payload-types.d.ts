@@ -110,7 +110,7 @@ export interface Config {
   };
   collectionsJoins: {
     'payload-folders': {
-      documentsAndFolders: 'payload-folders' | 'images';
+      documentsAndFolders: 'payload-folders' | 'pages' | 'articles' | 'images';
     };
   };
   collectionsSelect: {
@@ -212,6 +212,7 @@ export interface Page {
      */
     image?: (string | null) | Image;
   };
+  folder?: (string | null) | FolderInterface;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -287,6 +288,7 @@ export interface Article {
      */
     image?: (string | null) | Image;
   };
+  folder?: (string | null) | FolderInterface;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -297,8 +299,8 @@ export interface Article {
  * via the `definition` "images".
  */
 export interface Image {
-  tenant?: (string | null) | Tenant;
   id: string;
+  tenant?: (string | null) | Tenant;
   alt?: string | null;
   folder?: (string | null) | FolderInterface;
   updatedAt: string;
@@ -370,6 +372,14 @@ export interface FolderInterface {
           value: string | FolderInterface;
         }
       | {
+          relationTo?: 'pages';
+          value: string | Page;
+        }
+      | {
+          relationTo?: 'articles';
+          value: string | Article;
+        }
+      | {
           relationTo?: 'images';
           value: string | Image;
         }
@@ -377,7 +387,7 @@ export interface FolderInterface {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
-  folderType?: 'images'[] | null;
+  folderType?: ('pages' | 'articles' | 'images')[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1142,6 +1152,7 @@ export interface PagesSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  folder?: T;
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
@@ -1524,6 +1535,7 @@ export interface ArticlesSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  folder?: T;
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
@@ -1535,7 +1547,6 @@ export interface ArticlesSelect<T extends boolean = true> {
  */
 export interface ImagesSelect<T extends boolean = true> {
   tenant?: T;
-  id?: T;
   alt?: T;
   folder?: T;
   updatedAt?: T;

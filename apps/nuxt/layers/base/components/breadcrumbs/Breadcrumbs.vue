@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<Props>(), {
             'text-white underline': index === props.breadcrumbs.length - 1 && props.theme === 'light',
           }"
           class="
-            font-kreon font-thin lowercase
+            lowercase
             hover:underline
             focus:underline
           "
@@ -54,7 +54,7 @@ const props = withDefaults(defineProps<Props>(), {
             'text-white/60': index < props.breadcrumbs.length - 1 && props.theme === 'light',
             'text-white underline': index === props.breadcrumbs.length - 1 && props.theme === 'light',
           }"
-          class="font-kreon font-thin lowercase"
+          class="lowercase"
         >
           {{ breadcrumb.text }}
         </span>

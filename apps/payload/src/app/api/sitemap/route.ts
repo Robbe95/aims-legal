@@ -1,4 +1,3 @@
-import { getTenantNameFromHeader } from '@payload/orpc/middleware/context.serverMiddleware'
 import { getLocale } from '@payload/utils/locale/getLocale.util'
 import { getPayload } from '@payload/utils/payload/getPayload.util'
 import { sql } from '@payloadcms/db-postgres'
@@ -11,15 +10,9 @@ export const dynamic = 'force-dynamic'
 
 const PAGE_SIZE = 1000
 
-function getSiteName(request: any): 'kreon' | 'vektron' {
-  const siteName = request.nextUrl.searchParams.get('site') as 'kreon' | 'vektron'
-
-  return siteName ?? 'kreon' as 'kreon' | 'vektron'
-}
-
 async function getTenant(tenantName: string): Promise<{ id: string }> {
   const payload = await getPayload()
-  const kreonTenant = await payload.find({
+  const defaultTenant = await payload.find({
     collection: 'tenants',
     depth: 0,
     fallbackLocale: DEFAULT_LOCALE,
@@ -35,7 +28,7 @@ async function getTenant(tenantName: string): Promise<{ id: string }> {
     },
   })
 
-  const firstTenant = kreonTenant.docs[0]
+  const firstTenant = defaultTenant.docs[0]
 
   if (!firstTenant) {
     throw new Error('Tenant not found')
@@ -49,8 +42,7 @@ async function getSitemap(request: NextRequest) {
   const db = payload.db.drizzle
 
   const locale = getLocale(request)
-  const siteName = getTenantNameFromHeader(getSiteName(request))
-  const tenant = await getTenant(siteName)
+  const tenant = await getTenant('Default')
   const collection = request.nextUrl.searchParams.get('collection') as 'pages' | 'productGroups' | 'productVariants' | null
   const cursor = request.nextUrl.searchParams.get('cursor')
   const cursorValue = cursor || null

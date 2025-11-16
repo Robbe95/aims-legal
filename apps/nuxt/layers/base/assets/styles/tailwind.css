@@ -8,8 +8,7 @@
 @variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --font-kreon: Kreon, sans-serif;
-  --font-logo: Logo, Kreon, sans-serif;
+  --font-default: Geist, sans-serif;
   --color-*: initial;
   --color-black: #000000;
   --color-white: #ffffff;

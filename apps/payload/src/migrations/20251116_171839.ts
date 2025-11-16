@@ -26,7 +26,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "payload"."enum_payload_jobs_log_state" AS ENUM('failed', 'succeeded');
   CREATE TYPE "payload"."enum_payload_jobs_workflow_slug" AS ENUM('exampleWorkflow');
   CREATE TYPE "payload"."enum_payload_jobs_task_slug" AS ENUM('inline', 'exampleTask', 'schedulePublish');
-  CREATE TYPE "payload"."enum_payload_folders_folder_type" AS ENUM('images');
+  CREATE TYPE "payload"."enum_payload_folders_folder_type" AS ENUM('pages', 'articles', 'images');
   CREATE TYPE "payload"."enum_payload_query_presets_access_read_constraint" AS ENUM('everyone', 'onlyMe', 'specificUsers');
   CREATE TYPE "payload"."enum_payload_query_presets_access_update_constraint" AS ENUM('everyone', 'onlyMe', 'specificUsers');
   CREATE TYPE "payload"."enum_payload_query_presets_access_delete_constraint" AS ENUM('everyone', 'onlyMe', 'specificUsers');
@@ -70,7 +70,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"text" varchar,
   	"variant" "payload"."heroVariant" DEFAULT 'fullScreen',
-  	"background_image_id" varchar,
+  	"background_image_id" uuid,
   	"background_video" varchar,
   	"block_name" varchar
   );
@@ -184,7 +184,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"subtitle" varchar,
   	"text" varchar,
   	"richtext" jsonb,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"variant" "payload"."imageTextVariant" DEFAULT 'imageLeftSmall',
   	"block_name" varchar
   );
@@ -196,7 +196,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"description" varchar,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"link_type" "payload"."link_type" DEFAULT 'reference',
   	"link_new_tab" boolean DEFAULT false,
   	"link_url" varchar
@@ -262,8 +262,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_path" text NOT NULL,
   	"_locale" "payload"."_locales" NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"first_image_id" varchar,
-  	"second_image_id" varchar,
+  	"first_image_id" uuid,
+  	"second_image_id" uuid,
   	"block_name" varchar
   );
   
@@ -305,7 +305,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"description" varchar,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"link_type" "payload"."link_type" DEFAULT 'reference',
   	"link_new_tab" boolean DEFAULT false,
   	"link_url" varchar
@@ -356,7 +356,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"hubspot_form_id" uuid,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"block_name" varchar
   );
   
@@ -364,6 +364,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
   	"slug_lock" boolean DEFAULT true,
+  	"folder_id" uuid,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"deleted_at" timestamp(3) with time zone,
@@ -372,11 +373,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE TABLE "payload"."pages_locales" (
   	"title" varchar,
-  	"full_title" varchar,
   	"slug" varchar,
   	"seo_title" varchar,
   	"seo_description" varchar,
-  	"seo_image_id" varchar,
+  	"seo_image_id" uuid,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "payload"."_locales" NOT NULL,
   	"_parent_id" uuid NOT NULL
@@ -399,7 +399,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"locale" "payload"."_locales",
   	"pages_id" uuid,
   	"articles_id" uuid,
-  	"images_id" varchar
+  	"images_id" uuid
   );
   
   CREATE TABLE "payload"."_pages_v_version_breadcrumbs" (
@@ -443,7 +443,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"text" varchar,
   	"variant" "payload"."heroVariant" DEFAULT 'fullScreen',
-  	"background_image_id" varchar,
+  	"background_image_id" uuid,
   	"background_video" varchar,
   	"_uuid" varchar,
   	"block_name" varchar
@@ -567,7 +567,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"subtitle" varchar,
   	"text" varchar,
   	"richtext" jsonb,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"variant" "payload"."imageTextVariant" DEFAULT 'imageLeftSmall',
   	"_uuid" varchar,
   	"block_name" varchar
@@ -580,7 +580,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"title" varchar,
   	"description" varchar,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"link_type" "payload"."link_type" DEFAULT 'reference',
   	"link_new_tab" boolean DEFAULT false,
   	"link_url" varchar,
@@ -651,8 +651,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_path" text NOT NULL,
   	"_locale" "payload"."_locales" NOT NULL,
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"first_image_id" varchar,
-  	"second_image_id" varchar,
+  	"first_image_id" uuid,
+  	"second_image_id" uuid,
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -698,7 +698,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"title" varchar,
   	"description" varchar,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"link_type" "payload"."link_type" DEFAULT 'reference',
   	"link_new_tab" boolean DEFAULT false,
   	"link_url" varchar,
@@ -753,7 +753,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"title" varchar,
   	"hubspot_form_id" uuid,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -763,6 +763,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"parent_id" uuid,
   	"version_tenant_id" uuid,
   	"version_slug_lock" boolean DEFAULT true,
+  	"version_folder_id" uuid,
   	"version_updated_at" timestamp(3) with time zone,
   	"version_created_at" timestamp(3) with time zone,
   	"version_deleted_at" timestamp(3) with time zone,
@@ -777,11 +778,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE TABLE "payload"."_pages_v_locales" (
   	"version_title" varchar,
-  	"version_full_title" varchar,
   	"version_slug" varchar,
   	"version_seo_title" varchar,
   	"version_seo_description" varchar,
-  	"version_seo_image_id" varchar,
+  	"version_seo_image_id" uuid,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "payload"."_locales" NOT NULL,
   	"_parent_id" uuid NOT NULL
@@ -804,7 +804,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"locale" "payload"."_locales",
   	"pages_id" uuid,
   	"articles_id" uuid,
-  	"images_id" varchar
+  	"images_id" uuid
   );
   
   CREATE TABLE "payload"."form_hubspot" (
@@ -916,7 +916,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"text" varchar,
   	"variant" "payload"."heroVariant" DEFAULT 'fullScreen',
-  	"background_image_id" varchar,
+  	"background_image_id" uuid,
   	"background_video" varchar,
   	"block_name" varchar
   );
@@ -1030,7 +1030,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"subtitle" varchar,
   	"text" varchar,
   	"richtext" jsonb,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"variant" "payload"."imageTextVariant" DEFAULT 'imageLeftSmall',
   	"block_name" varchar
   );
@@ -1042,7 +1042,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"description" varchar,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"link_type" "payload"."link_type" DEFAULT 'reference',
   	"link_new_tab" boolean DEFAULT false,
   	"link_url" varchar
@@ -1108,8 +1108,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_path" text NOT NULL,
   	"_locale" "payload"."_locales" NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"first_image_id" varchar,
-  	"second_image_id" varchar,
+  	"first_image_id" uuid,
+  	"second_image_id" uuid,
   	"block_name" varchar
   );
   
@@ -1151,7 +1151,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"description" varchar,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"link_type" "payload"."link_type" DEFAULT 'reference',
   	"link_new_tab" boolean DEFAULT false,
   	"link_url" varchar
@@ -1202,7 +1202,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"hubspot_form_id" uuid,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"block_name" varchar
   );
   
@@ -1210,7 +1210,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
   	"slug_lock" boolean DEFAULT true,
-  	"preview_image_id" varchar,
+  	"preview_image_id" uuid,
+  	"folder_id" uuid,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"deleted_at" timestamp(3) with time zone,
@@ -1224,7 +1225,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"preview_description" varchar,
   	"seo_title" varchar,
   	"seo_description" varchar,
-  	"seo_image_id" varchar,
+  	"seo_image_id" uuid,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "payload"."_locales" NOT NULL,
   	"_parent_id" uuid NOT NULL
@@ -1247,7 +1248,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"locale" "payload"."_locales",
   	"pages_id" uuid,
   	"articles_id" uuid,
-  	"images_id" varchar
+  	"images_id" uuid
   );
   
   CREATE TABLE "payload"."_articles_v_blocks_hero_ctas" (
@@ -1274,7 +1275,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"text" varchar,
   	"variant" "payload"."heroVariant" DEFAULT 'fullScreen',
-  	"background_image_id" varchar,
+  	"background_image_id" uuid,
   	"background_video" varchar,
   	"_uuid" varchar,
   	"block_name" varchar
@@ -1398,7 +1399,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"subtitle" varchar,
   	"text" varchar,
   	"richtext" jsonb,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"variant" "payload"."imageTextVariant" DEFAULT 'imageLeftSmall',
   	"_uuid" varchar,
   	"block_name" varchar
@@ -1411,7 +1412,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"title" varchar,
   	"description" varchar,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"link_type" "payload"."link_type" DEFAULT 'reference',
   	"link_new_tab" boolean DEFAULT false,
   	"link_url" varchar,
@@ -1482,8 +1483,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_path" text NOT NULL,
   	"_locale" "payload"."_locales" NOT NULL,
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"first_image_id" varchar,
-  	"second_image_id" varchar,
+  	"first_image_id" uuid,
+  	"second_image_id" uuid,
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -1529,7 +1530,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"title" varchar,
   	"description" varchar,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"link_type" "payload"."link_type" DEFAULT 'reference',
   	"link_new_tab" boolean DEFAULT false,
   	"link_url" varchar,
@@ -1584,7 +1585,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"title" varchar,
   	"hubspot_form_id" uuid,
-  	"image_id" varchar,
+  	"image_id" uuid,
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -1594,7 +1595,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"parent_id" uuid,
   	"version_tenant_id" uuid,
   	"version_slug_lock" boolean DEFAULT true,
-  	"version_preview_image_id" varchar,
+  	"version_preview_image_id" uuid,
+  	"version_folder_id" uuid,
   	"version_updated_at" timestamp(3) with time zone,
   	"version_created_at" timestamp(3) with time zone,
   	"version_deleted_at" timestamp(3) with time zone,
@@ -1614,7 +1616,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_preview_description" varchar,
   	"version_seo_title" varchar,
   	"version_seo_description" varchar,
-  	"version_seo_image_id" varchar,
+  	"version_seo_image_id" uuid,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "payload"."_locales" NOT NULL,
   	"_parent_id" uuid NOT NULL
@@ -1637,11 +1639,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"locale" "payload"."_locales",
   	"pages_id" uuid,
   	"articles_id" uuid,
-  	"images_id" varchar
+  	"images_id" uuid
   );
   
   CREATE TABLE "payload"."images" (
-  	"id" varchar PRIMARY KEY NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
   	"alt" varchar,
   	"folder_id" uuid,
@@ -1914,7 +1916,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"addresses_id" uuid,
   	"tenants_id" uuid,
   	"articles_id" uuid,
-  	"images_id" varchar,
+  	"images_id" uuid,
   	"settings_home_page_id" uuid,
   	"settings_header_id" uuid,
   	"settings_footer_id" uuid,
@@ -2007,6 +2009,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "payload"."pages_blocks_hubspot_form" ADD CONSTRAINT "pages_blocks_hubspot_form_image_id_images_id_fk" FOREIGN KEY ("image_id") REFERENCES "payload"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."pages_blocks_hubspot_form" ADD CONSTRAINT "pages_blocks_hubspot_form_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "payload"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload"."pages" ADD CONSTRAINT "pages_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "payload"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "payload"."pages" ADD CONSTRAINT "pages_folder_id_payload_folders_id_fk" FOREIGN KEY ("folder_id") REFERENCES "payload"."payload_folders"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."pages_locales" ADD CONSTRAINT "pages_locales_seo_image_id_images_id_fk" FOREIGN KEY ("seo_image_id") REFERENCES "payload"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."pages_locales" ADD CONSTRAINT "pages_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "payload"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload"."pages_texts" ADD CONSTRAINT "pages_texts_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "payload"."pages"("id") ON DELETE cascade ON UPDATE no action;
@@ -2052,6 +2055,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "payload"."_pages_v_blocks_hubspot_form" ADD CONSTRAINT "_pages_v_blocks_hubspot_form_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "payload"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload"."_pages_v" ADD CONSTRAINT "_pages_v_parent_id_pages_id_fk" FOREIGN KEY ("parent_id") REFERENCES "payload"."pages"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."_pages_v" ADD CONSTRAINT "_pages_v_version_tenant_id_tenants_id_fk" FOREIGN KEY ("version_tenant_id") REFERENCES "payload"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "payload"."_pages_v" ADD CONSTRAINT "_pages_v_version_folder_id_payload_folders_id_fk" FOREIGN KEY ("version_folder_id") REFERENCES "payload"."payload_folders"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."_pages_v_locales" ADD CONSTRAINT "_pages_v_locales_version_seo_image_id_images_id_fk" FOREIGN KEY ("version_seo_image_id") REFERENCES "payload"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."_pages_v_locales" ADD CONSTRAINT "_pages_v_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "payload"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload"."_pages_v_texts" ADD CONSTRAINT "_pages_v_texts_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "payload"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
@@ -2103,6 +2107,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "payload"."articles_blocks_hubspot_form" ADD CONSTRAINT "articles_blocks_hubspot_form_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "payload"."articles"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload"."articles" ADD CONSTRAINT "articles_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "payload"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."articles" ADD CONSTRAINT "articles_preview_image_id_images_id_fk" FOREIGN KEY ("preview_image_id") REFERENCES "payload"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "payload"."articles" ADD CONSTRAINT "articles_folder_id_payload_folders_id_fk" FOREIGN KEY ("folder_id") REFERENCES "payload"."payload_folders"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."articles_locales" ADD CONSTRAINT "articles_locales_seo_image_id_images_id_fk" FOREIGN KEY ("seo_image_id") REFERENCES "payload"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."articles_locales" ADD CONSTRAINT "articles_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "payload"."articles"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload"."articles_texts" ADD CONSTRAINT "articles_texts_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "payload"."articles"("id") ON DELETE cascade ON UPDATE no action;
@@ -2147,6 +2152,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "payload"."_articles_v" ADD CONSTRAINT "_articles_v_parent_id_articles_id_fk" FOREIGN KEY ("parent_id") REFERENCES "payload"."articles"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."_articles_v" ADD CONSTRAINT "_articles_v_version_tenant_id_tenants_id_fk" FOREIGN KEY ("version_tenant_id") REFERENCES "payload"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."_articles_v" ADD CONSTRAINT "_articles_v_version_preview_image_id_images_id_fk" FOREIGN KEY ("version_preview_image_id") REFERENCES "payload"."images"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "payload"."_articles_v" ADD CONSTRAINT "_articles_v_version_folder_id_payload_folders_id_fk" FOREIGN KEY ("version_folder_id") REFERENCES "payload"."payload_folders"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."_articles_v_locales" ADD CONSTRAINT "_articles_v_locales_version_seo_image_id_images_id_fk" FOREIGN KEY ("version_seo_image_id") REFERENCES "payload"."images"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload"."_articles_v_locales" ADD CONSTRAINT "_articles_v_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "payload"."_articles_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload"."_articles_v_texts" ADD CONSTRAINT "_articles_v_texts_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "payload"."_articles_v"("id") ON DELETE cascade ON UPDATE no action;
@@ -2307,6 +2313,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "pages_blocks_hubspot_form_hubspot_form_idx" ON "payload"."pages_blocks_hubspot_form" USING btree ("hubspot_form_id");
   CREATE INDEX "pages_blocks_hubspot_form_image_idx" ON "payload"."pages_blocks_hubspot_form" USING btree ("image_id");
   CREATE INDEX "pages_tenant_idx" ON "payload"."pages" USING btree ("tenant_id");
+  CREATE INDEX "pages_folder_idx" ON "payload"."pages" USING btree ("folder_id");
   CREATE INDEX "pages_updated_at_idx" ON "payload"."pages" USING btree ("updated_at");
   CREATE INDEX "pages_created_at_idx" ON "payload"."pages" USING btree ("created_at");
   CREATE INDEX "pages_deleted_at_idx" ON "payload"."pages" USING btree ("deleted_at");
@@ -2430,6 +2437,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_pages_v_blocks_hubspot_form_image_idx" ON "payload"."_pages_v_blocks_hubspot_form" USING btree ("image_id");
   CREATE INDEX "_pages_v_parent_idx" ON "payload"."_pages_v" USING btree ("parent_id");
   CREATE INDEX "_pages_v_version_version_tenant_idx" ON "payload"."_pages_v" USING btree ("version_tenant_id");
+  CREATE INDEX "_pages_v_version_version_folder_idx" ON "payload"."_pages_v" USING btree ("version_folder_id");
   CREATE INDEX "_pages_v_version_version_updated_at_idx" ON "payload"."_pages_v" USING btree ("version_updated_at");
   CREATE INDEX "_pages_v_version_version_created_at_idx" ON "payload"."_pages_v" USING btree ("version_created_at");
   CREATE INDEX "_pages_v_version_version_deleted_at_idx" ON "payload"."_pages_v" USING btree ("version_deleted_at");
@@ -2580,6 +2588,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "articles_blocks_hubspot_form_image_idx" ON "payload"."articles_blocks_hubspot_form" USING btree ("image_id");
   CREATE INDEX "articles_tenant_idx" ON "payload"."articles" USING btree ("tenant_id");
   CREATE INDEX "articles_preview_preview_image_idx" ON "payload"."articles" USING btree ("preview_image_id");
+  CREATE INDEX "articles_folder_idx" ON "payload"."articles" USING btree ("folder_id");
   CREATE INDEX "articles_updated_at_idx" ON "payload"."articles" USING btree ("updated_at");
   CREATE INDEX "articles_created_at_idx" ON "payload"."articles" USING btree ("created_at");
   CREATE INDEX "articles_deleted_at_idx" ON "payload"."articles" USING btree ("deleted_at");
@@ -2701,6 +2710,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_articles_v_parent_idx" ON "payload"."_articles_v" USING btree ("parent_id");
   CREATE INDEX "_articles_v_version_version_tenant_idx" ON "payload"."_articles_v" USING btree ("version_tenant_id");
   CREATE INDEX "_articles_v_version_preview_version_preview_image_idx" ON "payload"."_articles_v" USING btree ("version_preview_image_id");
+  CREATE INDEX "_articles_v_version_version_folder_idx" ON "payload"."_articles_v" USING btree ("version_folder_id");
   CREATE INDEX "_articles_v_version_version_updated_at_idx" ON "payload"."_articles_v" USING btree ("version_updated_at");
   CREATE INDEX "_articles_v_version_version_created_at_idx" ON "payload"."_articles_v" USING btree ("version_created_at");
   CREATE INDEX "_articles_v_version_version_deleted_at_idx" ON "payload"."_articles_v" USING btree ("version_deleted_at");

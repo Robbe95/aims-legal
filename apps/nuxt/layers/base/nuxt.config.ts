@@ -26,25 +26,25 @@ export default defineNuxtConfig({
     },
     families: [
       {
-        name: 'Kreon',
+        name: 'Geist',
         global: true,
         preload: true,
         provider: 'local',
-        weights: [
-          300,
-          400,
-          700,
+        src: '/fonts/geist',
+        styles: [
+          'normal',
+          'italic',
         ],
-      },
-      {
-        name: 'Logo',
-        global: true,
-        preload: true,
-        provider: 'local',
         weights: [
+          100,
+          200,
           300,
           400,
+          500,
+          600,
           700,
+          800,
+          900,
         ],
       },
 

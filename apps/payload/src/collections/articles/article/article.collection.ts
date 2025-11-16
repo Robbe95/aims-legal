@@ -1,14 +1,13 @@
 import { articlePreviewTab } from '@payload/collections/articles/article/articlePreview.tab'
 import { articleSeoTab } from '@payload/collections/articles/article/articleSeo.tab'
 import { articleStructureTab } from '@payload/collections/articles/article/articleStructure.tab'
+import { DEFAULT_COLLECTIONS_SETTINGS } from '@payload/collections/defaults'
 import { getEnv } from '@payload/env'
 import { getSlugField } from '@payload/fields/slug/slug.field'
 import type { CollectionConfig } from 'payload'
 
 export const articleCollection: CollectionConfig = {
-  access: {
-    read: () => true,
-  },
+  ...DEFAULT_COLLECTIONS_SETTINGS,
   admin: {
     defaultColumns: [
       'title',
@@ -37,8 +36,6 @@ export const articleCollection: CollectionConfig = {
     useAsTitle: 'title',
 
   },
-  enableQueryPresets: true,
-
   fields: [
     {
       name: 'title',
@@ -64,14 +61,4 @@ export const articleCollection: CollectionConfig = {
     singular: 'Article',
   },
   slug: 'articles',
-  trash: true,
-  versions: {
-    drafts: {
-      autosave: {
-        interval: 2000,
-      },
-      schedulePublish: true,
-    },
-    maxPerDoc: 50, // Max versions saved per document
-  },
 }

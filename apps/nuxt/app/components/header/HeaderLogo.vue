@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { NuxtLinkLocale } from '#components'
-import AppLogo from '~~/layers/base/components/logo/Logo.vue'
+import Logo from '~~/layers/base/components/logo/Logo.vue'
 import { useSettingsHomepageQuery } from '~~/layers/cms/api/settings/query/useSettingsHomepage.query'
 import { useInternalLink } from '~~/layers/cms/composables/link/useInternalLink.composable'
 
@@ -17,7 +17,7 @@ const link = useInternalLink(homePageQuery.data.value!)
     :to="link"
     class="focus-visible:ring-black"
   >
-    <AppLogo
+    <Logo
       class="h-8"
     />
   </NuxtLinkLocale>

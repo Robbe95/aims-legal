@@ -59,7 +59,6 @@ export default buildConfig({
         Icon: '/components/logo/Logo#Icon',
         Logo: '/components/logo/Logo#Logo',
       },
-      // Nav: '@payload/components/nav/Nav#DefaultNav',
       afterLogin: [
         '@payload/components/auth/LoginButton',
       ],
@@ -96,13 +95,11 @@ export default buildConfig({
       idleTimeoutMillis: 5000, // 30 seconds before closing idle connections
       query_timeout: 60_000, // 20 seconds for query timeout
       allowExitOnIdle: true,
-
       connectionString: process.env.POSTGRES_URI ?? '',
     },
   }),
 
   editor: lexicalEditor({
-
     features: () => [
       BoldFeature(),
       ItalicFeature(),
@@ -141,7 +138,6 @@ export default buildConfig({
   },
   plugins: [
     ...plugins,
-
   ],
   jobs: {
     tasks: [

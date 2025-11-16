@@ -1,4 +1,3 @@
-/* eslint-disable node/prefer-global/process */
 import path from 'node:path'
 
 export default defineNuxtConfig({
@@ -30,7 +29,7 @@ export default defineNuxtConfig({
     './layers/seo',
   ],
   i18n: {
-    baseUrl: process.env.NUXT_PUBLIC_SITE_NAME === 'vektron' ? 'https://vektron.com' : 'https://kreon.com',
+    baseUrl: 'https://example.com',
     defaultLocale: 'en',
     detectBrowserLanguage: {
       redirectOn: 'all',

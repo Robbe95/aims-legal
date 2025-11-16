@@ -23,10 +23,12 @@ export const navSorting: Record<string, (CollectionSlug | GlobalSlug)[]> = {
     'addresses',
   ],
   settings: [
+    'settingsHomePage',
     'settingsHeader',
     'settingsFooter',
-    'settingsHomePage',
     'settingsHubspot',
+    'settingsSocials',
+    'tenants',
   ],
   jobs: [
     'payload-jobs',

@@ -8,16 +8,6 @@ export const imageCollection: CollectionConfig = {
   enableQueryPresets: true,
   fields: [
     {
-      name: 'id',
-      admin: {
-        hidden: true,
-      },
-      index: true,
-      required: true,
-      type: 'text',
-      unique: true,
-    },
-    {
       name: 'alt',
       type: 'text',
     },
@@ -36,13 +26,6 @@ export const imageCollection: CollectionConfig = {
   },
   slug: 'images',
   upload: {
-    admin: {
-      components: {
-        controls: [
-          '@payload/components/upload/CustomUpload#customUpload',
-        ],
-      },
-    },
     adminThumbnail: 'thumbnail',
     imageSizes: [
       {

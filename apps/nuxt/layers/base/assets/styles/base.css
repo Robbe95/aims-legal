@@ -115,11 +115,7 @@
 }
 
 * {
-  font-family: var(--font-kreon);
-}
-
-.font-logo {
-  font-family: var(--font-logo);
+  font-family: var(--font-default);
 }
 
 .container-width {

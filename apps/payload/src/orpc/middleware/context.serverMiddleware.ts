@@ -7,17 +7,6 @@ import {
   localeSchema,
 } from '@repo/constants'
 
-export function getTenantNameFromHeader(header: string): string {
-  switch (header) {
-    case 'kreon':
-      return 'Kreon'
-    case 'vektron':
-      return 'Vektron'
-    default:
-      return 'Kreon'
-  }
-}
-
 export async function contextServerMiddleware({
   context, next,
 }: MiddlewareContextParameter) {
@@ -31,7 +20,7 @@ export async function contextServerMiddleware({
 
   const payload = await getPayload()
 
-  const kreonTenant = await payload.find({
+  const defaultTenant = await payload.find({
     collection: 'tenants',
     depth: 0,
     fallbackLocale: DEFAULT_LOCALE,
@@ -44,7 +33,7 @@ export async function contextServerMiddleware({
     },
   })
 
-  const firstTenant = kreonTenant.docs[0]
+  const firstTenant = defaultTenant.docs[0]
 
   if (!firstTenant) {
     throw new Error('Tenant not found')

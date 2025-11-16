@@ -1,15 +1,13 @@
+import { DEFAULT_COLLECTIONS_SETTINGS } from '@payload/collections/defaults'
 import { pageSeoTab } from '@payload/collections/pages/page/pageSeo.tab'
 import { pageStructureTab } from '@payload/collections/pages/page/pageStructure.tab'
-// import { pageStructureTab } from '@payload/collections/pages/page/pageStructure.tab'
 import { getEnv } from '@payload/env'
 import { getBreadcrumbsField } from '@payload/fields/breadcrumbs/breadcrumbs.field'
 import { getSlugField } from '@payload/fields/slug/slug.field'
 import type { CollectionConfig } from 'payload'
 
 export const pageCollection: CollectionConfig = {
-  access: {
-    read: () => true,
-  },
+  ...DEFAULT_COLLECTIONS_SETTINGS,
   admin: {
     defaultColumns: [
       'title',
@@ -34,7 +32,6 @@ export const pageCollection: CollectionConfig = {
     },
     useAsTitle: 'title',
   },
-  enableQueryPresets: true,
   fields: [
     {
       name: 'title',
@@ -65,14 +62,4 @@ export const pageCollection: CollectionConfig = {
     },
   ],
   slug: 'pages',
-  trash: true,
-  versions: {
-    drafts: {
-      autosave: {
-        interval: 2000,
-      },
-      schedulePublish: true,
-    },
-    maxPerDoc: 50, // Max versions saved per document
-  },
 }
