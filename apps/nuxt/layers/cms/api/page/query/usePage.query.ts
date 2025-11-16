@@ -20,7 +20,6 @@ export function usePageQuery({
   })
 
   return useQuery(orpcQuery.pages.getPageBySlug.queryOptions({
-    staleTime: 5000,
     input: {
       slug: toValue(slug),
     },
