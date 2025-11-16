@@ -22,9 +22,9 @@ export async function contextServerMiddleware({
   context, next,
 }: MiddlewareContextParameter) {
   const locale = localeSchema.parse(context['Accept-Language'] ?? ORPC_BASE_LOCALE)
-  const tenantName = getTenantNameFromHeader(context['X-Site-Name'])
+  const TENANT_NAME = 'Default'
 
-  const runtimeContext = await createContext({
+  const runtimeContext = createContext({
     locale,
     token: context.Authorization ?? null,
   })
@@ -39,7 +39,7 @@ export async function contextServerMiddleware({
     overrideAccess: true,
     where: {
       title: {
-        equals: tenantName,
+        equals: TENANT_NAME,
       },
     },
   })

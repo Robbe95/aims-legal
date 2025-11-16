@@ -59,7 +59,7 @@ export default buildConfig({
         Icon: '/components/logo/Logo#Icon',
         Logo: '/components/logo/Logo#Logo',
       },
-      Nav: '@payload/components/nav/Nav#DefaultNav',
+      // Nav: '@payload/components/nav/Nav#DefaultNav',
       afterLogin: [
         '@payload/components/auth/LoginButton',
       ],

@@ -37,7 +37,6 @@ import { QueryPresetsWhereCell as QueryPresetsWhereCell_3817bf644402e67bfe6577f6
 import { QueryPresetsWhereField as QueryPresetsWhereField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
 import { QueryPresetsColumnsCell as QueryPresetsColumnsCell_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
 import { QueryPresetsColumnField as QueryPresetsColumnField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
-import { DefaultNav as DefaultNav_d8691970b9e3d58f48458f5e8648b24e } from '@payload/components/nav/Nav'
 import { Icon as Icon_6236c4428afca49e72929850c0e65ebf } from '../../components/logo/Logo'
 import { Logo as Logo_6236c4428afca49e72929850c0e65ebf } from '../../components/logo/Logo'
 import { GlobalViewRedirect as GlobalViewRedirect_d6d5f193a167989e2ee7d14202901e62 } from '@payloadcms/plugin-multi-tenant/rsc'
@@ -47,7 +46,6 @@ import { ClipboardSanitizerProvider as ClipboardSanitizerProvider_b25f9617db69c4
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { TenantSelectionProvider as TenantSelectionProvider_d6d5f193a167989e2ee7d14202901e62 } from '@payloadcms/plugin-multi-tenant/rsc'
 
-/** @type {Record<string, any>} */
 export const importMap = {
   "@payloadcms/plugin-multi-tenant/client#TenantField": TenantField_1d0591e3cf4f332c83a86da13a0de59a,
   "@payload/fields/slug/components/SlugComponent#SlugComponent": SlugComponent_76d8b9e383a7273dae23d14458c914aa,
@@ -88,7 +86,6 @@ export const importMap = {
   "@payloadcms/ui#QueryPresetsWhereField": QueryPresetsWhereField_3817bf644402e67bfe6577f60ef982de,
   "@payloadcms/ui#QueryPresetsColumnsCell": QueryPresetsColumnsCell_3817bf644402e67bfe6577f60ef982de,
   "@payloadcms/ui#QueryPresetsColumnField": QueryPresetsColumnField_3817bf644402e67bfe6577f60ef982de,
-  "@payload/components/nav/Nav#DefaultNav": DefaultNav_d8691970b9e3d58f48458f5e8648b24e,
   "/components/logo/Logo#Icon": Icon_6236c4428afca49e72929850c0e65ebf,
   "/components/logo/Logo#Logo": Logo_6236c4428afca49e72929850c0e65ebf,
   "@payloadcms/plugin-multi-tenant/rsc#GlobalViewRedirect": GlobalViewRedirect_d6d5f193a167989e2ee7d14202901e62,
