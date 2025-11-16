@@ -27,21 +27,20 @@ import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c08
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { TranslatedLanguagesCell as TranslatedLanguagesCell_4e4ebc33b258311001c18c2e58bead19 } from '@payload/components/cells/TranslatedCell.tsx'
 import { AssignTenantFieldTrigger as AssignTenantFieldTrigger_1d0591e3cf4f332c83a86da13a0de59a } from '@payloadcms/plugin-multi-tenant/client'
+import { WatchTenantCollection as WatchTenantCollection_1d0591e3cf4f332c83a86da13a0de59a } from '@payloadcms/plugin-multi-tenant/client'
 import { FolderTableCell as FolderTableCell_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 import { FolderField as FolderField_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 import { customUpload as customUpload_077fdf4989d204d208fe6800c63bdf68 } from '@payload/components/upload/CustomUpload'
-import { WatchTenantCollection as WatchTenantCollection_1d0591e3cf4f332c83a86da13a0de59a } from '@payloadcms/plugin-multi-tenant/client'
-import { HeaderCellLabel as HeaderCellLabel_d1362890c3675a280a51239e1ff814fd } from '@payload/components/cells/CellLabels.tsx'
 import { FolderTypeField as FolderTypeField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
 import { QueryPresetsAccessCell as QueryPresetsAccessCell_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
 import { QueryPresetsWhereCell as QueryPresetsWhereCell_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
 import { QueryPresetsWhereField as QueryPresetsWhereField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
 import { QueryPresetsColumnsCell as QueryPresetsColumnsCell_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
 import { QueryPresetsColumnField as QueryPresetsColumnField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
-import { FieldArrayRowLabelSocials as FieldArrayRowLabelSocials_74d5e02f096141f70b09954462dc3382 } from '@payload/components/fields/FieldArrayRowLabelSocials.tsx'
 import { DefaultNav as DefaultNav_d8691970b9e3d58f48458f5e8648b24e } from '@payload/components/nav/Nav'
 import { Icon as Icon_6236c4428afca49e72929850c0e65ebf } from '../../components/logo/Logo'
 import { Logo as Logo_6236c4428afca49e72929850c0e65ebf } from '../../components/logo/Logo'
+import { GlobalViewRedirect as GlobalViewRedirect_d6d5f193a167989e2ee7d14202901e62 } from '@payloadcms/plugin-multi-tenant/rsc'
 import { default as default_c770db15fe70a71fc10bf2ed4f13089d } from '@payload/components/auth/LoginButton'
 import { TenantSelector as TenantSelector_d6d5f193a167989e2ee7d14202901e62 } from '@payloadcms/plugin-multi-tenant/rsc'
 import { ClipboardSanitizerProvider as ClipboardSanitizerProvider_b25f9617db69c4315fc69de129d48de5 } from '@payload/components/providers/ClipboardSanitizerProvider'
@@ -78,21 +77,20 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payload/components/cells/TranslatedCell.tsx#TranslatedLanguagesCell": TranslatedLanguagesCell_4e4ebc33b258311001c18c2e58bead19,
   "@payloadcms/plugin-multi-tenant/client#AssignTenantFieldTrigger": AssignTenantFieldTrigger_1d0591e3cf4f332c83a86da13a0de59a,
+  "@payloadcms/plugin-multi-tenant/client#WatchTenantCollection": WatchTenantCollection_1d0591e3cf4f332c83a86da13a0de59a,
   "@payloadcms/ui/rsc#FolderTableCell": FolderTableCell_ab83ff7e88da8d3530831f296ec4756a,
   "@payloadcms/ui/rsc#FolderField": FolderField_ab83ff7e88da8d3530831f296ec4756a,
   "@payload/components/upload/CustomUpload#customUpload": customUpload_077fdf4989d204d208fe6800c63bdf68,
-  "@payloadcms/plugin-multi-tenant/client#WatchTenantCollection": WatchTenantCollection_1d0591e3cf4f332c83a86da13a0de59a,
-  "@payload/components/cells/CellLabels.tsx#HeaderCellLabel": HeaderCellLabel_d1362890c3675a280a51239e1ff814fd,
   "@payloadcms/ui#FolderTypeField": FolderTypeField_3817bf644402e67bfe6577f60ef982de,
   "@payloadcms/ui#QueryPresetsAccessCell": QueryPresetsAccessCell_3817bf644402e67bfe6577f60ef982de,
   "@payloadcms/ui#QueryPresetsWhereCell": QueryPresetsWhereCell_3817bf644402e67bfe6577f60ef982de,
   "@payloadcms/ui#QueryPresetsWhereField": QueryPresetsWhereField_3817bf644402e67bfe6577f60ef982de,
   "@payloadcms/ui#QueryPresetsColumnsCell": QueryPresetsColumnsCell_3817bf644402e67bfe6577f60ef982de,
   "@payloadcms/ui#QueryPresetsColumnField": QueryPresetsColumnField_3817bf644402e67bfe6577f60ef982de,
-  "@payload/components/fields/FieldArrayRowLabelSocials.tsx#FieldArrayRowLabelSocials": FieldArrayRowLabelSocials_74d5e02f096141f70b09954462dc3382,
   "@payload/components/nav/Nav#DefaultNav": DefaultNav_d8691970b9e3d58f48458f5e8648b24e,
   "/components/logo/Logo#Icon": Icon_6236c4428afca49e72929850c0e65ebf,
   "/components/logo/Logo#Logo": Logo_6236c4428afca49e72929850c0e65ebf,
+  "@payloadcms/plugin-multi-tenant/rsc#GlobalViewRedirect": GlobalViewRedirect_d6d5f193a167989e2ee7d14202901e62,
   "@payload/components/auth/LoginButton#default": default_c770db15fe70a71fc10bf2ed4f13089d,
   "@payloadcms/plugin-multi-tenant/rsc#TenantSelector": TenantSelector_d6d5f193a167989e2ee7d14202901e62,
   "@payload/components/providers/ClipboardSanitizerProvider#ClipboardSanitizerProvider": ClipboardSanitizerProvider_b25f9617db69c4315fc69de129d48de5,
