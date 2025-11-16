@@ -23,7 +23,7 @@ export default defineNuxtPlugin({
     const queryClient = new QueryClient({
       defaultOptions: {
         queries: {
-          staleTime: 1000 * 60 * 60, // 1 hour
+          staleTime: 1000 * 60 * 60 * 24, // 1 hour
           placeholderData: keepPreviousData,
           retry: 0,
         
