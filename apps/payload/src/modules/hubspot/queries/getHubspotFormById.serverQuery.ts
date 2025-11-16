@@ -1,22 +1,27 @@
 import { publicProcedure } from '@payload/orpc/procedures/public.procedure'
 import { getPayload } from '@payload/utils/payload/getPayload.util'
+import { getTenantQuery } from '@payload/utils/query/getTenantQuery.util'
 import {
   hubspotFormDtoSchema,
   HubspotFormTransformer,
 } from '@repo/models'
-import { zodSafeParse } from '@repo/utils'
 
 export const getHubspotFormById = publicProcedure.hubspot.getHubspotFormById
   .handler(async ({
-    errors, input,
+    context,
+    errors,
+    input,
   }) => {
     const payload = await getPayload()
-    const globalSettings = await payload.findGlobal({
-      slug: 'settings',
+    const settingsHubspot = await payload.find({
+      collection: 'settingsHubspot',
+      where: {
+        ...getTenantQuery(context.tenantId),
+      },
     })
 
-    const hubspotAccessToken = globalSettings.hubspot?.accessToken
-    const hubspotPortalId = globalSettings.hubspot?.portalId
+    const hubspotAccessToken = settingsHubspot.docs[0]?.accessToken
+    const hubspotPortalId = settingsHubspot.docs[0]?.portalId
 
     if (hubspotAccessToken == null || hubspotPortalId == null) {
       throw errors.ERROR_BAD_REQUEST({
@@ -34,12 +39,7 @@ export const getHubspotFormById = publicProcedure.hubspot.getHubspotFormById
       })
       const hubspotFormResponse = await response.json()
 
-      const parsedHubspotForm = zodSafeParse(
-        {
-          data: hubspotFormResponse,
-          schema: hubspotFormDtoSchema,
-        },
-      )
+      const parsedHubspotForm = hubspotFormDtoSchema.parse(hubspotFormResponse)
 
       return HubspotFormTransformer.toClientHubspotForm(parsedHubspotForm)
     }

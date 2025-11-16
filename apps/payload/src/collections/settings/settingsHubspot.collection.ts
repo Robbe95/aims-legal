@@ -1,6 +1,6 @@
-import type { GlobalConfig } from 'payload'
+import type { CollectionConfig } from 'payload'
 
-export const settingsHubspotGlobal: GlobalConfig = {
+export const settingsHubspotCollection: CollectionConfig = {
   fields: [
     {
       name: 'portalId',
@@ -13,5 +13,9 @@ export const settingsHubspotGlobal: GlobalConfig = {
       type: 'text',
     },
   ],
+  labels: {
+    plural: 'Hubspot',
+    singular: 'Hubspot',
+  },
   slug: 'settingsHubspot',
 }

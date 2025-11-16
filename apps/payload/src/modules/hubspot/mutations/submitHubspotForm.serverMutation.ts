@@ -1,5 +1,6 @@
 import { publicProcedure } from '@payload/orpc/procedures/public.procedure'
 import { getPayload } from '@payload/utils/payload/getPayload.util'
+import { getTenantQuery } from '@payload/utils/query/getTenantQuery.util'
 
 const LEGAL_CONSENT_HUBSPOT = {
   consent: {
@@ -26,15 +27,20 @@ function convertValueToHubspotApi(value: any | any[]): any {
 
 export const submitHubspotForm = publicProcedure.hubspot.submitHubspotForm
   .handler(async ({
-    errors, input,
+    context,
+    errors,
+    input,
   }) => {
     const payload = await getPayload()
-    const globalSettings = await payload.findGlobal({
-      slug: 'settings',
+    const settingsHubspot = await payload.find({
+      collection: 'settingsHubspot',
+      where: {
+        ...getTenantQuery(context.tenantId),
+      },
     })
 
-    const hubspotAccessToken = globalSettings.hubspot?.accessToken
-    const hubspotPortalId = globalSettings.hubspot?.portalId
+    const hubspotAccessToken = settingsHubspot.docs[0]?.accessToken
+    const hubspotPortalId = settingsHubspot.docs[0]?.portalId
 
     if (hubspotAccessToken == null || hubspotPortalId == null) {
       throw errors.ERROR_BAD_REQUEST({

@@ -7,6 +7,21 @@ export function pluginMultiTenant() {
       articles: {},
       images: {},
       pages: {},
+      settingsFooter: {
+        isGlobal: true,
+      },
+      settingsHeader: {
+        isGlobal: true,
+      },
+      settingsHomePage: {
+        isGlobal: true,
+      },
+      settingsHubspot: {
+        isGlobal: true,
+      },
+      settingsSocials: {
+        isGlobal: true,
+      },
     },
     enabled: true,
     tenantField: {

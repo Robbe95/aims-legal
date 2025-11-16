@@ -9,9 +9,6 @@ export function pluginStorage() {
   return s3Storage({
     bucket: env.S3_BUCKET as string,
     collections: {
-      assets: true,
-      files: true,
-      icons: true,
       images: true,
     },
     config: {

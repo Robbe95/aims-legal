@@ -1,7 +1,7 @@
 import { getLinkField } from '@payload/fields/link/link.field'
-import type { GlobalConfig } from 'payload'
+import type { CollectionConfig } from 'payload'
 
-export const settingsHomePageGlobal: GlobalConfig = {
+export const settingsHomePageCollection: CollectionConfig = {
   access: {
     read: () => true,
     readVersions: () => true,
@@ -14,6 +14,9 @@ export const settingsHomePageGlobal: GlobalConfig = {
       canBeExternal: false,
     }),
   ],
-  label: 'Home Page',
+  labels: {
+    plural: 'Home Pages',
+    singular: 'Home Page',
+  },
   slug: 'settingsHomePage',
 }

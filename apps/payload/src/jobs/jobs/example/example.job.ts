@@ -10,7 +10,7 @@ export async function createExampleJob({
     input: {
       title,
     },
-    queue: QUEUES.NIGHTLY_QUEUE,
+    queue: QUEUES.DEFAULT_QUEUE,
     workflow: 'exampleWorkflow',
   })
 }

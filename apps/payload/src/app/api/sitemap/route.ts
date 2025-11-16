@@ -26,7 +26,7 @@ async function getTenant(tenantName: string): Promise<{ id: string }> {
     locale: DEFAULT_LOCALE,
     overrideAccess: true,
     select: {
-      id: true,
+      title: true,
     },
     where: {
       title: {
@@ -96,8 +96,10 @@ async function getSitemap(request: NextRequest) {
         LIMIT ${PAGE_SIZE + 1}
       `)
 
+      // @ts-expect-error Unknown issue with rows typing
       console.error('Pages query executed successfully, got:', result.rows?.length || 0, 'results')
 
+      // @ts-expect-error Unknown issue with rows typing
       const pages = result.rows || []
 
       hasMore = pages.length > PAGE_SIZE
@@ -116,101 +118,6 @@ async function getSitemap(request: NextRequest) {
         data.push({
           _sitemap: convertLocale(locale),
           loc: `/${locale}/${page.subsite_slug}/${page.slug}`,
-        })
-      }
-
-      break
-    }
-
-    case 'productGroups': {
-      const cursorCondition = cursorValue ? `AND pg.id > '${cursorValue}'` : ''
-
-      const result = await db.execute<{
-        id: string
-        slug: string
-        subsite_slug: string
-      }>(sql`
-        SELECT 
-          pg.id,
-          pg.slug,
-          sl.slug as subsite_slug
-        FROM payload.product_groups pg
-        INNER JOIN payload.subsites s ON pg.subsite_id = s.id
-        INNER JOIN payload.subsites_locales sl ON s.id = sl._parent_id AND sl._locale = ${locale}
-        WHERE pg.tenant_id = ${tenant.id}
-          AND pg.deleted_at IS NULL
-          ${sql.raw(cursorCondition)}
-        ORDER BY pg.id
-        LIMIT ${PAGE_SIZE + 1}
-      `)
-
-      const productGroups = result.rows || []
-
-      hasMore = productGroups.length > PAGE_SIZE
-
-      const productGroupResults = hasMore ? productGroups.slice(0, PAGE_SIZE) : productGroups
-
-      if (hasMore && productGroupResults.length > 0) {
-        nextCursor = productGroupResults.at(-1)!.id
-      }
-
-      for (const productGroup of productGroupResults) {
-        if (!productGroup.slug || !productGroup.subsite_slug) {
-          continue
-        }
-
-        data.push({
-          _sitemap: convertLocale(locale),
-          loc: `/${locale}/${productGroup.subsite_slug}/product-groups/${productGroup.slug}`,
-        })
-      }
-
-      break
-    }
-
-    case 'productVariants': {
-      const cursorCondition = cursorValue ? `AND pv.id > '${cursorValue}'` : ''
-
-      const result = await db.execute<{
-        id: string
-        product_group_slug: string
-        slug: string
-        subsite_slug: string
-      }>(sql`
-        SELECT 
-          pv.id,
-          pv.slug,
-          sl.slug as subsite_slug,
-          pg.slug as product_group_slug
-        FROM payload.product_variants pv
-        INNER JOIN payload.subsites s ON pv.subsite_id = s.id
-        INNER JOIN payload.subsites_locales sl ON s.id = sl._parent_id AND sl._locale = ${locale}
-        INNER JOIN payload.product_groups pg ON pv.product_group_id = pg.id
-        WHERE pv.tenant_id = ${tenant.id}
-          AND pv.deleted_at IS NULL
-          ${sql.raw(cursorCondition)}
-        ORDER BY pv.id
-        LIMIT ${PAGE_SIZE + 1}
-      `)
-
-      const productVariants = result.rows || []
-
-      hasMore = productVariants.length > PAGE_SIZE
-
-      const productVariantResults = hasMore ? productVariants.slice(0, PAGE_SIZE) : productVariants
-
-      if (hasMore && productVariantResults.length > 0) {
-        nextCursor = productVariantResults.at(-1)!.id
-      }
-
-      for (const productVariant of productVariantResults) {
-        if (!productVariant.slug || !productVariant.subsite_slug || !productVariant.product_group_slug) {
-          continue
-        }
-
-        data.push({
-          _sitemap: convertLocale(locale),
-          loc: `/${locale}/${productVariant.subsite_slug}/product-groups/${productVariant.product_group_slug}/product-variants/${productVariant.slug}`,
         })
       }
 

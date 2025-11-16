@@ -1,7 +1,7 @@
 import { getNavLinksField } from '@payload/fields/nav/navLinks.field'
-import type { GlobalConfig } from 'payload'
+import type { CollectionConfig } from 'payload'
 
-export const settingsHeaderGlobal: GlobalConfig = {
+export const settingsFooterCollection: CollectionConfig = {
   access: {
     read: () => true,
     readVersions: () => true,
@@ -10,10 +10,13 @@ export const settingsHeaderGlobal: GlobalConfig = {
     getNavLinksField({
       isTranslatable: true,
       name: 'links',
-      label: 'Header links',
+      label: 'Footer links',
     }),
 
   ],
-  label: 'Header',
-  slug: 'settingsHeader',
+  labels: {
+    plural: 'Footers',
+    singular: 'Footer',
+  },
+  slug: 'settingsFooter',
 }
