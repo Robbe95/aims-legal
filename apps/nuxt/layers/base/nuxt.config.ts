@@ -70,11 +70,6 @@ export default defineNuxtConfig({
       siteBaseUrl: '',
       siteName: '',
     },
-    redisDb: 0,
-    redisHost: '',
-    redisPassword: '',
-    redisPort: 6379,
-    redisUsername: '',
   },
   vite: {
     plugins: [
