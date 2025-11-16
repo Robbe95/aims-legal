@@ -27,7 +27,7 @@ export const pageCollection: CollectionConfig = {
       }) => {
         const env = getEnv()
 
-        return `${env.SITE_BASE_URL}/${locale}/${data.slug}`
+        return `${env.SITE_BASE_URL}/${locale.code}/${data.slug}`
       },
     },
     useAsTitle: 'title',

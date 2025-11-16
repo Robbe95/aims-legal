@@ -30,7 +30,7 @@ export const articleCollection: CollectionConfig = {
           return `${env.SITE_BASE_URL}/${locale}`
         }
 
-        return `${env.SITE_BASE_URL}/${locale}/articles/${data?.slug}`
+        return `${env.SITE_BASE_URL}/${locale.code}/articles/${data?.slug}`
       },
     },
     useAsTitle: 'title',
