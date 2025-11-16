@@ -66,7 +66,7 @@ export default defineNuxtConfig({
     enabled: false,
   },
   routeRules: {
-    '**': { isr: true },
+    '**': { isr: 60 },
   },
 
   // sitemap: {
