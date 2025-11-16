@@ -1,46 +1,52 @@
 <script setup lang="ts">
-import { useHubspotFormMutation } from '@cms/api/hubspot/mutation/useHubspotForm.mutation'
-import BlocksHubspotFormGroup from '@cms/components/blocks/hubspot/BlocksHubspotFormGroup.vue'
-import type { HubspotForm } from '@cms/types/hubspotForm.type'
-import { makeHubspotFormZodSchema } from '@cms/utils/makeHubspotForm.util'
-import { VcButton } from '@wisemen/vue-core-components'
+import type {
+  ClientHubspotForm,
+  HubspotFormSubmit,
+} from '@repo/models'
+import {
+  VcButton,
+  VcIcon,
+  VcIconButton,
+} from '@wisemen/vue-core-components'
 import { useForm } from 'formango'
 
-import AppHeightTransition from '~base/components/app/AppHeightTransition.vue'
-import AppEmptyState from '~base/components/app/empty-state/AppEmptyState.vue'
-import AppEmptyStateTitle from '~base/components/app/empty-state/AppEmptyStateTitle.vue'
+import { NuxtErrorBoundary } from '#components'
+import AnimateHeight from '~base/components/animate/AnimateHeight.vue'
+import { useHubspotFormSubmitMutation } from '~cms/api/hubspot/mutation/useHubspotForm.mutation'
+import BlocksHubspotFormField from '~cms/components/blocks/hubspot/BlocksHubspotFormField.vue'
+import { makeHubspotFormZodSchema } from '~cms/utils/makeHubspotForm.util'
 
-const props = defineProps<{
-  hubspotForm: HubspotForm
-}>()
+const props = withDefaults(defineProps<{
+  isSingleLine?: boolean
+  hubspotForm: ClientHubspotForm
+}>(), {
+  isSingleLine: false,
+})
 
 const isSubmitted = ref<boolean>(false)
 
+const {
+  t,
+} = useI18n()
 const hubspotZodSchema = makeHubspotFormZodSchema(props.hubspotForm)
-const hubspotFormMutation = useHubspotFormMutation()
+
+const hubspotFormMutation = useHubspotFormSubmitMutation()
 const form = useForm({
   schema: hubspotZodSchema,
   onSubmit: async (data) => {
-  /*
-   * Reform group0.firstname etc to just flat firstname: 'name', ...
-   */
-
-    const reformedData: Record<string, any> = {}
-    const typedData = data as Record<string, Record<string, any>>
-
-    for (const groupName of Object.keys(typedData)) {
-      const group = typedData[groupName]
-
-      if (group) {
-        for (const fieldName of Object.keys(group)) {
-          reformedData[fieldName] = group[fieldName]
-        }
-      }
-    }
+    /*
+    * Data is matched to hubspot form like this
+    * {
+    *   "$FIELD_NAME": {
+    *     objectTypeId: "$OBJECT_TYPE_ID",
+    *     value: "$VALUE"
+    * }[]
+    */
+    const typedData = data as HubspotFormSubmit
 
     await hubspotFormMutation.mutateAsync({
       formId: props.hubspotForm.id,
-      data: reformedData,
+      data: typedData,
     })
 
     isSubmitted.value = true
@@ -49,50 +55,107 @@ const form = useForm({
 </script>
 
 <template>
-  <AppHeightTransition>
-    <div
-      v-if="!isSubmitted"
-      class="flex flex-col gap-4"
-    >
-      <h2 class="text-xl">
-        {{ hubspotForm.name }}
-      </h2>
-
+  <NuxtErrorBoundary>
+    <AnimateHeight>
       <div
-        v-for="(fieldGroup, index) in hubspotForm.fieldGroups"
-        :key="index"
+        v-if="!isSubmitted"
+        :class="{
+          'flex-col gap-4': !isSingleLine,
+          'w-[300px] flex-row justify-end': isSingleLine,
+        }"
+        class="flex"
       >
-        <BlocksHubspotFormGroup
-          :index="index"
-          :field-group="fieldGroup"
-          :form="form"
-        />
-      </div>
-      <div
-        id="privacy-text"
-      >
-        <div v-html="hubspotForm.legalConsentOptions.privacyText" />
-      </div>
-      <div class="flex justify-end">
-        <VcButton
-          :is-loading="form.isSubmitting.value"
-          @click="form.submit"
+        <div
+          :class="{
+            'gap-4 lg:grid-cols-2': !isSingleLine,
+            'w-full': isSingleLine,
+          }"
+          class="grid"
         >
-          {{ hubspotForm.displayOptions.submitButtonText }}
-        </VcButton>
+          <BlocksHubspotFormField
+            v-for="(field, index) in hubspotForm.fields"
+            :key="index"
+            :index="index"
+            :field="field"
+            :form="form"
+            :is-label-disabled="isSingleLine"
+          />
+        </div>
+
+        <div
+          v-if="hubspotForm.legalConsentOptions.privacyText"
+          id="privacy-text"
+          class="my-4 text-xs"
+        >
+          <div v-html="hubspotForm.legalConsentOptions.privacyText" />
+        </div>
+        <div
+          v-if="!isSingleLine"
+          class="flex"
+        >
+          <VcButton
+            :is-loading="form.isSubmitting.value"
+            @click="form.submit"
+          >
+            {{ hubspotForm.submitButtonText || t('base.shared.submit') }}
+          </VcButton>
+        </div>
+        <div
+          v-else
+          class="flex"
+        >
+          <VcIconButton
+            :is-loading="form.isSubmitting.value"
+            :label="hubspotForm.submitButtonText || t('base.shared.submit')"
+            :class-config="{
+              icon: 'size-4 text-black',
+            }"
+            icon="arrowRight"
+            @click="form.submit"
+          />
+        </div>
       </div>
-    </div>
-    <div
-      v-else
-      class="flex flex-col items-center justify-center gap-4"
-    >
-      <AppEmptyState icon="checkmarkCircle">
-        <AppEmptyStateTitle>
-          <div v-html="hubspotForm.configuration.postSubmitAction.value" />
-        </AppEmptyStateTitle>
-      </AppEmptyState>
-    </div>
-  </AppHeightTransition>
+      <div
+        v-else-if="!isSingleLine"
+        class="flex flex-col items-center justify-center gap-4"
+      >
+        <div
+          class="
+            my-12 flex max-w-[500px] flex-col items-center gap-8 text-center
+          "
+        >
+          <div>
+            <VcIcon
+              icon="annotationCheck"
+              class="size-6"
+            />
+          </div>
+
+          <p>
+            {{ t('cms.form.success_title') }}
+          </p>
+          <p>
+            {{ t('cms.form.success_text') }}
+          </p>
+        </div>
+      </div>
+      <div
+        v-else
+        class="
+          flex max-w-[300px] flex-row items-center justify-center gap-2 text-sm
+        "
+      >
+        <VcIcon
+          icon="check"
+          class="size-4"
+        />
+        {{ t('cms.newsletter.success_text') }}
+      </div>
+    </AnimateHeight>
+    <template #error="{ error }">
+      {{ error }}
+    </template>
+  </NuxtErrorBoundary>
 </template>
 
 <style>

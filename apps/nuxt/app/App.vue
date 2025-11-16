@@ -8,44 +8,47 @@ import {
 import { ConfigProvider as RekaConfigProvider } from 'reka-ui'
 
 import {
+  DevOnly,
   NuxtLayout,
   NuxtLoadingIndicator,
   NuxtPage,
 } from '#components'
-import { useDarkMode } from '~base/composables/dark-mode/useDarkMode'
-import { useTheme } from '~base/composables/theme/theme.composable'
+import QueryDevtools from '~/components/query/QueryDevtools.vue'
+import SeoIdentity from '~~/layers/seo/components/SeoIdentity.vue'
 
 function useIdFunction() {
   return useId()
 }
 
-const {
-  theme,
-} = useTheme()
-const darkMode = useDarkMode()
 const locale = useI18n().locale
 </script>
 
 <template>
-  <div class="flex flex-1">
-    <div class="w-full">
-      <RekaConfigProvider :use-id="useIdFunction">
-        <VcConfigProvider :locale="locale">
-          <VcThemeProvider
-            :theme="theme"
-            :appearance="darkMode"
+  <div class="flex w-screen flex-1">
+    <DevOnly>
+      <QueryDevtools />
+    </DevOnly>
+    <div
+      class="w-full"
+    >
+      <SeoIdentity>
+        <RekaConfigProvider :use-id="useIdFunction">
+          <VcConfigProvider
+            :locale="locale"
+            teleport-target-selector="#target"
           >
-            <NuxtLoadingIndicator color="#FFFFFF" />
-            <NuxtLayout>
-              <NuxtPage />
-            </NuxtLayout>
-            <Teleport to="#teleports">
+            <VcThemeProvider>
+              <NuxtLoadingIndicator color="#FFFFFF" />
+              <NuxtLayout>
+                <NuxtPage />
+              </NuxtLayout>
+              <div id="target" />
               <VcDialogContainer />
               <VcToastContainer />
-            </Teleport>
-          </VcThemeProvider>
-        </VcConfigProvider>
-      </RekaConfigProvider>
+            </VcThemeProvider>
+          </VcConfigProvider>
+        </RekaConfigProvider>
+      </SeoIdentity>
     </div>
   </div>
 </template>

@@ -10,16 +10,31 @@ export default withNuxt(
       '.nuxt/*',
       'node_modules/*',
       '.vscode/*',
+      '**/*.xlsx',
     ],
   },
+
   {
     rules: {
+      'better-tailwindcss/no-unregistered-classes': [
+        'error',
+        {
+          ignore: [
+            // Group and peer are default
+            '^group(?:\\/(\\S*))?$',
+            '^peer(?:\\/(\\S*))?$',
+            '^(ml|mx|mr)-break-out$',
+          ],
+        },
+      ],
       'project-structure/independent-modules': 'off',
       'ts/explicit-function-return-type': 'off',
     },
+  },
+  {
     settings: {
       'better-tailwindcss': {
-        entryPoint: 'layers/base/assets/styles/index.css',
+        entryPoint: 'layers/base/assets/styles/tailwind.css',
       },
     },
   },

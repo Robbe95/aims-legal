@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import type { HubspotField } from '@cms/types/hubspotForm.type'
-import type { VcRadioGroupItemProps } from '@wisemen/vue-core-components'
+import type { ClientHubspotFormMultiCheckboxField } from '@repo/models'
 import {
+  VcCheckbox,
   VcCheckboxGroup,
-  VcFormFieldLabel,
 } from '@wisemen/vue-core-components'
 import type { Field } from 'formango'
 
@@ -11,12 +10,16 @@ import { toFormField } from '~base/utils/form/toFormField.util'
 
 interface Props {
   formField: Field<any, any>
-  hubspotField: HubspotField
+  hubspotField: ClientHubspotFormMultiCheckboxField
 }
 
 const props = defineProps<Props>()
 
-const options = computed<VcRadioGroupItemProps[]>(() => {
+const options = computed<{
+  hint: string
+  label: string
+  value: string
+}[]>(() => {
   return props.hubspotField.options?.map((option) => {
     return {
       hint: option.description,
@@ -29,16 +32,16 @@ const options = computed<VcRadioGroupItemProps[]>(() => {
 
 <template>
   <div class="w-full">
-    <VcFormFieldLabel
-      :is-required="false"
-      :label="hubspotField.label"
-      for=""
-    />
-
     <VcCheckboxGroup
       :label="hubspotField.label"
       v-bind="toFormField(formField)"
-      :items="options"
-    />
+    >
+      <VcCheckbox
+        v-for="option in options"
+        :key="option.value"
+        :label="option.label"
+        :value="option.value"
+      />
+    </VcCheckboxGroup>
   </div>
 </template>

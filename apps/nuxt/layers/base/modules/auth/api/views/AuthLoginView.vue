@@ -44,7 +44,7 @@ async function onLoginWithZitadelClick(): Promise<void> {
   catch {
     toast.error({
       title: t('auth.login.error_toast.title'),
-      description: t('auth.login.error_toast.description'),
+      description: '',
     })
   }
   finally {

@@ -200,7 +200,6 @@ export interface Page {
         | UspsBlock
         | RichTextBlock
         | CardListBlock
-        | TableBlock
         | ArticlesIndexBlock
         | ArticlesCarouselBlock
         | HubspotFormBlock
@@ -276,7 +275,6 @@ export interface Article {
         | UspsBlock
         | RichTextBlock
         | CardListBlock
-        | TableBlock
         | ArticlesIndexBlock
         | ArticlesCarouselBlock
         | HubspotFormBlock
@@ -642,42 +640,6 @@ export interface CardListBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'card-list';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TableBlock".
- */
-export interface TableBlock {
-  title?: string | null;
-  table: {
-    headers: {
-      label: string;
-      /**
-       * Unique identifier for this column (e.g., name, email, phone)
-       */
-      key: string;
-      id?: string | null;
-    }[];
-    rows?:
-      | {
-          cells?:
-            | {
-                value?: string | null;
-                /**
-                 * Must match a header key from above
-                 */
-                key: string;
-                id?: string | null;
-              }[]
-            | null;
-          rowImage?: (string | null) | Image;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'table';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1171,7 +1133,6 @@ export interface PagesSelect<T extends boolean = true> {
         usps?: T | UspsBlockSelect<T>;
         'rich-text'?: T | RichTextBlockSelect<T>;
         'card-list'?: T | CardListBlockSelect<T>;
-        table?: T | TableBlockSelect<T>;
         'article-index'?: T | ArticlesIndexBlockSelect<T>;
         'articles-carousel'?: T | ArticlesCarouselBlockSelect<T>;
         'hubspot-form'?: T | HubspotFormBlockSelect<T>;
@@ -1434,39 +1395,6 @@ export interface CardListBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TableBlock_select".
- */
-export interface TableBlockSelect<T extends boolean = true> {
-  title?: T;
-  table?:
-    | T
-    | {
-        headers?:
-          | T
-          | {
-              label?: T;
-              key?: T;
-              id?: T;
-            };
-        rows?:
-          | T
-          | {
-              cells?:
-                | T
-                | {
-                    value?: T;
-                    key?: T;
-                    id?: T;
-                  };
-              rowImage?: T;
-              id?: T;
-            };
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ArticlesIndexBlock_select".
  */
 export interface ArticlesIndexBlockSelect<T extends boolean = true> {
@@ -1587,7 +1515,6 @@ export interface ArticlesSelect<T extends boolean = true> {
         usps?: T | UspsBlockSelect<T>;
         'rich-text'?: T | RichTextBlockSelect<T>;
         'card-list'?: T | CardListBlockSelect<T>;
-        table?: T | TableBlockSelect<T>;
         'article-index'?: T | ArticlesIndexBlockSelect<T>;
         'articles-carousel'?: T | ArticlesCarouselBlockSelect<T>;
         'hubspot-form'?: T | HubspotFormBlockSelect<T>;

@@ -8,14 +8,16 @@ const props = withDefaults(defineProps<{
 })
 
 const style = tv({
+  base: 'bg-gray-500',
   variants: {
-    base: 'bg-tertiary',
     direction: {
       horizontal: 'h-px w-full',
-      vertical: 'h-full w-px',
+      vertical: 'w-px',
     },
   },
 })
+
+const attrs = useAttrs()
 </script>
 
 <template>
@@ -23,6 +25,7 @@ const style = tv({
     :class="
       style({
         direction: props.direction,
+        class: attrs.class as string,
       })
     "
     role="presentation"

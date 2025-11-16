@@ -5,9 +5,8 @@ import { useGlobalI18n } from '~base/composables/i18n/useGlobalI18n'
 import { useQuery } from '~base/composables/query/useQuery'
 
 export function usePageQuery({
-  slug, subsiteSlug,
-}: { slug: string
-  subsiteSlug: string }) {
+  slug,
+}: { slug: string }) {
   const orpcQuery = useOrpcQuery()
   const {
     locale,
@@ -16,7 +15,6 @@ export function usePageQuery({
   const queryKey = orpcQuery.pages.getPageBySlug.key({
     input: {
       slug,
-      subsiteSlug,
     },
     type: 'query',
   })
@@ -24,8 +22,7 @@ export function usePageQuery({
   return useQuery(orpcQuery.pages.getPageBySlug.queryOptions({
     staleTime: 5000,
     input: {
-      slug,
-      subsiteSlug,
+      slug: toValue(slug),
     },
     placeholderData: keepPreviousData,
     queryKey: [

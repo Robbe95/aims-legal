@@ -1,62 +1,40 @@
+/* eslint-disable node/prefer-global/process */
 import path from 'node:path'
 
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-07',
+  compatibilityDate: '2025-10-30',
   alias: {
     '@': path.resolve(__dirname, './disable'),
     '@@': path.resolve(__dirname, './disable'),
-    '@trpc-router': path.resolve(__dirname, '../payload/src/trpc/router/trpc.router.ts'),
     '~base': path.resolve(__dirname, './layers/base'),
     '~cms': path.resolve(__dirname, './layers/cms'),
     '~root': path.resolve(__dirname, './'),
-    '~settings': path.resolve(__dirname, './layers/settings'),
-    '~~': path.resolve(__dirname, './disable'),
-  },
-  app: {
-    head: {
-      title: 'Nuxt Project Template',
-      link: [
-        {
-          href: '/favicon.ico',
-          rel: 'icon',
-          type: 'image/ico',
-        },
-      ],
-      meta: [
-        {
-          charset: 'utf-8',
-        },
-        {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1',
-        },
-        {
-          id: 'description',
-          name: 'description',
-          content: '',
-        },
-      ],
-    },
+
   },
   components: [],
 
   devtools: {
     enabled: true,
   },
-
   eslint: {
     config: {
       standalone: false,
     },
   },
-
   experimental: {
     typedPages: true,
   },
-
+  extends: [
+    './layers/base',
+    './layers/cms',
+    './layers/seo',
+  ],
   i18n: {
-    baseUrl: '',
-    defaultLocale: 'nl',
+    baseUrl: process.env.NUXT_PUBLIC_SITE_NAME === 'vektron' ? 'https://vektron.com' : 'https://kreon.com',
+    defaultLocale: 'en',
+    detectBrowserLanguage: {
+      redirectOn: 'all',
+    },
     experimental: {
       typedOptionsAndMessages: 'default',
       typedPages: true,
@@ -75,33 +53,24 @@ export default defineNuxtConfig({
         file: 'nl.json',
         language: 'nl-BE',
       },
-      {
-        iso: 'fr-FR',
-        code: 'fr',
-        file: 'fr.json',
-        language: 'fr-FR',
-      },
     ],
     strategy: 'prefix',
   },
-
   imports: {
     scan: false,
   },
-
   modules: [
     '@nuxt/eslint',
+    '@nuxt/scripts',
   ],
-  nitro: {
-    compressPublicAssets: {
-      brotli: true,
-    },
-    prerender: {
-      failOnError: false,
-    },
-  },
+
+  ssr: true,
 
   typescript: {
-    includeWorkspace: true,
+    tsConfig: {
+      include: [
+        '../**/*',
+      ],
+    },
   },
 })

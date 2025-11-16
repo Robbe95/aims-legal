@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import type { HubspotField } from '@cms/types/hubspotForm.type'
+import type {
+  ClientHubspotFormEmailField,
+  ClientHubspotFormSinglelineTextField,
+} from '@repo/models'
 import { VcTextField } from '@wisemen/vue-core-components'
 import type { Field } from 'formango'
 
 import { toFormField } from '~base/utils/form/toFormField.util'
 
 interface Props {
+  isLabelDisabled?: boolean
   formField: Field<any, any>
-  hubspotField: HubspotField
+  hubspotField: ClientHubspotFormEmailField | ClientHubspotFormSinglelineTextField
 }
 
 defineProps<Props>()
@@ -16,7 +20,7 @@ defineProps<Props>()
 <template>
   <div class="w-full">
     <VcTextField
-      :label="hubspotField.label"
+      :label="!isLabelDisabled ? hubspotField.label : undefined"
       :placeholder="hubspotField.label"
       v-bind="toFormField(formField)"
     />

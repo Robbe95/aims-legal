@@ -3,7 +3,7 @@ import {
   updateCurrentUserFormSchema,
 } from '@repo/models'
 
-import { authProcedure } from '../../procedures/procedures'
+import { authProcedure } from '#procedures/procedures.ts'
 
 const getCurrentUser = authProcedure
   .output(currentUserSchema)

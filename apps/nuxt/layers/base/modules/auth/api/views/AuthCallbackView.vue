@@ -4,7 +4,9 @@ import { useI18n } from 'vue-i18n'
 
 import { useAuthStore } from '~base/stores/auth.store'
 
-const i18n = useI18n()
+const {
+  t,
+} = useI18n()
 const authStore = useAuthStore()
 const localeRoute = useLocaleRoute()
 const routeQuery = useRoute()
@@ -15,8 +17,8 @@ async function loginCallback(): Promise<void> {
 
   if (authorizationCode === undefined) {
     toast.error({
-      title: i18n.t('auth.callback.login_error.title'),
-      description: i18n.t('auth.callback.login_error.description'),
+      title: t('auth.callback.login_error.title'),
+      description: '',
     })
 
     const localeLoginRoute = localeRoute('auth-login')
@@ -44,8 +46,8 @@ async function loginCallback(): Promise<void> {
   catch (error) {
     console.error(error)
     toast.error({
-      title: i18n.t('auth.callback.login_error.title'),
-      description: i18n.t('auth.callback.login_error.description'),
+      title: t('auth.callback.login_error.title'),
+      description: '',
     })
   }
 }

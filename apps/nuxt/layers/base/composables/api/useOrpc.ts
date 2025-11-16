@@ -16,7 +16,7 @@ export function useOrpc() {
   } = useGlobalI18n()
 
   const link = new RPCLink({
-    headers() {
+    headers(): Record<string, string> {
       const headers: Record<string, string> = {}
 
       headers['Accept-Language'] = locale.value

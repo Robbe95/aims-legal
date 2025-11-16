@@ -12,14 +12,12 @@ import { publicProcedure } from '#procedures/procedures.ts'
 export const getArticleIndex = publicProcedure
   .input(z.object({
     pagination: paginationInputSchema,
-    subsiteSlug: z.string(),
   }))
   .output(getPaginatedSchema(clientArticleIndexSchema))
 
 export const getArticleDetailBySlug = publicProcedure
   .input(z.object({
     slug: z.string(),
-    subsiteSlug: z.string(),
   }))
   .output(clientArticleDetailSchema)
   .errors({

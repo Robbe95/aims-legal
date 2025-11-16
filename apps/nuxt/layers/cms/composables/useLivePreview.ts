@@ -31,8 +31,8 @@ export function useLivePreview<T>(props: {
     data.value = toRaw(initialData.value)
   })
 
-  function onChange(mergedData: T): void {
-    data.value = mergedData
+  function onChange(mergedData: Record<string, any>): void {
+    data.value = mergedData as T
     isLoading.value = false
   }
 
@@ -40,8 +40,8 @@ export function useLivePreview<T>(props: {
 
   onMounted(() => {
     subscription = subscribe({
-      callback: (data: any) => onChange(data),
-      depth: 10,
+      callback: onChange,
+      depth: 0,
       initialData: toRaw(initialData.value) as Record<string, any>,
       serverURL: CMS_BASE_URL,
     })

@@ -1,3 +1,4 @@
+/* eslint-disable eslint-plugin-wisemen/explicit-function-return-type-with-regex */
 import type { FetchOptions } from 'ofetch'
 import { z } from 'zod'
 
@@ -74,14 +75,14 @@ export function createHttpZodClient(
           url,
         })
 
-        return data as z.output<T>
+        return data as any
       }
 
       throw error
     }
   }
 
-  async function post<T extends z.ZodType>(options: PostOptions<T>): Promise<z.core.output<T>> {
+  async function post<T extends z.ZodType>(options: PostOptions<T>) {
     const {
       body,
       config,
@@ -106,14 +107,14 @@ export function createHttpZodClient(
           url,
         })
 
-        return data as z.output<T>
+        return data
       }
 
       throw error
     }
   }
 
-  async function put<T extends z.ZodType>(options: PutOptions<T>): Promise<z.core.output<T>> {
+  async function put<T extends z.ZodType>(options: PutOptions<T>) {
     const {
       body,
       config,
@@ -138,14 +139,14 @@ export function createHttpZodClient(
           url,
         })
 
-        return data as z.output<T>
+        return data
       }
 
       throw error
     }
   }
 
-  async function del<T extends z.ZodType>(options: DeleteOptions<T>): Promise<z.core.output<T>> {
+  async function del<T extends z.ZodType>(options: DeleteOptions<T>) {
     const {
       body,
       config,
@@ -160,7 +161,7 @@ export function createHttpZodClient(
     })
 
     if (responseSchema == null) {
-      return undefined as unknown as z.output<T>
+      return
     }
 
     try {
@@ -174,7 +175,7 @@ export function createHttpZodClient(
           url,
         })
 
-        return data as z.output<T>
+        return data
       }
 
       throw error
@@ -186,5 +187,5 @@ export function createHttpZodClient(
     get,
     post,
     put,
-  }
+  } as CreateHttpZodClientReturnType
 }

@@ -1,5 +1,20 @@
+<script setup lang="ts">
+interface Props {
+  noPadding?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  noPadding: false,
+})
+</script>
+
 <template>
-  <div class="container mx-auto flex w-full flex-col px-4">
+  <div
+    :class="{
+      'px-4': !noPadding,
+    }"
+    class="container mx-auto"
+  >
     <slot />
   </div>
 </template>

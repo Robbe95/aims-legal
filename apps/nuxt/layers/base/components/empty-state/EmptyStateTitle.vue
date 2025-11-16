@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="text-balance text-brand-secondary">
+  <div class="text-sm text-balance text-fg-primary/70">
     <slot />
   </div>
 </template>

@@ -5,14 +5,12 @@
     "types": [
       "@types/dom-view-transitions"
     ],
+    "allowImportingTsExtensions": true,
     "allowJs": true,
     "outDir": "dist"
+
   },
-  "references": [
-    {
-      "path": "../payload/tsconfig.composite.json"
-    }
-  ],
+
   "exclude": [
     "dist"
   ]

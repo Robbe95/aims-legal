@@ -1,10 +1,20 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
+  $production: {
+    scripts: {
+      registry: {
+        // Set with ENV: NUXT_PUBLIC_SCRIPTS_GOOGLE_TAG_MANAGER_ID
+        googleTagManager: {
+          id: '',
+        },
+      },
+    },
+  },
   components: [],
   css: [
     '@wisemen/vue-core-components/style.css',
-    '~base/assets/styles/index.css',
+    '~base/assets/styles/base.css',
   ],
   experimental: {
     viewTransition: true,
@@ -16,7 +26,7 @@ export default defineNuxtConfig({
     },
     families: [
       {
-        name: 'Template',
+        name: 'Kreon',
         global: true,
         preload: true,
         provider: 'local',
@@ -26,6 +36,18 @@ export default defineNuxtConfig({
           700,
         ],
       },
+      {
+        name: 'Logo',
+        global: true,
+        preload: true,
+        provider: 'local',
+        weights: [
+          300,
+          400,
+          700,
+        ],
+      },
+
     ],
   },
   modules: [
@@ -34,6 +56,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/fonts',
     '@nuxtjs/color-mode',
+    '@nuxt/scripts',
   ],
   runtimeConfig: {
     public: {
@@ -46,11 +69,17 @@ export default defineNuxtConfig({
       cmsBaseUrl: '',
       environment: '',
       siteBaseUrl: '',
+      siteName: '',
     },
+    redisDb: 0,
+    redisHost: '',
+    redisPassword: '',
+    redisPort: 6379,
+    redisUsername: '',
   },
   vite: {
     plugins: [
-      tailwindcss(),
+      tailwindcss() as any,
     ],
   },
 })

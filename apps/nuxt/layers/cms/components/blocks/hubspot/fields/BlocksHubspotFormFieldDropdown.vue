@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import type {
-  HubspotField,
-  HubspotFieldOption,
-} from '@cms/types/hubspotForm.type'
-import type { VcSelectItemProps } from '@wisemen/vue-core-components'
-import { VcSelect } from '@wisemen/vue-core-components'
+  ClientBaseHubspotFormFieldOption,
+  ClientHubspotFormDropdownField,
+} from '@repo/models'
+import {
+  VcSelect,
+  VcSelectItem,
+} from '@wisemen/vue-core-components'
 import type { Field } from 'formango'
 
 import { toFormField } from '~base/utils/form/toFormField.util'
 
 interface Props {
   formField: Field<any, any>
-  hubspotField: HubspotField
+  hubspotField: ClientHubspotFormDropdownField
 }
 
 const props = defineProps<Props>()
@@ -25,22 +27,13 @@ const model = computed<any>({
       hubspotFieldOption.value === props.formField.modelValue.value) ?? null
   },
   set(value) {
-    props.formField.setValue(value.value)
+    props.formField.setValue(value)
   },
 })
 
-function displayFunction(hubspotFieldOption: HubspotFieldOption): string {
+function displayFunction(hubspotFieldOption: ClientBaseHubspotFormFieldOption): string {
   return hubspotFieldOption.label
 }
-
-const options = computed<VcSelectItemProps[]>(() => {
-  return props.hubspotField.options?.map((option) => {
-    return {
-      type: 'option',
-      value: option,
-    }
-  }) ?? []
-})
 </script>
 
 <template>
@@ -49,11 +42,18 @@ const options = computed<VcSelectItemProps[]>(() => {
       v-model="model"
       :placeholder="t('base.shared.select')"
       :label="hubspotField.label"
-      :errors="toFormField(formField).errors"
+      :error-message="toFormField(formField).errorMessage"
       :display-fn="displayFunction"
-      :items="options"
       @blur="formField.onBlur"
       @change="formField.onChange"
-    />
+    >
+      <VcSelectItem
+        v-for="(option, index) in props.hubspotField.options"
+        :key="index"
+        :value="option.value"
+      >
+        {{ displayFunction(option) }}
+      </VcSelectItem>
+    </VcSelect>
   </div>
 </template>

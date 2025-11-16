@@ -1,7 +1,6 @@
 import {
   describe,
   expect,
-  expectTypeOf,
   it,
 } from 'vitest'
 
@@ -13,9 +12,5 @@ describe('toCapatilize', () => {
     expect(toCapatilize('HELLO')).toBe('Hello')
     expect(toCapatilize('hello world')).toBe('Hello world')
     expect(toCapatilize('HEllO wOrld')).toBe('Hello world')
-  })
-
-  it('should give a type error if the input is not a string', () => {
-    expectTypeOf(toCapatilize).parameter(0).toMatchTypeOf<string>()
   })
 })

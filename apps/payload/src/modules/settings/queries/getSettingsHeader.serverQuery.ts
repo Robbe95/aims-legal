@@ -21,5 +21,7 @@ export const getSettingsHeader = publicProcedure.settings.getSettingsHeader
 
     const foundHeader = paginatedHeaders.docs[0]
 
-    return foundHeader?.links?.map(NavigationLinkTransformer.toClientNavigationLink) ?? []
+    return {
+      headerLinks: foundHeader?.links?.map(NavigationLinkTransformer.toClientNavigationLink) ?? [],
+    }
   })

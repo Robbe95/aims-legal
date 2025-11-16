@@ -47,6 +47,7 @@ import { ClipboardSanitizerProvider as ClipboardSanitizerProvider_b25f9617db69c4
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { TenantSelectionProvider as TenantSelectionProvider_d6d5f193a167989e2ee7d14202901e62 } from '@payloadcms/plugin-multi-tenant/rsc'
 
+/** @type {Record<string, any>} */
 export const importMap = {
   "@payloadcms/plugin-multi-tenant/client#TenantField": TenantField_1d0591e3cf4f332c83a86da13a0de59a,
   "@payload/fields/slug/components/SlugComponent#SlugComponent": SlugComponent_76d8b9e383a7273dae23d14458c914aa,

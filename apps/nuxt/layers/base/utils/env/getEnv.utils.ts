@@ -12,5 +12,6 @@ export function getEnv() {
     CMS_BASE_URL: config.public.cmsBaseUrl,
     ENVIRONMENT: config.public.environment,
     SITE_BASE_URL: config.public.siteBaseUrl,
+    SITE_NAME: config.public.siteName,
   } as const
 }

@@ -96,10 +96,8 @@ async function getSitemap(request: NextRequest) {
         LIMIT ${PAGE_SIZE + 1}
       `)
 
-      // @ts-expect-error Unknown issue with rows typing
       console.error('Pages query executed successfully, got:', result.rows?.length || 0, 'results')
 
-      // @ts-expect-error Unknown issue with rows typing
       const pages = result.rows || []
 
       hasMore = pages.length > PAGE_SIZE

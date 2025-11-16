@@ -1,24 +1,23 @@
-import { settingsQueryKey } from '@cms/api/settings/settings.queryKey'
-
-import { useOrpc } from '~base/composables/api/useOrpc'
+import { useOrpcQuery } from '~base/composables/api/useOrpc'
 import { useGlobalI18n } from '~base/composables/i18n/useGlobalI18n'
 import { useQuery } from '~base/composables/query/useQuery'
 
 export function useSettingsSocialsQuery() {
-  const orpc = useOrpc()
+  const orpcQuery = useOrpcQuery()
   const {
     locale,
   } = useGlobalI18n()
 
-  return useQuery({
-    queryFn: async () => {
-      const data = await orpc.settings.getSettingsSocials()
-
-      return data ?? []
-    },
-    queryKey: [
-      settingsQueryKey.socials.queryKey,
-      locale,
-    ],
+  const queryKey = orpcQuery.settings.getSettingsSocials.key({
+    type: 'query',
   })
+
+  return useQuery(
+    orpcQuery.settings.getSettingsSocials.queryOptions({
+      queryKey: [
+        queryKey,
+        locale,
+      ],
+    }),
+  )
 }

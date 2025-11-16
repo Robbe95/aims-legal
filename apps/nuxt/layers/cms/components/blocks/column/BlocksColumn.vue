@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import BlocksColumnRenderer from '@cms/components/blocks/column/BlocksColumnRenderer.vue'
-import type { SingleColumnBlock } from '@cms/types/blocks.type'
 import type { ColumnBlock } from '@repo/payload-types'
+
+import Section from '~base/components/section/Section.vue'
+import BlocksColumnRenderer from '~cms/components/blocks/column/BlocksColumnRenderer.vue'
+import type { SingleColumnBlock } from '~cms/types/blocks.type'
 
 interface Props {
   block: ColumnBlock
@@ -14,14 +16,14 @@ const secondColumn = computed<SingleColumnBlock | null>(() => props.block.column
 </script>
 
 <template>
-  <section class="overflow-hidden">
+  <Section>
     <div class="container">
-      <!-- <LayoutDivider :text="pageData?.quality_seekers_subtitle" /> -->
-
-      <!-- <div class="flex mt-40 space-x-14 xl:w-[150%]">
-        <AppImageSlider :images="getImages" lazy />
-      </div> -->
-      <div class="grid grid-cols-2 gap-20">
+      <div
+        class="
+          grid gap-20
+          lg:grid-cols-2
+        "
+      >
         <div>
           <BlocksColumnRenderer
             v-if="firstColumn"
@@ -36,5 +38,5 @@ const secondColumn = computed<SingleColumnBlock | null>(() => props.block.column
         </div>
       </div>
     </div>
-  </section>
+  </Section>
 </template>

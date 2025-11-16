@@ -6,8 +6,6 @@ export function translateLocale(type: string): string {
   } = useGlobalI18n()
 
   switch (type) {
-    case 'fr':
-      return t('base.locale.fr')
     case 'nl':
       return t('base.locale.nl')
     case 'en':

@@ -1,23 +1,32 @@
-import { hubspotFormQueryKey } from '@cms/api/hubspot/hubspotForm.queryKey'
-import type { HubspotForm } from '@cms/types/hubspotForm.type'
-
+import { useOrpcQuery } from '~base/composables/api/useOrpc'
+import { useGlobalI18n } from '~base/composables/i18n/useGlobalI18n'
 import { useQuery } from '~base/composables/query/useQuery'
-import { getEnv } from '~base/utils/env/getEnv.utils'
 
 export function useHubspotFormQuery({
   formId,
-}: { formId: string }) {
-  const BASE_URL = getEnv().CMS_BASE_URL
+}: { formId: MaybeRefOrGetter<string> }) {
+  const orpcQuery = useOrpcQuery()
+  const {
+    locale,
+  } = useGlobalI18n()
+
+  const queryKey = orpcQuery.hubspot.getHubspotFormById.key({
+    input: {
+      formId: toValue(formId),
+    },
+    type: 'query',
+  })
 
   return useQuery({
-    queryFn: async () => {
-      const data = await $fetch<HubspotForm>(`${BASE_URL}/api/hubspot/forms/${formId}`)
-
-      return data
-    },
-    queryKey: [
-      hubspotFormQueryKey.detail(formId).queryKey,
-    ],
-    throwOnError: true,
+    isClientOnly: true,
+    ...orpcQuery.hubspot.getHubspotFormById.queryOptions({
+      input: {
+        formId: toValue(formId),
+      },
+      queryKey: [
+        queryKey,
+        locale,
+      ],
+    }),
   })
 }

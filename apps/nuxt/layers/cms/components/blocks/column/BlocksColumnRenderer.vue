@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import BlocksColumnMultipleText from '@cms/components/blocks/column/BlocksColumnMultipleText.vue'
-import BlocksColumnTextCta from '@cms/components/blocks/column/BlocksColumnTextCta.vue'
-import BlocksRendererNotSupported from '@cms/components/blocks/renderer/BlocksRendererNotSupported.vue'
-import type { SingleColumnBlock } from '@cms/types/blocks.type'
+import BlocksColumnMultipleText from '~cms/components/blocks/column/BlocksColumnMultipleText.vue'
+import BlocksColumnTextCta from '~cms/components/blocks/column/BlocksColumnTextCta.vue'
+import BlocksRendererNotSupported from '~cms/components/blocks/renderer/BlocksRendererNotSupported.vue'
+import type { SingleColumnBlock } from '~cms/types/blocks.type'
 
 interface Props {
   block: SingleColumnBlock

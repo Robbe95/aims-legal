@@ -1,4 +1,4 @@
-import type { VcSelectItemProps } from '@wisemen/vue-core-components'
+/* eslint-disable @intlify/vue-i18n/no-dynamic-keys */
 import type {
   ComputedRef,
   Ref,
@@ -10,12 +10,13 @@ import {
 
 import { useGlobalI18n } from '~base/composables/i18n/useGlobalI18n'
 import { createI18nKeyMap } from '~base/types/i18n/i18n.type'
+import type { SelectItem } from '~base/types/select/selectItem.type'
 
 type FontSize = 'default' | 'large' | 'larger' | 'small' | 'smaller'
 
 interface UseFontSizeReturnType {
   displayFn: (value: FontSize) => string
-  items: ComputedRef<VcSelectItemProps[]>
+  items: ComputedRef<SelectItem<FontSize>[]>
   value: Ref<FontSize>
 }
 
@@ -57,7 +58,7 @@ export function useFontSizeSelect(): UseFontSizeReturnType {
     return t(i18nKeys.get(value)!)
   }
 
-  const items = computed<VcSelectItemProps[]>(() => fontSizes.map((item) => ({
+  const items = computed<SelectItem<FontSize>[]>(() => fontSizes.map((item) => ({
     type: 'option',
     value: item,
   })))

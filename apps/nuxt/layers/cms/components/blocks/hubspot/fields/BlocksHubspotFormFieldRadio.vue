@@ -1,33 +1,34 @@
 <script setup lang="ts">
-import type { HubspotField } from '@cms/types/hubspotForm.type'
-import type { VcRadioGroupItemProps } from '@wisemen/vue-core-components'
-import { VcRadioGroup } from '@wisemen/vue-core-components'
+import type { ClientHubspotFormRadioField } from '@repo/models'
+import {
+  VcRadioGroup,
+  VcRadioGroupItem,
+} from '@wisemen/vue-core-components'
 import type { Field } from 'formango'
+
+import { toFormField } from '~base/utils/form/toFormField.util'
 
 interface Props {
   formField: Field<any, any>
-  hubspotField: HubspotField
+  hubspotField: ClientHubspotFormRadioField
 }
 
 const props = defineProps<Props>()
-
-const options = computed<VcRadioGroupItemProps[]>(() => {
-  return props.hubspotField.options?.map((option) => {
-    return {
-      hint: option.description,
-      label: option.label,
-      value: option.value,
-    }
-  }) ?? []
-})
 </script>
 
 <template>
   <div class="w-full">
     <VcRadioGroup
       :label="hubspotField.label"
-      v-bind="formField"
-      :items="options"
-    />
+      v-bind="toFormField(props.formField)"
+    >
+      <VcRadioGroupItem
+        v-for="option in props.hubspotField.options"
+        :key="option.value"
+        :label="option.label"
+        :value="option.value"
+        :hint="option.description"
+      />
+    </VcRadioGroup>
   </div>
 </template>

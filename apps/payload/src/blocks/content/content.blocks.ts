@@ -10,7 +10,6 @@ import { contentHeroBlock } from '@payload/blocks/content/hero/contentHero.block
 import { contentImageTextBlock } from '@payload/blocks/content/image-text/contentImageText.block'
 import { contentCardListBlock } from '@payload/blocks/content/list/contentCardList.block'
 import { contentRichTextBlock } from '@payload/blocks/content/rich-text/contentRichText.block'
-import { contentTableBlock } from '@payload/blocks/content/table/contentTable.block'
 import { contentTextBlock } from '@payload/blocks/content/text/contentText.block'
 import { contentUspsBlock } from '@payload/blocks/content/usps/contentUsps.block'
 
@@ -27,7 +26,6 @@ export const contentBlocks = [
   contentUspsBlock,
   contentRichTextBlock,
   contentCardListBlock,
-  contentTableBlock,
 
   // Entities
   contentArticlesIndexBlock,

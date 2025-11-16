@@ -20,7 +20,6 @@ const getPageBySlug = publicProcedure
   })
   .input(z.object({
     slug: z.string(),
-    subsiteSlug: z.string(),
   }))
   .output(zodPage)
   .errors({
