@@ -26,6 +26,7 @@ export default defineNuxtPlugin({
           staleTime: 5000,
           placeholderData: keepPreviousData,
           retry: 0,
+          refetchOnWindowFocus: false,
         },
       },
     })
