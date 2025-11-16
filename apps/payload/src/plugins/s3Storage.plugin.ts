@@ -1,38 +1,15 @@
 import process from 'node:process'
 
-import { getEnv } from '@payload/env'
-import { s3Storage } from '@payloadcms/storage-s3'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 export function pluginStorage() {
-  const env = getEnv()
-
-  return s3Storage({
-    bucket: env.S3_BUCKET as string,
+  return vercelBlobStorage({
+    // Specify which collections should use Vercel Blob
     collections: {
       images: true,
     },
-    config: {
-      credentials: {
-        accessKeyId: env.S3_ACCESS_KEY_ID as string,
-        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
-      },
-      endpoint: env.S3_ENDPOINT as string,
-      // TODO: What on the server?
-      forcePathStyle: true,
-      region: env.S3_REGION as string,
-      requestHandler: {
-        httpAgent: {
-          keepAlive: true,
-          maxSockets: 300,
-        },
-        httpsAgent: {
-          keepAlive: true,
-          maxSockets: 300,
-        },
-      },
-
-    },
-    enabled: env.ENVIRONMENT !== 'local',
-    signedDownloads: true,
+    enabled: true, // Optional, defaults to true
+    // Token provided by Vercel once Blob storage is added to your Vercel project
+    token: process.env.BLOB_READ_WRITE_TOKEN,
   })
 }

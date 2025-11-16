@@ -42,6 +42,7 @@
     "@payloadcms/plugin-seo": "catalog:payload",
     "@payloadcms/richtext-lexical": "catalog:payload",
     "@payloadcms/storage-s3": "catalog:payload",
+    "@payloadcms/storage-vercel-blob": "^3.64.0",
     "@payloadcms/ui": "catalog:payload",
     "@repo/constants": "workspace:*",
     "@repo/contract": "workspace:*",

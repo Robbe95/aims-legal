@@ -59,9 +59,6 @@ export default buildConfig({
         Icon: '/components/logo/Logo#Icon',
         Logo: '/components/logo/Logo#Logo',
       },
-      afterLogin: [
-        '@payload/components/auth/LoginButton',
-      ],
     },
     importMap: {
       baseDir: path.resolve(dirname),
