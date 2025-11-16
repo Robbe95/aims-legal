@@ -12,7 +12,7 @@ export const pageCollection: CollectionConfig = {
   },
   admin: {
     defaultColumns: [
-      'fullTitle',
+      'title',
       'slug',
       'blocks',
       'subsite',
@@ -32,7 +32,7 @@ export const pageCollection: CollectionConfig = {
         return `${env.SITE_BASE_URL}/${locale}/${data.slug}`
       },
     },
-    useAsTitle: 'fullTitle',
+    useAsTitle: 'title',
   },
   enableQueryPresets: true,
   fields: [
@@ -43,15 +43,6 @@ export const pageCollection: CollectionConfig = {
       },
       localized: true,
       required: true,
-      type: 'text',
-    },
-    {
-      name: 'fullTitle',
-      admin: {
-        hidden: true,
-        position: 'sidebar',
-      },
-      localized: true,
       type: 'text',
     },
     ...getSlugField(),

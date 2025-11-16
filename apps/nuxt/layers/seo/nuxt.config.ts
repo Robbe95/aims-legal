@@ -1,9 +1,22 @@
 import path from 'node:path'
 
 export default defineNuxtConfig({
+  $production: {
+    routeRules: {
+      '**': {
+        cache: {
+          name: 'redis',
+          base: 'redis',
+          maxAge: 60,
+          swr: true,
+        },
+      },
+    },
+  },
   alias: {
     '~base': path.resolve(__dirname, '../base'),
   },
+
   app: {
     head: {
       link: [
@@ -55,7 +68,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-
   extends: [
     '../base',
   ],
@@ -64,16 +76,6 @@ export default defineNuxtConfig({
   ],
   ogImage: {
     enabled: false,
-  },
-  routeRules: {
-    '**': {
-      cache: {
-        name: 'redis',
-        base: 'redis',
-        maxAge: 60,
-        swr: true,
-      },
-    },
   },
 
   sitemap: {

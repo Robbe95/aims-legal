@@ -115,10 +115,8 @@ const isDropdownOpen = computed<boolean>(() => {
       :class="{
         'bg-white': variant === 'white',
         'bg-transparent': variant === 'seeThrough',
-        'top-(--sub-header-height)': isTop,
-        'top-0': !isTop,
       }"
-      class="fixed z-50 w-full pt-4 transition-all duration-200"
+      class="fixed top-0 z-50 w-full pt-4 transition-all duration-200"
     >
       <Container>
         <div

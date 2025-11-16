@@ -2,11 +2,6 @@
 import type { ClientLink } from '@repo/models'
 import type { CtaField } from '@repo/payload-types'
 import { assert } from '@repo/utils'
-import {
-  computed,
-  ref,
-  toValue,
-} from 'vue'
 import type { RouteLocationNamedI18n } from 'vue-router'
 import type { RouteNamedMapI18n } from 'vue-router/auto-routes'
 
@@ -29,9 +24,6 @@ export function getInternalLink(link: MaybeRefOrGetter<LinkType | null>): Intern
     return internalLink.value.url as InternalLink
   }
 
-  // @ts-expect-error Quick fix
-  const subsiteSlug = typeof internalLink.value?.reference?.value?.subsite === 'object' ? internalLink.value.reference.value.subsite?.slug : internalLink.value.reference?.value?.subsite
-
   if (internalLink.value?.type !== 'reference' || !internalLink.value?.reference) {
     return null
   }
@@ -44,11 +36,11 @@ export function getInternalLink(link: MaybeRefOrGetter<LinkType | null>): Intern
   }
 
   if (internalLink.value?.reference?.relationTo === 'pages') {
-    return `/${subsiteSlug}${getPageLink(internalLink.value.reference.value.slug)}` as InternalLink
+    return `${getPageLink(internalLink.value.reference.value.slug)}` as InternalLink
   }
 
   if (internalLink.value?.reference?.relationTo === 'articles') {
-    return `/${subsiteSlug}${getArticleLink(internalLink.value.reference.value.slug)}` as InternalLink
+    return `${getArticleLink(internalLink.value.reference.value.slug)}` as InternalLink
   }
 
   return null

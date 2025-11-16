@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+import PageNavWrapper from '~~/layers/cms/components/nav/PageNavWrapper.vue'
 import PageContext from '~~/layers/cms/components/page/PageContext.vue'
 import { getEnv } from '~base/utils/env/getEnv.utils'
 import { usePageQuery } from '~cms/api/page/query/usePage.query'
@@ -89,9 +90,11 @@ definePageMeta({
       v-if="data"
       :blocks="data.blocks ?? []"
     >
-      <PageView
-        :page="data"
-      />
+      <PageNavWrapper>
+        <PageView
+          :page="data"
+        />
+      </PageNavWrapper>
     </PageContext>
     <NotFoundView v-else />
   </div>

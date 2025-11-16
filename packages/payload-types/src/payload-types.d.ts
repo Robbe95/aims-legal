@@ -183,7 +183,6 @@ export interface Page {
   id: string;
   tenant?: (string | null) | Tenant;
   title: string;
-  fullTitle?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
   breadcrumbs?: BreadcrumbsField;
@@ -1115,7 +1114,6 @@ export interface PayloadQueryPreset {
 export interface PagesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
-  fullTitle?: T;
   slug?: T;
   slugLock?: T;
   breadcrumbs?: T | BreadcrumbsFieldSelect<T>;
