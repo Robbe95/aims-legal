@@ -81,7 +81,6 @@ export default buildConfig({
   db: postgresAdapter({
     idType: 'uuid',
     prodMigrations: migrations,
-    schemaName: 'payload',
     push: false,
     pool: {
       keepAlive: false,
