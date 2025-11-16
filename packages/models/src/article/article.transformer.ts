@@ -5,16 +5,11 @@ import type { ClientArticleDetail } from '#article/articleDetail.model.ts'
 import type { ClientArticleIndex } from '#article/articleIndex.model.ts'
 import { ImageTransformer } from '#image/image.transformer.ts'
 import { SeoTransformer } from '#seo/seo.transformer.ts'
-import { SubsiteTransformer } from '#subsite/subsite.transformer.ts'
 
 export const ArticleTransformer = {
   toClientArticleDetail(article: Article): ClientArticleDetail {
     if (typeof article.preview.image === 'string') {
       throw new TypeError('Image value is not an object, depth should be increased')
-    }
-
-    if (typeof article.subsite === 'string' || article.subsite == null) {
-      throw new TypeError('Subsite value is not an object, depth should be increased')
     }
 
     if (article.blocks == null) {
@@ -36,7 +31,6 @@ export const ArticleTransformer = {
       },
       seo: SeoTransformer.toClientSeo(article.seo),
       slug: article.slug,
-      subsite: SubsiteTransformer.toClientSubsiteIndex(article.subsite),
     }
 
     return clientArticleDetail

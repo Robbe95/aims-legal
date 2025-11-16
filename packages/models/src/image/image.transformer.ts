@@ -1,23 +1,18 @@
-import type {
-  Asset,
-  Image,
-} from '@repo/payload-types'
-import { zodSafeParse } from '@repo/utils'
+import type { Image } from '@repo/payload-types'
 
 import type {
   ClientImage,
   ClientImageSize,
 } from '#image/image.model.ts'
-import { clientImageSchema } from '#image/image.model.ts'
 
 type PayloadImageSize = NonNullable<NonNullable<Image['sizes']>['background']>
 
-export function isImageString<T extends Asset | Image>(image: (string | T)): image is T {
+export function isImageString<T extends Image>(image: (string | T)): image is T {
   return typeof image !== 'string'
 }
 
 export const ImageTransformer = {
-  toClientImage(image: Asset | Image): ClientImage {
+  toClientImage(image: Image): ClientImage {
     const clientImage: ClientImage = {
       id: image.id,
       createdAt: image.createdAt ?? '',
@@ -41,10 +36,7 @@ export const ImageTransformer = {
       width: image.width ?? 0,
     }
 
-    return zodSafeParse({
-      data: clientImage,
-      schema: clientImageSchema,
-    })
+    return clientImage
   },
 
   toClientImageSize: (imageSize: PayloadImageSize): ClientImageSize => {

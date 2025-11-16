@@ -1,10 +1,27 @@
-import { socialSchema } from '@repo/models'
+import {
+  clientSettingsFooterSchema,
+  clientSettingsHeaderSchema,
+  clientSettingsHomePageSchema,
+  clientSettingsSocialsSchema,
+} from '@repo/models'
 
-import { publicProcedure } from '../../procedures/procedures'
+import { publicProcedure } from '#procedures/procedures.ts'
 
-export const getSettingsSocials = publicProcedure
-  .output(socialSchema.array())
+const getSettingsSocials = publicProcedure
+  .output(clientSettingsSocialsSchema)
+
+const getSettingsHeader = publicProcedure
+  .output(clientSettingsHeaderSchema)
+
+const getSettingsFooter = publicProcedure
+  .output(clientSettingsFooterSchema)
+
+const getSettingsHomepage = publicProcedure
+  .output(clientSettingsHomePageSchema.nullable())
 
 export const SETTINGS_CONTRACT = {
+  getSettingsFooter,
+  getSettingsHeader,
+  getSettingsHomepage,
   getSettingsSocials,
 }

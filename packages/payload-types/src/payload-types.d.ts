@@ -95,6 +95,11 @@ export interface Config {
     tenants: Tenant;
     articles: Article;
     images: Image;
+    settingsHomePage: SettingsHomePage;
+    settingsHeader: SettingsHeader;
+    settingsFooter: SettingsFooter;
+    settingsSocials: SettingsSocial;
+    settingsHubspot: SettingsHubspot;
     'payload-jobs': PayloadJob;
     'payload-folders': FolderInterface;
     'payload-locked-documents': PayloadLockedDocument;
@@ -115,6 +120,11 @@ export interface Config {
     tenants: TenantsSelect<false> | TenantsSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
+    settingsHomePage: SettingsHomePageSelect<false> | SettingsHomePageSelect<true>;
+    settingsHeader: SettingsHeaderSelect<false> | SettingsHeaderSelect<true>;
+    settingsFooter: SettingsFooterSelect<false> | SettingsFooterSelect<true>;
+    settingsSocials: SettingsSocialsSelect<false> | SettingsSocialsSelect<true>;
+    settingsHubspot: SettingsHubspotSelect<false> | SettingsHubspotSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-folders': PayloadFoldersSelect<false> | PayloadFoldersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -125,18 +135,8 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {
-    settingsFooter: SettingsFooter;
-    settingsHeader: SettingsHeader;
-    settingsHomePage: SettingsHomePage;
-    settingsHubspot: SettingsHubspot;
-  };
-  globalsSelect: {
-    settingsFooter: SettingsFooterSelect<false> | SettingsFooterSelect<true>;
-    settingsHeader: SettingsHeaderSelect<false> | SettingsHeaderSelect<true>;
-    settingsHomePage: SettingsHomePageSelect<false> | SettingsHomePageSelect<true>;
-    settingsHubspot: SettingsHubspotSelect<false> | SettingsHubspotSelect<true>;
-  };
+  globals: {};
+  globalsSelect: {};
   locale: 'en' | 'nl';
   user: User & {
     collection: 'users';
@@ -767,6 +767,126 @@ export interface Address {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsHomePage".
+ */
+export interface SettingsHomePage {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  homePage: LinkField;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsHeader".
+ */
+export interface SettingsHeader {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  links?:
+    | {
+        navLink: {
+          label: string;
+          navType: 'link' | 'event' | 'dropdown';
+          link?: LinkField;
+          event?: 'some_form' | null;
+          links?:
+            | {
+                label: string;
+                link: LinkFieldWithCategories;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkFieldWithCategories".
+ */
+export interface LinkFieldWithCategories {
+  type: 'reference' | 'custom';
+  newTab: boolean;
+  categories?:
+    | {
+        label: string;
+        category: LinkField;
+        id?: string | null;
+      }[]
+    | null;
+  reference?:
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'articles';
+        value: string | Article;
+      } | null);
+  url?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsFooter".
+ */
+export interface SettingsFooter {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  links?:
+    | {
+        navLink: {
+          label: string;
+          navType: 'link' | 'event' | 'dropdown';
+          link?: LinkField;
+          event?: 'some_form' | null;
+          links?:
+            | {
+                label: string;
+                link: LinkField;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsSocials".
+ */
+export interface SettingsSocial {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  facebook?: string | null;
+  instagram?: string | null;
+  linkedin?: string | null;
+  youtube?: string | null;
+  pinterest?: string | null;
+  tiktok?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsHubspot".
+ */
+export interface SettingsHubspot {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  portalId?: string | null;
+  accessToken?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
@@ -892,6 +1012,26 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'images';
         value: string | Image;
+      } | null)
+    | ({
+        relationTo: 'settingsHomePage';
+        value: string | SettingsHomePage;
+      } | null)
+    | ({
+        relationTo: 'settingsHeader';
+        value: string | SettingsHeader;
+      } | null)
+    | ({
+        relationTo: 'settingsFooter';
+        value: string | SettingsFooter;
+      } | null)
+    | ({
+        relationTo: 'settingsSocials';
+        value: string | SettingsSocial;
+      } | null)
+    | ({
+        relationTo: 'settingsHubspot';
+        value: string | SettingsHubspot;
       } | null)
     | ({
         relationTo: 'payload-jobs';
@@ -1526,6 +1666,117 @@ export interface ImagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsHomePage_select".
+ */
+export interface SettingsHomePageSelect<T extends boolean = true> {
+  tenant?: T;
+  homePage?: T | LinkFieldSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsHeader_select".
+ */
+export interface SettingsHeaderSelect<T extends boolean = true> {
+  tenant?: T;
+  links?:
+    | T
+    | {
+        navLink?:
+          | T
+          | {
+              label?: T;
+              navType?: T;
+              link?: T | LinkFieldSelect<T>;
+              event?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    link?: T | LinkFieldWithCategoriesSelect<T>;
+                    id?: T;
+                  };
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinkFieldWithCategories_select".
+ */
+export interface LinkFieldWithCategoriesSelect<T extends boolean = true> {
+  type?: T;
+  newTab?: T;
+  categories?:
+    | T
+    | {
+        label?: T;
+        category?: T | LinkFieldSelect<T>;
+        id?: T;
+      };
+  reference?: T;
+  url?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsFooter_select".
+ */
+export interface SettingsFooterSelect<T extends boolean = true> {
+  tenant?: T;
+  links?:
+    | T
+    | {
+        navLink?:
+          | T
+          | {
+              label?: T;
+              navType?: T;
+              link?: T | LinkFieldSelect<T>;
+              event?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    link?: T | LinkFieldSelect<T>;
+                    id?: T;
+                  };
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsSocials_select".
+ */
+export interface SettingsSocialsSelect<T extends boolean = true> {
+  tenant?: T;
+  facebook?: T;
+  instagram?: T;
+  linkedin?: T;
+  youtube?: T;
+  pinterest?: T;
+  tiktok?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settingsHubspot_select".
+ */
+export interface SettingsHubspotSelect<T extends boolean = true> {
+  tenant?: T;
+  portalId?: T;
+  accessToken?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs_select".
  */
 export interface PayloadJobsSelect<T extends boolean = true> {
@@ -1635,160 +1886,6 @@ export interface PayloadQueryPresetsSelect<T extends boolean = true> {
   isTemp?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settingsFooter".
- */
-export interface SettingsFooter {
-  id: string;
-  links?:
-    | {
-        navLink: {
-          label: string;
-          navType: 'link' | 'event' | 'dropdown';
-          link?: LinkField;
-          event?: 'some_form' | null;
-          links?:
-            | {
-                label: string;
-                link: LinkField;
-                id?: string | null;
-              }[]
-            | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settingsHeader".
- */
-export interface SettingsHeader {
-  id: string;
-  links?:
-    | {
-        navLink: {
-          label: string;
-          navType: 'link' | 'event' | 'dropdown';
-          link?: LinkField;
-          event?: 'some_form' | null;
-          links?:
-            | {
-                label: string;
-                link: LinkField;
-                id?: string | null;
-              }[]
-            | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settingsHomePage".
- */
-export interface SettingsHomePage {
-  id: string;
-  homePage: LinkField;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settingsHubspot".
- */
-export interface SettingsHubspot {
-  id: string;
-  portalId?: string | null;
-  accessToken?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settingsFooter_select".
- */
-export interface SettingsFooterSelect<T extends boolean = true> {
-  links?:
-    | T
-    | {
-        navLink?:
-          | T
-          | {
-              label?: T;
-              navType?: T;
-              link?: T | LinkFieldSelect<T>;
-              event?: T;
-              links?:
-                | T
-                | {
-                    label?: T;
-                    link?: T | LinkFieldSelect<T>;
-                    id?: T;
-                  };
-            };
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settingsHeader_select".
- */
-export interface SettingsHeaderSelect<T extends boolean = true> {
-  links?:
-    | T
-    | {
-        navLink?:
-          | T
-          | {
-              label?: T;
-              navType?: T;
-              link?: T | LinkFieldSelect<T>;
-              event?: T;
-              links?:
-                | T
-                | {
-                    label?: T;
-                    link?: T | LinkFieldSelect<T>;
-                    id?: T;
-                  };
-            };
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settingsHomePage_select".
- */
-export interface SettingsHomePageSelect<T extends boolean = true> {
-  homePage?: T | LinkFieldSelect<T>;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settingsHubspot_select".
- */
-export interface SettingsHubspotSelect<T extends boolean = true> {
-  portalId?: T;
-  accessToken?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

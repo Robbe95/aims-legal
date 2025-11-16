@@ -1,10 +1,13 @@
-import type { SettingsHeader } from '@repo/payload-types'
+import type {
+  SettingsFooter,
+  SettingsHeader,
+} from '@repo/payload-types'
 
 import { LinkTransformer } from '#link/link.transformer.ts'
 import type { ClientNavigationLink } from '#navigation-link/navigationLink.model.ts'
 import { clientNavigationLinkSchema } from '#navigation-link/navigationLink.model.ts'
 
-export type NavLink = NonNullable<SettingsHeader['links']>[number]
+export type NavLink = NonNullable<SettingsFooter['links'] | SettingsHeader['links']>[number]
 export type DropdownNavLink = NonNullable<NonNullable<NonNullable<SettingsHeader['links']>[number]>['navLink']>
 
 export class NavigationLinkTransformer {

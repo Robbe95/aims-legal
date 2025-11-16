@@ -3,7 +3,6 @@ import { z } from 'zod'
 
 import { clientImageSchema } from '#image/image.model.ts'
 import { clientSeoSchema } from '#seo/seo.model.ts'
-import { clientSubsiteIndexSchema } from '#subsite/subsite.model.ts'
 
 export const articleBlockSchema = z.custom<NonNullable<Article['blocks']>>((val) => {
   if (!Array.isArray(val)) {
@@ -37,7 +36,6 @@ export const clientArticleDetailSchema = z.object({
   }),
   seo: clientSeoSchema,
   slug: z.string(),
-  subsite: clientSubsiteIndexSchema,
 })
 
 export type ClientArticleDetail = z.infer<typeof clientArticleDetailSchema>

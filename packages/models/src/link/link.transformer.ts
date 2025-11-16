@@ -4,11 +4,12 @@ import type {
 } from '@repo/payload-types'
 
 import type { ClientLink } from '#link/link.model.ts'
+import { clientLinkSchema } from '#link/link.model.ts'
 import type { ClientNavigationLinkWithCategories } from '#navigation-link/navigationLink.model.ts'
 
 export class LinkTransformer {
   static toClientLink(link: LinkField): ClientLink {
-    return {
+    return clientLinkSchema.parse({
       reference: {
         relationTo: link.reference?.relationTo ?? null,
         value: link.reference?.value && typeof link.reference?.value !== 'string'
@@ -21,8 +22,7 @@ export class LinkTransformer {
 
       toNewTab: link.newTab,
       type: link.type,
-      url: link.url,
-    }
+    })
   }
 
   static toClientNavigationLinksDropdown({
