@@ -37,6 +37,7 @@
     "@faceless-ui/window-info": "catalog:backend",
     "@orpc/server": "catalog:orpc",
     "@payloadcms/db-postgres": "catalog:payload",
+    "@payloadcms/db-vercel-postgres": "^3.64.0",
     "@payloadcms/next": "catalog:payload",
     "@payloadcms/plugin-multi-tenant": "catalog:payload",
     "@payloadcms/plugin-seo": "catalog:payload",

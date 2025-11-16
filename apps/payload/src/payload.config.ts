@@ -14,7 +14,7 @@ import { migrations } from '@payload/migrations'
 import { setCollectionGroups } from '@payload/payload.nav'
 import { plugins } from '@payload/plugins'
 import { runSeeders } from '@payload/seeders/seeders'
-import { postgresAdapter } from '@payloadcms/db-postgres'
+import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
 import {
   AlignFeature,
   BlockquoteFeature,
@@ -80,20 +80,12 @@ export default buildConfig({
   routes: {
     admin: '/',
   },
-  db: postgresAdapter({
+  db: vercelPostgresAdapter({
     idType: 'uuid',
     prodMigrations: migrations,
     push: false,
     pool: {
-      keepAlive: false,
-      max: 3,
-      min: 0,
-      keepAliveInitialDelayMillis: 10_000,
-      connectionTimeoutMillis: 5000, // 5 seconds to establish connection
-      idleTimeoutMillis: 5000, // 30 seconds before closing idle connections
-      query_timeout: 60_000, // 20 seconds for query timeout
-      allowExitOnIdle: true,
-      connectionString: process.env.POSTGRES_URI ?? '',
+      connectionString: process.env.POSTGRES_URI,
     },
   }),
 
