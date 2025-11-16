@@ -17,7 +17,7 @@ defineProps<Props>()
 <template>
   <Section
     class="
-      bg-white text-black
+      bg-primary text-primary
       first:mt-40
     "
   >
@@ -37,7 +37,7 @@ defineProps<Props>()
           />
         </div>
 
-        <Seperator class="bg-black" />
+        <Seperator class="bg-primary" />
       </div>
       <div
         class="

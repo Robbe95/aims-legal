@@ -34,7 +34,7 @@ export default withNuxt(
   {
     settings: {
       'better-tailwindcss': {
-        entryPoint: 'layers/base/assets/styles/tailwind.css',
+        entryPoint: 'layers/base/assets/styles/index.css',
       },
     },
   },

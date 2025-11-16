@@ -15,7 +15,7 @@ const link = useInternalLink(homePageQuery.data.value!)
   <NuxtLinkLocale
     v-if="link"
     :to="link"
-    class="focus-visible:ring-black"
+    class="focus-visible:ring-fg-primary"
   >
     <Logo
       class="h-8"

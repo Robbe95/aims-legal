@@ -13,7 +13,7 @@ defineProps<Props>()
 
 <template>
   <div
-    class="relative flex flex-col gap-4 bg-white text-black"
+    class="relative flex flex-col gap-4 bg-primary text-primary"
   >
     <PageBreadcrumbs
       v-if="page.breadcrumbs"

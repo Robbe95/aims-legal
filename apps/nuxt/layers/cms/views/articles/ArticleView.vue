@@ -11,7 +11,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 bg-white">
+  <div class="flex flex-col gap-4 bg-primary">
     <BlocksRenderer
       v-if="article.blocks"
       :blocks="article.blocks"

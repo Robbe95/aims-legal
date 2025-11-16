@@ -31,7 +31,7 @@ defineProps<Props>()
 
       <div
         class="
-          pointer-events-none absolute inset-0 rounded-sm bg-white/40
+          pointer-events-none absolute inset-0 rounded-sm bg-primary/40
           duration-200
           group-data-[state=active]:opacity-0
         "

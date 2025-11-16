@@ -54,7 +54,7 @@ const link = useInternalLink(articleLink.value)
     <div>
       <div
         class="
-          flex w-full min-w-[300px] flex-col gap-6 rounded-tl-sm bg-white px-4
+          flex w-full min-w-[300px] flex-col gap-6 rounded-tl-sm bg-primary px-4
           py-6
         "
       >

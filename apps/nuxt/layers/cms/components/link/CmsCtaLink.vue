@@ -32,8 +32,8 @@ const style = tv({
         hover:text-white hover:underline
       `,
       secondary: `
-        text-black
-        hover:text-black hover:underline
+        text-primary
+        hover:text-primary hover:underline
       `,
     },
   },

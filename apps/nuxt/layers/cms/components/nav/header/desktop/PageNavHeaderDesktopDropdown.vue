@@ -24,8 +24,8 @@ function onHover(link: ClientNavigationLinkWithCategories): void {
 <template>
   <div
     class="
-      fixed top-(--dropdown-spacing) left-0 z-50 w-screen bg-white duration-200
-      ease-in-out
+      fixed top-(--dropdown-spacing) left-0 z-50 w-screen bg-primary
+      duration-200 ease-in-out
     "
   >
     <div class="container mx-auto flex justify-between px-sm py-6xl">

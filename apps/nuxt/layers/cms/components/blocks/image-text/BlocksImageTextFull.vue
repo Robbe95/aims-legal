@@ -21,7 +21,10 @@ defineProps<Props>()
 <template>
   <section class="mt-20">
     <div
-      class="relative flex h-[calc(100dvh-10rem)] flex-col justify-end bg-black"
+      class="
+        relative flex h-[calc(100dvh-10rem)] flex-col justify-end
+        bg-primary-solid
+      "
     >
       <!-- Background image -->
       <CmsImage
@@ -40,7 +43,7 @@ defineProps<Props>()
 
       <!-- CTA actions -->
       <!-- Hero content -->
-      <div class="z-10 w-full bg-black pb-12">
+      <div class="z-10 w-full bg-primary-solid pb-12">
         <div class="container mx-auto flex flex-col gap-12 px-4">
           <div
             class="

@@ -45,7 +45,7 @@ const {
           }"
           variant="default"
           class="
-            text-sm text-black
+            text-sm text-primary
             hover:underline
           "
         >

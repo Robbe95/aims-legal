@@ -1,15 +1,50 @@
-@import '@wisemen/vue-core-components/style.css' layer(base);
-@import 'tailwindcss';
-@source "../../../../layers";
-@source "../../../../app";
-@plugin '@tailwindcss/typography';
+/* ========================================================================== */
+/* DESIGN TOKENS                                                              */
+/* ========================================================================== */
 
-@variant motion-reduce (&:where(.reduce-motion, .reduce-motion *));
-@variant dark (&:where(.dark, .dark *));
+@variant button-hover (&[data-loading="false"]:not(:disabled):hover);
+
+@variant dark {
+  .dark &:not(.light, .light *) {
+    @slot;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .system &:not(.light, .light *) {
+      @slot;
+    }
+  }
+}
+
+/*
+ * Tailwind provides its own spacing scale.
+ * To avoid conflicts or overrides, custom spacing tokens are defined
+ * outside the `@theme` block.
+ */
+:root {
+  /* Spacing Scale (Used for margin, padding, gap) */
+  --spacing-none: 0rem; /* 0px */
+  --spacing-xxs: 0.125rem; /* 2px */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.375rem; /* 6px */
+  --spacing-md: 0.5rem; /* 8px */
+  --spacing-lg: 0.75rem; /* 12px */
+  --spacing-xl: 1rem; /* 16px */
+  --spacing-2xl: 1.25rem; /* 20px */
+  --spacing-3xl: 1.5rem; /* 24px */
+  --spacing-4xl: 2rem; /* 32px */
+  --spacing-5xl: 2.5rem; /* 40px */
+  --spacing-6xl: 3rem; /* 48px */
+  --spacing-7xl: 4rem; /* 64px */
+  --spacing-8xl: 5rem; /* 80px */
+  --spacing-9xl: 6rem; /* 96px */
+  --spacing-10xl: 8rem; /* 128px */
+  --spacing-11xl: 10rem; /* 160px */
+}
 
 @theme inline {
-  --font-default: Geist, sans-serif;
   --color-*: initial;
+
   --color-black: #000000;
   --color-white: #ffffff;
 
@@ -85,21 +120,24 @@
   --color-fg-tertiary-hover: var(--fg-tertiary-hover);
   --color-fg-quaternary: var(--fg-quaternary);
   --color-fg-quaternary-hover: var(--fg-quaternary-hover);
-  --color-fg-quinary: var(--fg-quinary);
-  --color-fg-quinary-hover: var(--fg-quinary-hover);
-  --color-fg-senary: var(--fg-senary);
   --color-fg-white: var(--fg-white);
   --color-fg-disabled: var(--fg-disabled);
   --color-fg-disabled-subtle: var(--fg-disabled-subtle);
   --color-fg-brand-primary: var(--fg-brand-primary);
   --color-fg-brand-primary-alt: var(--fg-brand-primary-alt);
   --color-fg-brand-secondary: var(--fg-brand-secondary);
+  --color-fg-brand-secondary-alt: var(--fg-brand-secondary-alt);
+  --color-fg-brand-secondary-hover: var(--fg-brand-secondary-hover);
   --color-fg-error-primary: var(--fg-error-primary);
   --color-fg-error-secondary: var(--fg-error-secondary);
   --color-fg-warning-primary: var(--fg-warning-primary);
   --color-fg-warning-secondary: var(--fg-warning-secondary);
   --color-fg-success-primary: var(--fg-success-primary);
   --color-fg-success-secondary: var(--fg-success-secondary);
+
+  /* ------------------------------------------------------------------------ */
+  /* TEXT COLORS                                                              */
+  /* ------------------------------------------------------------------------ */
 
   --text-color-primary: var(--text-primary);
   --text-color-primary-on-brand: var(--text-primary-on-brand);
@@ -114,13 +152,19 @@
   --text-color-disabled: var(--text-disabled);
   --text-color-placeholder: var(--text-placeholder);
   --text-color-placeholder-subtle: var(--text-placeholder-subtle);
-  --text-color-brand: var(--text-brand-primary);
+  --text-color-brand-primary: var(--text-brand-primary);
   --text-color-brand-secondary: var(--text-brand-secondary);
+  --text-color-brand-secondary-hover: var(--text-brand-secondary-hover);
   --text-color-brand-tertiary: var(--text-brand-tertiary);
   --text-color-brand-tertiary-alt: var(--text-brand-tertiary-alt);
   --text-color-error-primary: var(--text-error-primary);
+  --text-color-error-primary-hover: var(--text-error-primary-hover);
   --text-color-warning-primary: var(--text-warning-primary);
   --text-color-success-primary: var(--text-success-primary);
+
+  /* ------------------------------------------------------------------------ */
+  /* BACKGROUND COLORS                                                        */
+  /* ------------------------------------------------------------------------ */
 
   --background-color-primary: var(--bg-primary);
   --background-color-primary-alt: var(--bg-primary-alt);
@@ -137,8 +181,8 @@
   --background-color-disabled: var(--bg-disabled);
   --background-color-disabled-subtle: var(--bg-disabled-subtle);
   --background-color-overlay: var(--bg-overlay);
-  --background-color-brand: var(--bg-brand-primary);
-  --background-color-brand-alt: var(--bg-brand-primary-alt);
+  --background-color-brand-primary: var(--bg-brand-primary);
+  --background-color-brand-primary-alt: var(--bg-brand-primary-alt);
   --background-color-brand-secondary: var(--bg-brand-secondary);
   --background-color-brand-solid: var(--bg-brand-solid);
   --background-color-brand-solid-hover: var(--bg-brand-solid-hover);
@@ -154,11 +198,13 @@
   --background-color-success-secondary: var(--bg-success-secondary);
   --background-color-success-solid: var(--bg-success-solid);
 
-  --background-color-outdoor: #0c2b11;
-  --text-color-outdoor: white;
+  /* ------------------------------------------------------------------------ */
+  /* BORDER COLORS                                                            */
+  /* ------------------------------------------------------------------------ */
 
   --border-color-primary: var(--border-primary);
   --border-color-secondary: var(--border-secondary);
+  --border-color-secondary-alt: var(--border-secondary-alt);
   --border-color-tertiary: var(--border-tertiary);
   --border-color-disabled: var(--border-disabled);
   --border-color-disabled-subtle: var(--border-disabled-subtle);
@@ -166,183 +212,11 @@
   --border-color-brand-alt: var(--border-brand-alt);
   --border-color-error: var(--border-error);
   --border-color-error-subtle: var(--border-error-subtle);
-}
 
-@theme {
-  --spacing-none: 0rem;
-  /* 0px */
-  --spacing-xxs: 0.125rem;
-  /* 2px */
-  --spacing-xs: 0.25rem;
-  /* 4px */
-  --spacing-sm: 0.375rem;
-  /* 6px */
-  --spacing-md: 0.5rem;
-  /* 8px */
-  --spacing-lg: 0.75rem;
-  /* 12px */
-  --spacing-xl: 1rem;
-  /* 16px */
-  --spacing-2xl: 1.25rem;
-  /* 20px */
-  --spacing-3xl: 1.5rem;
-  /* 24px */
-  --spacing-4xl: 2rem;
-  /* 32px */
-  --spacing-5xl: 2.5rem;
-  /* 40px */
-  --spacing-6xl: 3rem;
-  /* 48px */
-  --spacing-7xl: 4rem;
-  /* 64px */
-  --spacing-8xl: 5rem;
-  /* 80px */
-  --spacing-9xl: 6rem;
-  /* 96px */
-  --spacing-10xl: 8rem;
-  /* 128px */
-  --spacing-11xl: 10rem;
-  /* 160px */
+  /* ------------------------------------------------------------------------ */
+  /* SPACING                                                                  */
+  /* ------------------------------------------------------------------------ */
 
-  /* Since we don't want the width & height to be overridden by `--spacing-*`, we redefine it here */
-  --width-xs: var(--container-xs);
-  --width-sm: var(--container-sm);
-  --width-md: var(--container-md);
-  --width-lg: var(--container-lg);
-  --width-xl: var(--container-xl);
-  --width-2xl: var(--container-2xl);
-  --width-3xl: var(--container-3xl);
-  --width-4xl: var(--container-4xl);
-  --width-5xl: var(--container-5xl);
-  --width-6xl: var(--container-6xl);
-  --width-7xl: var(--container-7xl);
-  --width-8xl: var(--container-8xl);
-  --width-9xl: var(--container-9xl);
-  --width-10xl: var(--container-10xl);
-  --width-11xl: var(--container-11xl);
-
-  --max-width-xs: var(--container-xs);
-  --max-width-sm: var(--container-sm);
-  --max-width-md: var(--container-md);
-  --max-width-lg: var(--container-lg);
-  --max-width-xl: var(--container-xl);
-  --max-width-2xl: var(--container-2xl);
-  --max-width-3xl: var(--container-3xl);
-  --max-width-4xl: var(--container-4xl);
-  --max-width-5xl: var(--container-5xl);
-  --max-width-6xl: var(--container-6xl);
-  --max-width-7xl: var(--container-7xl);
-  --max-width-8xl: var(--container-8xl);
-  --max-width-9xl: var(--container-9xl);
-  --max-width-10xl: var(--container-10xl);
-  --max-width-11xl: var(--container-11xl);
-
-  --height-xs: var(--container-xs);
-  --height-sm: var(--container-sm);
-  --height-md: var(--container-md);
-  --height-lg: var(--container-lg);
-  --height-xl: var(--container-xl);
-  --height-2xl: var(--container-2xl);
-  --height-3xl: var(--container-3xl);
-  --height-4xl: var(--container-4xl);
-  --height-5xl: var(--container-5xl);
-  --height-6xl: var(--container-6xl);
-  --height-7xl: var(--container-7xl);
-  --height-8xl: var(--container-8xl);
-  --height-9xl: var(--container-9xl);
-  --height-10xl: var(--container-10xl);
-  --height-11xl: var(--container-11xl);
-
-  --max-height-xs: var(--container-xs);
-  --max-height-sm: var(--container-sm);
-  --max-height-md: var(--container-md);
-  --max-height-lg: var(--container-lg);
-  --max-height-xl: var(--container-xl);
-  --max-height-2xl: var(--container-2xl);
-  --max-height-3xl: var(--container-3xl);
-  --max-height-4xl: var(--container-4xl);
-  --max-height-5xl: var(--container-5xl);
-  --max-height-6xl: var(--container-6xl);
-  --max-height-7xl: var(--container-7xl);
-  --max-height-8xl: var(--container-8xl);
-  --max-height-9xl: var(--container-9xl);
-  --max-height-10xl: var(--container-10xl);
-  --max-height-11xl: var(--container-11xl);
-
-  --radius-*: initial;
-  --radius-none: 0rem;
-  /* 0px */
-  --radius-xxs: 0.125rem;
-  /* 2px */
-  --radius-xs: 0.25rem;
-  /* 4px */
-  --radius-sm: 0.118rem;
-  /* 6px */
-  --radius-md: 0.5rem;
-  /* 8px */
-  --radius-lg: 0.625rem;
-  /* 10px */
-  --radius-xl: 0.75rem;
-  /* 12px */
-  --radius-2xl: 1rem;
-  /* 16px */
-  --radius-4xl: 1.5rem;
-  /* 24px */
-  --radius-full: 62.5rem;
-  /* 9999px */
-
-  --leading-*: initial;
-  --leading-xs: 1.125rem;
-  /* 18px */
-  --leading-sm: 1.25rem;
-  /* 20px */
-  --leading-md: 1.5rem;
-  /* 24px */
-  --leading-lg: 1.75rem;
-  /* 28px */
-  --leading-xl: 2rem;
-  /* 32px */
-  --leading-display-xs: 2rem;
-  /* 32px */
-  --leading-display-sm: 2.375rem;
-  /* 38px */
-  --leading-4xl: 2.75rem;
-  /* 44px */
-  --leading-hero: 3.75rem;
-
-  --text-*: initial;
-  /* 8px */
-  --text-2xs: 0.5rem;
-  --text-2xs--line-height: var(--line-height-xs);
-  /* 12px */
-  --text-xs: 0.75rem;
-  --text-xs--line-height: var(--line-height-xs);
-  /* 14px */
-  --text-sm: 0.875rem;
-  --text-sm--line-height: var(--line-height-sm);
-  /* 16px */
-  --text-md: 1rem;
-  --text-md--line-height: var(--line-height-md);
-  /* 18px */
-  --text-lg: 1.125rem;
-  --text-lg--line-height: var(--line-height-lg);
-  /* 20px */
-  --text-xl: 1.25rem;
-  --text-xl--line-height: var(--line-height-xl);
-  /* 24px */
-  --text-display-xs: 1.5rem;
-  --text-display-xs--line-height: var(--line-height-display-xs);
-  /* 30px */
-  --text-display-sm: 1.875rem;
-  --text-display-sm--line-height: var(--line-height-display-sm);
-  /* 36px */
-  --text-4xl: 2.25rem;
-  --text-4xl--line-height: var(--line-height-4xl);
-  /* 60px */
-  --text-hero: 2.75rem;
-  --text-hero--line-height: var(--line-height-hero);
-
-  --margin-*: initial;
   --margin-none: var(--spacing-none);
   --margin-xxs: var(--spacing-xxs);
   --margin-xs: var(--spacing-xs);
@@ -361,7 +235,6 @@
   --margin-10xl: var(--spacing-10xl);
   --margin-11xl: var(--spacing-11xl);
 
-  --padding-*: initial;
   --padding-none: var(--spacing-none);
   --padding-xxs: var(--spacing-xxs);
   --padding-xs: var(--spacing-xs);
@@ -380,7 +253,6 @@
   --padding-10xl: var(--spacing-10xl);
   --padding-11xl: var(--spacing-11xl);
 
-  --gap-*: initial;
   --gap-none: var(--spacing-none);
   --gap-xxs: var(--spacing-xxs);
   --gap-xs: var(--spacing-xs);
@@ -399,25 +271,122 @@
   --gap-10xl: var(--spacing-10xl);
   --gap-11xl: var(--spacing-11xl);
 
+  /* ------------------------------------------------------------------------ */
+  /* BORDER RADIUS                                                            */
+  /* ------------------------------------------------------------------------ */
+
+  --radius-*: initial;
+  --radius-none: 0rem;
+  --radius-xxs: 0.125rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+  --radius-4xl: 1.5rem;
+  --radius-full: 62.5rem;
+
+  /* ------------------------------------------------------------------------ */
+  /* LINE HEIGHTS                                                             */
+  /* ------------------------------------------------------------------------ */
+  --line-height-*: initial;
+  --line-height-xs: 1.125rem; /* 18px */
+  --line-height-sm: 1.25rem; /* 20px */
+  --line-height-md: 1.5rem; /* 24px */
+  --line-height-lg: 1.75rem; /* 28px */
+  --line-height-xl: 2rem; /* 32px */
+  --line-height-2xl: 2rem; /* 32px (display-xs) */
+  --line-height-3xl: 2.375rem; /* 38px (display-sm) */
+  --line-height-4xl: 2.75rem; /* 44px (display-md) */
+  --line-height-5xl: 3.75rem; /* 60px (display-lg) */
+  --line-height-6xl: 4.5rem; /* 72px (display-xl) */
+  --line-height-7xl: 5.625rem; /* 90px (display-2xl) */
+
+  /* ------------------------------------------------------------------------ */
+  /* FONT SIZES & LINE HEIGHTS                                                 */
+  /* ------------------------------------------------------------------------ */
+
+  --text-*: initial;
+  --text-xxs: 0.6875rem;
+  --text-xxs--line-height: var(--line-height-xs);
+  --text-xs: 0.75rem;
+  --text-xs--line-height: var(--line-height-xs);
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: var(--line-height-sm);
+  --text-md: 0.9375rem;
+  --text-md--line-height: var(--line-height-md);
+  --text-lg: 1.125rem;
+  --text-lg--line-height: var(--line-height-lg);
+  --text-xl: 1.25rem;
+  --text-xl--line-height: var(--line-height-xl);
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: var(--line-height-2xl);
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: var(--line-height-3xl);
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: var(--line-height-4xl);
+  --text-5xl: 3rem;
+  --text-5xl--line-height: var(--line-height-5xl);
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: var(--line-height-6xl);
+  --text-7xl: 4.5rem;
+  --text-7xl--line-height: var(--line-height-7xl);
+
+  /* ------------------------------------------------------------------------ */
+  /* FONT WEIGHTS                                                             */
+  /* ------------------------------------------------------------------------ */
+
   --font-weight-*: initial;
-  --font-weight-thin: 100;
-  --font-weight-extralight: 200;
   --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
+  /* ------------------------------------------------------------------------ */
+  /* SHADOWS                                                                  */
+  /* ------------------------------------------------------------------------ */
+
   --shadow-*: initial;
   --shadow-xs: 0px 1px 2px 0px #00000010;
-  --shadow: -2px 5px 10px 0px #00000036;
+  --shadow-sm: 0px 1px 3px 0px rgba(10, 13, 18, 0.1);
+  --shadow-md: -2px 5px 10px 0px #00000036;
   --shadow-lg: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 12px 16px -4px rgba(16, 24, 40, 0.03);
+  --shadow-button:
+    0px 0px 0px 0px rgba(10, 13, 18, 0.18) inset, 0px -1px 0px 0px rgba(10, 13, 18, 0.05) inset,
+    0px 1px 2px 0px rgba(10, 13, 18, 0.05);
+  --shadow-keyboard-key:
+    0px 0px 0px 0.909px rgba(10, 13, 18, 0.1) inset, 0px -1.818px 0px 0px rgba(10, 13, 18, 0.05) inset,
+    0px 0.909px 1.818px 0px rgba(10, 13, 18, 0.05);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05), 0 0px 6px rgba(0, 0, 0, 0.04);
 
-  --font-sans: Inter Variable, sans-serif;
+  /* ------------------------------------------------------------------------ */
+  /* ANIMATIONS                                                               */
+  /* ------------------------------------------------------------------------ */
 
-  --ease-sidebar-collapse: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --animate-spinner: loading-spinner-rotate 2s linear infinite;
+  --animate-spinner-path: loading-spinner-path 1.5s ease-in-out infinite;
 
-  --width-dialog-sm: 26rem;
-  --width-drawer-lg: 40rem;
-  --width-drawer-md: 30rem;
+  @keyframes loading-spinner-rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes loading-spinner-path {
+    0% {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 89, 200;
+      stroke-dashoffset: -35px;
+    }
+    100% {
+      stroke-dasharray: 89, 200;
+      stroke-dashoffset: -124px;
+    }
+  }
 }

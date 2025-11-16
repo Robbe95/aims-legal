@@ -108,7 +108,7 @@ const form = useForm({
             :is-loading="form.isSubmitting.value"
             :label="hubspotForm.submitButtonText || t('base.shared.submit')"
             :class-config="{
-              icon: 'size-4 text-black',
+              icon: 'size-4 text-primary',
             }"
             icon="arrowRight"
             @click="form.submit"

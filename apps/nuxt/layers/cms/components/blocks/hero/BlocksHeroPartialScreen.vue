@@ -16,7 +16,7 @@ defineProps<Props>()
 <template>
   <section
     class="
-      relative flex h-dvh flex-col justify-between overflow-hidden bg-brand
+      bg-brand relative flex h-dvh flex-col justify-between overflow-hidden
     "
   >
     <!-- Hero content -->
@@ -80,7 +80,7 @@ defineProps<Props>()
               />
               <Seperator
                 class="
-                  my-1 self-stretch bg-white
+                  my-1 self-stretch bg-primary
                   last:hidden
                 "
                 direction="vertical"

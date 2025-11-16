@@ -33,8 +33,8 @@ const props = withDefaults(defineProps<Props>(), {
           v-if="breadcrumb.link"
           :url="breadcrumb.link"
           :class="{
-            'text-black/60': index < props.breadcrumbs.length - 1 && props.theme === 'dark',
-            'text-black underline': index === props.breadcrumbs.length - 1 && props.theme === 'dark',
+            'text-primary/60': index < props.breadcrumbs.length - 1 && props.theme === 'dark',
+            'text-primary underline': index === props.breadcrumbs.length - 1 && props.theme === 'dark',
             'text-white/60': index < props.breadcrumbs.length - 1 && props.theme === 'light',
             'text-white underline': index === props.breadcrumbs.length - 1 && props.theme === 'light',
           }"
@@ -49,8 +49,8 @@ const props = withDefaults(defineProps<Props>(), {
         <span
           v-else
           :class="{
-            'text-black/60': index < props.breadcrumbs.length - 1 && props.theme === 'dark',
-            'text-black underline': index === props.breadcrumbs.length - 1 && props.theme === 'dark',
+            'text-primary/60': index < props.breadcrumbs.length - 1 && props.theme === 'dark',
+            'text-primary underline': index === props.breadcrumbs.length - 1 && props.theme === 'dark',
             'text-white/60': index < props.breadcrumbs.length - 1 && props.theme === 'light',
             'text-white underline': index === props.breadcrumbs.length - 1 && props.theme === 'light',
           }"

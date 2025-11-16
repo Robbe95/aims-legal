@@ -110,7 +110,7 @@ function onMenuOpen(): void {
 
     <div
       :class="{
-        'bg-white': variant === 'white',
+        'bg-primary': variant === 'white',
         'bg-transparent': variant === 'seeThrough',
       }"
       class="fixed z-50 w-full py-4 transition-all duration-200"
@@ -122,7 +122,7 @@ function onMenuOpen(): void {
           <HeaderLogo
             :class="{
               'text-white': variant === 'seeThrough',
-              'text-black': variant === 'white',
+              'text-primary': variant === 'white',
             }"
           />
           <VcIconButton
@@ -130,7 +130,7 @@ function onMenuOpen(): void {
             :variant="('transparent' as any)"
             :class-config="{
               icon: `${variant === 'white'
-                ? 'text-black' : 'text-white'} duration-200`
+                ? 'text-primary' : 'text-white'} duration-200`
               ,
             }"
             icon="menu"

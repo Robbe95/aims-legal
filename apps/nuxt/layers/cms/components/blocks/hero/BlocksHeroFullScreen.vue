@@ -27,7 +27,7 @@ const hasVideo = computed<boolean>(() => {
     :class="[
       hasVideo ? 'sm:min-h-dvh' : 'min-h-dvh',
     ]"
-    class="relative mb-20 flex flex-col justify-between bg-black pb-12"
+    class="relative mb-20 flex flex-col justify-between bg-primary-solid pb-12"
   >
     <!-- Background image/video -->
     <CmsVideo
@@ -67,7 +67,7 @@ const hasVideo = computed<boolean>(() => {
               />
               <Seperator
                 class="
-                  my-1 self-stretch bg-white
+                  my-1 self-stretch bg-primary
                   last:hidden
                 "
                 direction="vertical"

@@ -20,7 +20,7 @@ const emits = defineEmits<{
 </script>
 
 <template>
-  <div class="text-black">
+  <div class="text-primary">
     <PageNavItemLink
       v-if="navLink.navType === 'link'"
       :nav-link="navLink"

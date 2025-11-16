@@ -96,7 +96,7 @@ const isDropdownOpen = computed<boolean>(() => {
     >
       <div
         v-if="isDropdownOpen"
-        class="fixed inset-0 z-40 h-screen w-screen bg-black/20"
+        class="fixed inset-0 z-40 h-screen w-screen bg-primary-solid/20"
         @click="handleCloseDropdown"
       />
     </Transition>
@@ -113,7 +113,7 @@ const isDropdownOpen = computed<boolean>(() => {
 
     <div
       :class="{
-        'bg-white': variant === 'white',
+        'bg-primary': variant === 'white',
         'bg-transparent': variant === 'seeThrough',
       }"
       class="fixed top-0 z-50 w-full pt-4 transition-all duration-200"
@@ -128,7 +128,7 @@ const isDropdownOpen = computed<boolean>(() => {
           <HeaderLogo
             :class="{
               'text-white': variant === 'seeThrough',
-              'text-black': variant === 'white',
+              'text-primary': variant === 'white',
             }"
           />
           <div />
@@ -141,7 +141,7 @@ const isDropdownOpen = computed<boolean>(() => {
             />
             <Seperator
               :class="{
-                'bg-white': variant === 'seeThrough',
+                'bg-primary': variant === 'seeThrough',
                 'bg-gray-500': variant === 'white',
               }"
               class="my-2 h-auto flex-none self-stretch duration-200"

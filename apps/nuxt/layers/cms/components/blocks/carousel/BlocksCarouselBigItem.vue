@@ -42,7 +42,7 @@ const link = useInternalLink(props.item.link)
 
       <div
         class="
-          pointer-events-none absolute inset-0 rounded-sm bg-white/40
+          pointer-events-none absolute inset-0 rounded-sm bg-primary/40
           duration-200
           group-data-[state=active]:opacity-0
         "
@@ -58,7 +58,7 @@ const link = useInternalLink(props.item.link)
         >
           <div
             class="
-              flex w-full min-w-[300px] flex-col gap-6 rounded-tl-sm bg-white
+              flex w-full min-w-[300px] flex-col gap-6 rounded-tl-sm bg-primary
               p-10
             "
           >

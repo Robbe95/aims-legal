@@ -15,6 +15,6 @@ import { NuxtPage } from '#components'
       </div>
     </div>
 
-    <div class="bg-black" />
+    <div class="bg-primary-solid" />
   </div>
 </template>

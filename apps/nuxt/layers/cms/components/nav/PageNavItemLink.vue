@@ -32,7 +32,7 @@ const url = useInternalLink(props.navLink.link)
     :to="(url as any)"
     :target="toNewTab ? '_blank' : undefined"
     :class="{
-      'text-black hover:text-black': props.variant === 'white',
+      'text-primary hover:text-primary': props.variant === 'white',
       'text-white hover:text-white': props.variant === 'seeThrough',
     }"
     class="

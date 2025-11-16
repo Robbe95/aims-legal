@@ -16,7 +16,7 @@ defineProps<Props>()
   <div
     :class="{
       'border-transparent bg-gray-500': variant === 'gray',
-      'border-gray-500 bg-white': variant === 'white',
+      'border-gray-500 bg-primary': variant === 'white',
     }"
     class="group flex h-full flex-col gap-6 rounded-xs border p-4"
   >

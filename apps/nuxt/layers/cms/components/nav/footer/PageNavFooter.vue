@@ -22,7 +22,7 @@ await socials.suspense()
 <template>
   <footer
     ref="footer"
-    class="bg-white"
+    class="bg-primary"
   >
     <Container class="pt-12 pb-24">
       <div
@@ -55,7 +55,7 @@ await socials.suspense()
     <div class="py-8">
       <Container
         class="
-          grid gap-4 text-xs font-light text-black
+          grid gap-4 text-xs font-light text-primary
           lg:grid-cols-3
         "
       >

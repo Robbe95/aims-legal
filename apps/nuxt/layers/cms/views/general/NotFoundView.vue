@@ -8,7 +8,7 @@ const {
   <div
     class="
       flex min-h-screen min-w-screen flex-col items-center justify-center gap-8
-      bg-white text-center
+      bg-primary text-center
     "
   >
     <div>

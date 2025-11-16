@@ -33,7 +33,7 @@ function handleDropdownClick(): void {
 }
 
 const rootTextColor = computed<string>(() => {
-  return props.variant === 'white' ? 'text-black' : 'text-white'
+  return props.variant === 'white' ? 'text-primary' : 'text-white'
 })
 </script>
 
@@ -54,7 +54,7 @@ const rootTextColor = computed<string>(() => {
           'rotate-180': isThisDropdownOpen,
         }"
         icon="chevronDown"
-        class="ml-2 size-lg duration-200"
+        class="size-lg ml-2 duration-200"
         size="sm"
       />
     </div>
